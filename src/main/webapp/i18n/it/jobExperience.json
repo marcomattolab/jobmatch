@@ -1,0 +1,36 @@
+{
+    "jobmatchApp": {
+        "jobExperience": {
+            "home": {
+                "title": "Esperienza Lavorativa",
+                "createLabel": "Nuova Esperienza Lavorativa",
+                "createOrEditLabel": "Genera o modifica un'Esperienza Lavorativa"
+            },
+            "created": "&Egrave; stata generata una nuova Esperienza Lavorativa con identificatore {{ param }}",
+            "updated": "&Egrave; stata aggiornata l'Esperienza Lavorativa identificata da {{ param }}",
+            "deleted": "&Egrave; stata eliminata l'Esperienza Lavorativa con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare l'Esperienza Lavorativa {{ id }}?"
+            },
+            "detail": {
+                "title": "Esperienza Lavorativa"
+            },
+            "createdBy": "Created By",
+            "lastModifiedBy": "Last Modified By",
+            "createdDate": "Created Date",
+            "lastModifiedDate": "Last Modified Date",
+            "jobTitle": "Qualifica",
+            "jobTitlePlaceholder": "Esempio: Manager",
+            "jobDescription": "Descrizione",
+            "companyName": "Azienda",
+            "companyNamePlaceholder": "Esempio: Microsoft",
+            "startDate": "Data Inizio",
+            "endDate": "Data Fine",
+            "current": "Attualmente ricopro questo ruolo",
+            "enabled": "Enabled",
+            "candidate": "Candidate",
+            "country": "Nazione",
+            "city": "Citta"
+        }
+    }
+}

@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="directApplication">
+            <h2><span jhiTranslate="jobmatchApp.directApplication.detail.title">Direct Application</span> {{directApplication.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jobmatchApp.directApplication.createdBy">Created By</span></dt>
+                <dd>
+                    <span>{{directApplication.createdBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.directApplication.lastModifiedBy">Last Modified By</span></dt>
+                <dd>
+                    <span>{{directApplication.lastModifiedBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.directApplication.createdDate">Created Date</span></dt>
+                <dd>
+                    <span>{{directApplication.createdDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.directApplication.lastModifiedDate">Last Modified Date</span></dt>
+                <dd>
+                    <span>{{directApplication.lastModifiedDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.directApplication.appiedJobStatus">Appied Job Status</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'jobmatchApp.AppiedJobStatus.' + directApplication.appiedJobStatus}}">{{directApplication.appiedJobStatus}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.directApplication.company">Company</span></dt>
+                <dd>
+                    <div *ngIf="directApplication.companyId">
+                        <a [routerLink]="['/company', directApplication.companyId, 'view']">{{directApplication.companyId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.directApplication.candidate">Candidate</span></dt>
+                <dd>
+                    <div *ngIf="directApplication.candidateId">
+                        <a [routerLink]="['/candidate', directApplication.candidateId, 'view']">{{directApplication.candidateId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/direct-application', directApplication.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<form name="editForm" role="form" novalidate #editForm="ngForm" (ngSubmit)="confirm()">
+    <div class="modal-header">
+    	<h4 class="modal-title">
+    		<ng-container *ngIf="skillType!=='LANGUAGE'">
+	         	<span  *ngIf="!currentSkill.id" jhiTranslate="jobmatchApp.candidate.skillDetail.newTitle">New Skill</span>
+	        	<span  *ngIf="currentSkill.id" jhiTranslate="jobmatchApp.candidate.skillDetail.editTitle">Edit Skill</span>
+        	</ng-container>
+        	<ng-container *ngIf="skillType==='LANGUAGE'">
+	         	<span  *ngIf="!currentSkill.id" jhiTranslate="jobmatchApp.candidate.languageDetail.newTitle">New Skill</span>
+	        	<span  *ngIf="currentSkill.id" jhiTranslate="jobmatchApp.candidate.languageDetail.editTitle">Edit Skill</span>
+        	</ng-container>
+        </h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div>
+        	<div class="form-group">
+                <label class="form-control-label" jhiTranslate="jobmatchApp.skill.skillTag" for="field_skillTagName">Skill Tag</label>
+                <input required id="field_skillTagName" name="skillTagName" type="text"
+                    [(ngModel)]="currentSkillTag" class="form-control" [ngbTypeahead]="searchSkills"/>
+                <div [hidden]="!alreadyHaveSkill">
+                    <small class="form-text text-danger">
+                        Possiedi già questa competenza.
+                    </small>
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="jobmatchApp.skill.level" for="field_level">Level</label>
+                <select class="form-control" name="level" [(ngModel)]="currentSkill.level" id="field_level"  required>
+                    <option value="BEGINNER">{{'jobmatchApp.SkillLevelType.' + skillType + '.BEGINNER' | translate}}</option>
+                    <option value="MEDIUM">{{'jobmatchApp.SkillLevelType.' + skillType + '.MEDIUM' | translate}}</option>
+                    <option value="HIGTH">{{'jobmatchApp.SkillLevelType.' + skillType + '.HIGTH' | translate}}</option>
+                    <option value="EXPERT">{{'jobmatchApp.SkillLevelType.' + skillType + '.EXPERT' | translate}}</option>
+                </select>
+                <div [hidden]="!(editForm.controls.level?.dirty && editForm.controls.level?.invalid)">
+                    <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.level?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                    </small>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="skillType!=='LANGUAGE'">
+                <label class="form-control-label" jhiTranslate="jobmatchApp.skill.proficNumberOfYear" for="field_proficNumberOfYear">Profic Number Of Year</label>
+                <select class="form-control" name="proficNumberOfYear" [(ngModel)]="currentSkill.proficNumberOfYear" id="field_proficNumberOfYear" >
+                    <option value="ZERO_TO_ONE">{{'jobmatchApp.ProficNumberOfYear.ZERO_TO_ONE' | translate}}</option>
+                    <option value="ONE_TO_THREE">{{'jobmatchApp.ProficNumberOfYear.ONE_TO_THREE' | translate}}</option>
+                    <option value="THREE_TO_FIVE">{{'jobmatchApp.ProficNumberOfYear.THREE_TO_FIVE' | translate}}</option>
+                    <option value="FIVE_TO_TEN">{{'jobmatchApp.ProficNumberOfYear.FIVE_TO_TEN' | translate}}</option>
+                    <option value="MORE_THAN_TEN">{{'jobmatchApp.ProficNumberOfYear.MORE_THAN_TEN' | translate}}</option>
+                </select>
+            </div>
+
+            
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="editForm.form.invalid || isSaving">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

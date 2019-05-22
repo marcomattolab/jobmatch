@@ -1,0 +1,84 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-applied-job-iteration-heading" jhiTranslate="jobmatchApp.appliedJobIteration.home.createOrEditLabel">Create or edit a Applied Job Iteration</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!appliedJobIteration.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="appliedJobIteration.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.appliedJobIteration.createdBy" for="field_createdBy">Created By</label>
+                    <input type="text" class="form-control" name="createdBy" id="field_createdBy"
+                        [(ngModel)]="appliedJobIteration.createdBy" maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.createdBy?.dirty && editForm.controls.createdBy?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.createdBy?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.appliedJobIteration.lastModifiedBy" for="field_lastModifiedBy">Last Modified By</label>
+                    <input type="text" class="form-control" name="lastModifiedBy" id="field_lastModifiedBy"
+                        [(ngModel)]="appliedJobIteration.lastModifiedBy" maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.lastModifiedBy?.dirty && editForm.controls.lastModifiedBy?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.lastModifiedBy?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.appliedJobIteration.createdDate" for="field_createdDate">Created Date</label>
+                    <div class="d-flex">
+                        <input id="field_createdDate" type="datetime-local" class="form-control" name="createdDate" [(ngModel)]="createdDate" placeholder="YYYY-MM-DD HH:mm"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.appliedJobIteration.lastModifiedDate" for="field_lastModifiedDate">Last Modified Date</label>
+                    <div class="d-flex">
+                        <input id="field_lastModifiedDate" type="datetime-local" class="form-control" name="lastModifiedDate" [(ngModel)]="lastModifiedDate" placeholder="YYYY-MM-DD HH:mm"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.appliedJobIteration.iterationDate" for="field_iterationDate">Iteration Date</label>
+                    <div class="d-flex">
+                        <input id="field_iterationDate" type="datetime-local" class="form-control" name="iterationDate" [(ngModel)]="iterationDate" placeholder="YYYY-MM-DD HH:mm"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.appliedJobIteration.iterationType" for="field_iterationType">Iteration Type</label>
+                    <input type="text" class="form-control" name="iterationType" id="field_iterationType"
+                        [(ngModel)]="appliedJobIteration.iterationType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.appliedJobIteration.iterationNote" for="field_iterationNote">Iteration Note</label>
+                    <textarea class="form-control" name="iterationNote" id="field_iterationNote"
+                        [(ngModel)]="appliedJobIteration.iterationNote" ></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.appliedJobIteration.appliedJob" for="field_appliedJob">Applied Job</label>
+                    <select class="form-control" id="field_appliedJob" name="appliedJob" [(ngModel)]="appliedJobIteration.appliedJobId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="appliedJobOption.id" *ngFor="let appliedJobOption of appliedjobs; trackBy: trackAppliedJobById">{{appliedJobOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

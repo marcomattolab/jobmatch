@@ -1,0 +1,121 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="company">
+            <h2><span jhiTranslate="jobmatchApp.company.detail.title">Company</span> {{company.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jobmatchApp.company.createdBy">Created By</span></dt>
+                <dd>
+                    <span>{{company.createdBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.lastModifiedBy">Last Modified By</span></dt>
+                <dd>
+                    <span>{{company.lastModifiedBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.createdDate">Created Date</span></dt>
+                <dd>
+                    <span>{{company.createdDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.lastModifiedDate">Last Modified Date</span></dt>
+                <dd>
+                    <span>{{company.lastModifiedDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.companyName">Company Name</span></dt>
+                <dd>
+                    <span>{{company.companyName}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.companyDescription">Company Description</span></dt>
+                <dd>
+                    <span>{{company.companyDescription}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.companySize">Company Size</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'jobmatchApp.CompanySizeType.' + company.companySize}}">{{company.companySize}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.companyType">Company Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'jobmatchApp.CompanyType.' + company.companyType}}">{{company.companyType}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.numberOfEmployee">Number Of Employee</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'jobmatchApp.NumberOfEmployees.' + company.numberOfEmployee}}">{{company.numberOfEmployee}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.streetAddress">Street Address</span></dt>
+                <dd>
+                    <span>{{company.streetAddress}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.foundationDate">Foundation Date</span></dt>
+                <dd>
+                    <span>{{company.foundationDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.vatNumber">Vat Number</span></dt>
+                <dd>
+                    <span>{{company.vatNumber}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.email">Email</span></dt>
+                <dd>
+                    <span>{{company.email}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.phone">Phone</span></dt>
+                <dd>
+                    <span>{{company.phone}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.mobilePhone">Mobile Phone</span></dt>
+                <dd>
+                    <span>{{company.mobilePhone}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.country">Country</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'jobmatchApp.Country.' + company.country}}">{{company.country}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.region">Region</span></dt>
+                <dd>
+                    <span>{{company.region}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.province">Province</span></dt>
+                <dd>
+                    <span>{{company.province}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.city">City</span></dt>
+                <dd>
+                    <span>{{company.city}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.cap">Cap</span></dt>
+                <dd>
+                    <span>{{company.cap}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.urlSite">Url Site</span></dt>
+                <dd>
+                    <span>{{company.urlSite}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.enabled">Enabled</span></dt>
+                <dd>
+                    <span>{{company.enabled}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.user">User</span></dt>
+                <dd>
+                    {{company.userId}}
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.company.sector">Sector</span></dt>
+                <dd>
+                    <span *ngFor="let sector of company.sectors; let last = last">
+                        <a [routerLink]="['/company-sector', sector?.id, 'view' ]">{{sector.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/company', company.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

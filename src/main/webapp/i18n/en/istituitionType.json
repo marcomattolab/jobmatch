@@ -1,0 +1,12 @@
+{
+    "jobmatchApp": {
+        "IstituitionType": {
+            "null": "",
+            "PUBLIC": "PUBLIC",
+            "PRIVATE": "PRIVATE",
+            "OMG": "OMG",
+            "RESEARCH": "RESEARCH",
+            "OTHER": "OTHER"
+        }
+    }
+}

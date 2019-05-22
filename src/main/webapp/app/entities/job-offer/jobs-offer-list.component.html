@@ -1,0 +1,659 @@
+<div class="main-container-jobs-list container-fluid">
+	<div class="row justify-content-center jobs-offer-filters-container">
+		<div class="col-md-12 col-12 inner-cols p-0">
+			<div class="card shadow-sm" style="z-index:999">
+				<form role="form" novalidate (ngSubmit)="reloadJobsOffer()" #searchForm="ngForm">
+					<ngb-accordion #acc="ngbAccordion" activeIds="">
+						<ngb-panel id="jobOfferSearchFiltersPanel">
+							<ng-template ngbPanelTitle>
+								<div class="row">
+									<div class="col-4 text-left">
+										<h3 class="p-0">
+											<!-- 									      		<span jhiTranslate="global.menu.search.main">Search</span>  -->
+											<span jhiTranslate="jobmatchApp.jobOffer.home.searchJobOffersTitle"
+												*ngIf="searchMode">Search Job Offers</span>
+											<span jhiTranslate="jobmatchApp.jobOffer.home.myJobOffersTitle"
+												*ngIf="!searchMode">My Job Offers</span>
+										</h3>
+									</div>
+									<div class="col-5 text-left">
+										<span class="badge badge-primary"
+											*ngIf="filters.jobTitle">{{'jobmatchApp.jobOffer.jobTitle' | translate}}:
+											{{filters.jobTitle}}</span>
+										<span class="badge badge-primary"
+											*ngIf="filters.jobCity">{{'jobmatchApp.jobOffer.jobCity' | translate}}:
+											{{filters.jobCity}}</span>
+										<span class="badge badge-primary"
+											*ngIf="filters.jobCountry">{{'jobmatchApp.jobOffer.jobCountry' | translate}}:
+											{{('jobmatchApp.Country.' + filters.jobCountry) | translate}}</span>
+										<span class="badge badge-primary"
+											*ngIf="filters.skillsTag && filters.skillsTag.length > 0">{{'jobmatchApp.jobOffer.skill' | translate}}:
+											<span
+												*ngFor="let skillTag of filters.skillsTag; let isLast=last">{{skillTag.name}}{{isLast ? '' : ', '}}</span></span>
+										<span class="badge badge-primary"
+											*ngIf="filters.sectorId">{{'jobmatchApp.jobOffer.sector' | translate}}:
+											{{filters.jobOfferSectorName}}</span>
+										<span class="badge badge-primary"
+											*ngIf="filters.jobOfferType">{{'jobmatchApp.jobOffer.jobOfferType' | translate}}:
+											{{'jobmatchApp.JobOfferType.' + filters.jobOfferType | translate}}</span>
+										<span class="badge badge-primary"
+											*ngIf="filters.startDate">{{'jobmatchApp.jobOffer.startDate' | translate}}
+											{{'global.from' | translate}}:
+											{{ filters.startDate | date: 'dd/MM/yyyy' }}</span>
+										<span class="badge badge-primary"
+											*ngIf="filters.employmentType">{{'jobmatchApp.jobOffer.employmentType' | translate}}:
+											{{'jobmatchApp.EmploymentType.' + filters.employmentType | translate}}</span>
+										<span class="badge badge-primary"
+											*ngIf="filters.seniorityLevel">{{'jobmatchApp.jobOffer.seniorityLevel' | translate}}:
+											{{'jobmatchApp.SeniorityLevel.' + filters.seniorityLevel | translate}}</span>
+									</div>
+									<div class="col-3" style="text-align:right">
+										<ng-container *ngIf="!isMobile && isCurrentRoleSponsoringInstitution() && !selectMode">
+											<button type="button" class="btn btn-outline-primary" style="width: auto;"
+												(click)="onClickSeleziona($event, true)">
+												<span>Seleziona</span>
+											</button>
+										</ng-container>
+										<ng-container *ngIf="!isMobile && isCurrentRoleSponsoringInstitution() && selectMode">
+											<div ngbDropdown class="d-inline-block">
+												<button class="btn btn-outline-primary" id="actionsDrpDown"
+													(click)="stopPropagation($event)" ngbDropdownToggle>Azioni</button>
+												<div ngbDropdownMenu aria-labelledby="actionsDrpDown" class="p-0">
+													<a ngbDropdownItem class="btn btn-outline-primary"
+														(click)="onClickSubmitPromote($event)">Promuovi</a>
+													<a ngbDropdownItem class="btn btn-outline-primary"
+														(click)="onClickSelectAll($event)">Seleziona Tutte</a>
+													<a ngbDropdownItem class="btn btn-outline-danger"
+														(click)="onClickSeleziona($event, false)">Annulla</a>
+												</div>
+											</div>
+										</ng-container>
+										<button type="button" class="btn btn-outline-primary" style="width: auto;">
+											<span jhiTranslate="global.menu.search.filtersLabel">Filters</span>
+											<fa-icon *ngIf="!acc.isExpanded('jobOfferSearchFiltersPanel')"
+												[icon]="'caret-down'" data-toggle="tooltip"
+												title="{{'global.menu.search.showFiltersLabel' | translate}}"></fa-icon>
+											<fa-icon *ngIf="acc.isExpanded('jobOfferSearchFiltersPanel')"
+												[icon]="'times'" data-toggle="tooltip"
+												title="{{'global.menu.search.hideFiltersLabel' | translate}}"></fa-icon>
+										</button>
+									</div>
+								</div>
+							</ng-template>
+							<ng-template ngbPanelContent>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label jhiTranslate="jobmatchApp.jobOffer.jobTitle"
+												for="jobTitle">jobTitle</label>
+											<input type="text" class="form-control" [(ngModel)]="filters.jobTitle"
+												name="jobTitle" id="field_jobTitle" maxlength="100" />
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<label class="form-control-label"
+												jhiTranslate="jobmatchApp.jobOffer.jobCity"
+												for="field_city">City</label>
+											<input type="text" class="form-control" name="city"
+												[(ngModel)]="filters.jobCity" id="field_city" maxlength="50" />
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<label class="form-control-label"
+												jhiTranslate="jobmatchApp.jobOffer.jobCountry"
+												for="field_country">Country</label>
+											<select class="form-control" name="country" [(ngModel)]="filters.jobCountry"
+												id="field_country">
+												<option value="" label=""></option>
+												<option *ngFor="let country of countries" [value]="country">
+													{{('jobmatchApp.Country.' + country) | translate}}</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-md-6 form-group component-autocomplete">
+										<label jhiTranslate="jobmatchApp.jobOffer.skill" for="skill">Skill</label>
+										<input id="field_skillTagName" name="skillTagName" class="form-control"
+											type="text" [disabled]="filters.skillsTag && filters.skillsTag.length > 4"
+											class="form-control" [(ngModel)]="filters.skillTagName"
+											[ngbTypeahead]="searchSkills" (selectItem)="onSelectSkillTag($event)" />
+										<ng-container *ngIf="filters.skillsTag && filters.skillsTag.length > 0">
+											<div class="p-2">
+												<div *ngFor="let skillTag of filters.skillsTag"
+													class="badge badge-pill badge-primary skill-tag">
+													<a class="btn-sm" style="color: white;">{{ skillTag.name }}
+													</a>
+													<a class="btn-sm btn-outline-primary btn-skill-tag-del"
+														(click)="removeSkillTag(skillTag)">
+														<fa-icon [icon]="'times-circle'"></fa-icon>
+													</a>
+												</div>
+											</div>
+										</ng-container>
+									</div>
+
+									<div class="col-md-6 form-group component-autocomplete">
+										<label jhiTranslate="jobmatchApp.jobOffer.sector" for="sector">Sector</label>
+										<input id="field_jobOfferSector" name="jobOfferSector" class="form-control"
+											type="text" class="form-control" [(ngModel)]="filters.jobOfferSectorName"
+											[ngbTypeahead]="searchJobOfferSector"
+											(selectItem)="onSelectJobOfferSector($event)" />
+									</div>
+
+									<div class="col-md-3">
+										<div class="form-group">
+											<label jhiTranslate="jobmatchApp.jobOffer.jobOfferType"
+												for="jobOfferType">Job Offer Type</label>
+											<select class="form-control" name="jobOfferType"
+												[(ngModel)]="filters.jobOfferType" id="field_jobTitle">
+												<option value=""></option>
+												<option value="JOB">{{'jobmatchApp.JobOfferType.JOB' | translate}}
+												</option>
+												<option value="STAGE">{{'jobmatchApp.JobOfferType.STAGE' | translate}}
+												</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="col-md-3">
+										<label class="form-control-label"
+											for="startDate">{{'jobmatchApp.jobOffer.startDate' | translate}}
+											{{'global.from' | translate}}</label>
+										<div class="input-group">
+											<input id="field_startDate" type="text" class="form-control"
+												name="startDate" ngbDatepicker #startDateDp="ngbDatepicker"
+												[(ngModel)]="filters.startDate" />
+											<span class="input-group-append">
+												<button type="button" class="btn btn-secondary"
+													(click)="startDateDp.toggle()">
+													<fa-icon [icon]="'calendar-alt'"></fa-icon>
+												</button>
+											</span>
+										</div>
+									</div>
+
+									<div class="col-md-3">
+										<label class="form-control-label"
+											jhiTranslate="jobmatchApp.jobOffer.employmentType"
+											for="field_employmentType">Employment Type</label>
+										<select class="form-control" name="employmentType"
+											[(ngModel)]="filters.employmentType" id="field_employmentType">
+											<option value=""></option>
+											<option value="FULL_TIME">
+												{{'jobmatchApp.EmploymentType.FULL_TIME' | translate}}</option>
+											<option value="PART_TIME">
+												{{'jobmatchApp.EmploymentType.PART_TIME' | translate}}</option>
+										</select>
+									</div>
+									<div class="col-md-3">
+										<label class="form-control-label"
+											jhiTranslate="jobmatchApp.jobOffer.seniorityLevel"
+											for="field_seniorityLevel">Seniority Level</label>
+										<select class="form-control" name="seniorityLevel"
+											[(ngModel)]="filters.seniorityLevel" id="field_seniorityLevel">
+											<option value=""></option>
+											<option value="BEGINNER">
+												{{'jobmatchApp.SeniorityLevel.BEGINNER' | translate}}</option>
+											<option value="MEDIUM">{{'jobmatchApp.SeniorityLevel.MEDIUM' | translate}}
+											</option>
+											<option value="EXPERT">{{'jobmatchApp.SeniorityLevel.EXPERT' | translate}}
+											</option>
+										</select>
+									</div>
+
+									<div class="col-md-3" *ngIf="!searchMode">
+										<label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.status"
+											for="field_status">Status</label>
+										<div style="display:block;">
+											<div class="btn-group btn-group-toggle">
+												<label class="btn-outline-primary" ngbButtonLabel>
+													<input type="checkbox" ngbButton [(ngModel)]="filters.statusDraft"
+														name="statusDraft">
+													{{'jobmatchApp.JobOfferStatus.DRAFT' | translate}}
+												</label>
+												<label class="btn-outline-primary" ngbButtonLabel>
+													<input type="checkbox" ngbButton [(ngModel)]="filters.statusActive"
+														name="statusActive">{{'jobmatchApp.JobOfferStatus.ACTIVE' | translate}}
+												</label>
+												<label class="btn-outline-primary" ngbButtonLabel>
+													<input type="checkbox" ngbButton [(ngModel)]="filters.statusEnded"
+														name="statusEnded">
+													{{'jobmatchApp.JobOfferStatus.ENDED' | translate}}
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group float-right">
+									<button class="btn btn-link" type="button" (click)="resetFilters()">
+										<span jhiTranslate="global.menu.search.clearfiltersLabel">Pulisci Filtri</span>
+									</button>
+									<!-- <button class="btn btn-outline-secondary" type="button" (click)="acc.toggle('jobOfferSearchFiltersPanel')">
+					                           <fa-icon [icon]="'times'"></fa-icon>
+					                           <span jhiTranslate="global.menu.search.cancel">Cancel</span>
+					                       </button> -->
+									<button class="btn btn-primary" type="submit">
+										<fa-icon [icon]="'search'"></fa-icon>
+										<span jhiTranslate="global.menu.search.buttonLabel">Cerca</span>
+									</button>
+								</div>
+							</ng-template>
+						</ngb-panel>
+					</ngb-accordion>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="row border justify-content-center jobs-offers-container">
+		<div class="col-md-5 col-12 p-0">
+			<div class="inner-cols" style="border-top: 1px solid #e0e0d1">
+				<div>
+					<ng-container *ngIf="!jobsOffer">
+						<div class="d-flex justify-content-center" style="margin-top:10rem !important;">
+							<div class="spinner-border text-primary" style="width: 7rem; height: 7rem;" role="status">
+								<span class="sr-only">Loading...</span>
+							</div>
+						</div>
+					</ng-container>
+					<ng-container *ngIf="jobsOffer && jobsOffer.length > 0">
+						<div class="row job-offer-item shadow-sm hand-pointer hoverable m-0 p-2"
+							*ngFor="let offer of jobsOffer"
+							(click)="setJobSelected(offer.id)"
+							[ngClass]="isJobOfferSelected(offer.id) ?  'job-offer-item-selected' : ''">
+							
+							<div class="col-1 p-0 pl-1" *ngIf="selectMode">
+								<input class="vertical-align-middle" style="width: 15px;height: 15px;" type="checkbox" [(ngModel)]="offer.selectedInList"/>
+							</div>
+							
+							<div class="col-2 text-center" *ngIf="searchMode">
+								<img class="image-job-offer-item img-thumbnail vertical-align-middle" 
+									[src]="offer.imageUrl | imageProfile: {role: 'ROLE_COMPANY'}" alt="image" />
+							</div>
+							
+							<div [ngClass]="searchMode ? 'col-9' : 'col-11'">
+								<ul class="no-style-ul p-0" style="height: calc(100% - 17px)">
+									<li>
+										<div class="row">
+											<div [ngClass]="isMobile ? 'col-12' : 'col-7'">
+												<span *ngIf="!searchMode"
+													[ngClass]="{'badge':true, 'badge-primary': offer.status=='ACTIVE', 'badge-warning': offer.status=='DRAFT', 'badge-success': offer.status=='ENDED'}"
+													jhiTranslate="{{'jobmatchApp.JobOfferStatus.' + offer.status}}"></span>
+												<span class="font-weight-bold">{{ offer.jobTitle }}</span>
+											</div>
+											<div class="text-right" [ngClass]="isMobile ? 'col-12' : 'col-5'">
+												<span class="text-right"
+													[ngClass]="{'badge':true, 'badge-primary': offer.jobOfferType=='JOB', 'badge-warning': offer.jobOfferType=='STAGE'}"
+													jhiTranslate="{{'jobmatchApp.JobOfferType.' + offer.jobOfferType}}"></span>
+											</div>
+										</div>
+									</li>
+									<li>
+										<span *ngIf="searchMode && offer.sponsoringInstitutionId"
+											class="badge badge-success"
+											jhiTranslate="jobmatchApp.sponsoringInstitution.detail.title">Sponsoring
+											Instituition</span>
+										<span class="card-subtitle text-muted">{{ offer.companyName }}</span>
+										<span class="card-subtitle text-muted">&middot; {{offer.jobCity}} </span>
+									</li>
+									<ng-container *ngIf="isCurrentRoleCandidate() && offer.candidateApplied">
+										<li><span
+												class="badge badge-primary">{{'jobmatchApp.jobOffer.applyed' | translate}}</span>
+										</li>
+									</ng-container>
+									<li><i style="font-size: 13px">{{ offer.jobShortDescription }}</i></li>
+									<li class="text-muted">
+										<fa-icon [icon]="'clock'"></fa-icon>
+										<span style="font-size: 14px">{{ offer.timePassed }}</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="row justify-content-center max-width-100-perc" style="padding-top: 10px">
+							<jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5"
+								[itemsPerPage]="itemsPerPage"></jhi-item-count>
+						</div>
+						<div class="row justify-content-center max-width-100-perc">
+							<ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage"
+								[maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)">
+							</ngb-pagination>
+						</div>
+					</ng-container>
+				</div>
+			</div>
+		</div>
+		<div *ngIf="!isMobile" class="col-md-7 mobile-hidden">
+			<div class="inner-cols">
+				<ng-container *ngIf="!jobSelected && loadingJobSelected">
+					<div class="d-flex justify-content-center" style="margin-top:10rem !important;">
+						<div class="spinner-border text-primary" style="width: 7rem; height: 7rem;" role="status">
+							<span class="sr-only">Loading...</span>
+						</div>
+					</div>
+				</ng-container>
+				<ng-container *ngIf="jobSelected">
+					<div class="card card-job-offer-detail">
+						<div class="card-body" style="white-space: pre-line; overflow-y: auto">
+							<div class="row justify-content-center">
+								<div class="col-9">
+									<div class="row" style="margin-bottom: 20px;">
+										<div class="col-3" style="text-align: right;">
+											<img *ngIf="jobCompanyInfo" class="image-company-jobs"
+												[src]="jobCompanyInfo.imageUrl | imageProfile: {role: 'ROLE_COMPANY'}"
+												alt="image" />
+										</div>
+										<div class="col-9">
+											<div class="row">
+												<div class="col">
+													<ul class="no-style-ul p-0">
+														<li>
+															<h5>
+																<a
+																	[routerLink]="['/job-offer', jobSelected.id, 'view']">
+																	{{ jobSelected.jobTitle }}
+																</a>
+															</h5>
+
+														</li>
+														<li>
+															<h6>
+																<span *ngIf="jobCompanyInfo?.sponsoringInstitutionId"
+																	class="badge badge-success"
+																	jhiTranslate="jobmatchApp.sponsoringInstitution.detail.title">Sponsoring
+																	Instituition</span>
+																<a *ngIf="jobCompanyInfo"
+																	[routerLink]="jobCompanyInfo?.sponsoringInstitutionId ? ['/sponsoring-institution', jobCompanyInfo.sponsoringInstitutionId]:  ['/company', jobSelected.companyId]">
+																	<span
+																		class="card-subtitle text-muted">{{ jobCompanyInfo.companyName }}</span>
+																</a>
+																<span class="card-subtitle text-muted">&middot;
+																	{{jobSelected.jobCity}} &middot;
+																	{{('jobmatchApp.Country.' + jobSelected.jobCountry) | translate}}
+																</span>
+															</h6>
+														</li>
+														<li>
+															<fa-icon class="text-muted" [icon]="'clock'"></fa-icon>
+															<span *ngIf="jobSelected.status=='DRAFT'" class="text-muted"
+																style="font-size: 14px">{{'jobmatchApp.jobOffer.createdDate' | translate}}:
+																{{ jobSelected.timePassed }} </span>
+															<span *ngIf="jobSelected.status!='DRAFT'" class="text-muted"
+																style="font-size: 14px">{{'jobmatchApp.jobOffer.publicationDate' | translate}}:
+																{{ jobSelected.timePassed }} </span>
+														</li>
+													</ul>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col">
+													<ng-container *ngIf="jobSelected.appliedJobAvailable">
+														<button *ngIf="!jobSelected.candidateApplied"
+															class="btn btn-primary" (click)="onApplyJobClick()">
+															<fa-icon [icon]="'file-upload'"></fa-icon>
+															<span>{{ 'jobmatchApp.jobOffer.apply' | translate }}</span>
+														</button>
+														<button *ngIf="jobSelected.candidateApplied"
+															class="btn btn-primary" disabled>
+															<fa-icon [icon]="'file-upload'"></fa-icon>
+															<span>{{ 'jobmatchApp.jobOffer.applyed' | translate }}</span>
+														</button>
+													</ng-container>
+													<button class="btn btn-outline-secondary"
+														(click)="onPublishOfferClick()"
+														*ngIf="jobSelected.editAvailable && jobSelected.status==='DRAFT'">
+														<fa-icon [icon]="'clipboard-check'"></fa-icon>
+														<span>{{ 'jobmatchApp.jobOffer.publishLabel' | translate }}</span>
+
+													</button>
+													<button class="btn btn-outline-primary" (click)="onModifyClick()"
+														*ngIf="jobSelected.editAvailable">
+														<fa-icon [icon]="'pencil-alt'"></fa-icon>
+														<span>{{ 'jobmatchApp.jobOffer.modifyLabel' | translate }}</span>
+
+													</button>
+													<button class="btn btn-outline-success" (click)="onEndOfferClick()"
+														*ngIf="jobSelected.editAvailable && jobSelected.status==='ACTIVE'">
+														<fa-icon [icon]="'check-circle'"></fa-icon>
+														<span>{{ 'jobmatchApp.jobOffer.endLabel' | translate }}</span>
+
+													</button>
+													<button class="btn btn-outline-danger" (click)="onDeleteClick()"
+														*ngIf="jobSelected.deleteAvailable && jobSelected.status==='DRAFT'">
+														<fa-icon [icon]="'trash-alt'"></fa-icon>
+														<span>{{ 'jobmatchApp.jobOffer.deleteLabel' | translate }}</span>
+													</button>
+													<ng-container *jhiHasAnyAuthority="'ROLE_PROMOTER'">
+														<button class="btn btn-info"
+															(click)="onClickSubmitSingleOffer(jobSelected)"
+															*ngIf="jobSelected.status==='ACTIVE'">
+															<fa-icon [icon]="'file-upload'"></fa-icon>
+															<span>{{ 'Promuovi' }}</span>
+														</button>
+													</ng-container>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col border p-3" style="margin-left:15px;">
+											<span jhiTranslate="jobmatchApp.jobOffer.detail.title"
+												class="font-weight-bold-500">Job Offer Details</span>
+											<li
+												*ngIf="jobSelected.appliedJobAvailable && jobSelected.skills && jobSelected.skills.length > 0">
+												<span class="text-muted"
+													style="font-size: 14px">{{numberOfCandidateSkillOwner()}} /
+													{{jobSelected.skills.length}}
+													{{'jobmatchApp.jobOffer.correspondingSkills' | translate}}</span>
+											</li>
+											<li *ngIf="jobSelected.applymentCount != null">
+												<span class="badge badge-secondary" *ngIf="!jobSelected.editAvailable">
+													{{ 'jobmatchApp.jobOffer.applicationsCount' | translate }}
+													<span
+														class="badge badge-light">{{ jobSelected.applymentCount }}</span>
+												</span>
+												<a class="badge badge-secondary" *ngIf="jobSelected.editAvailable"
+													[routerLink]="['/', 'applied-job', 'jobOffer', jobSelected.id]">
+													{{ 'jobmatchApp.jobOffer.applicationsCount' | translate }}
+													<span
+														class="badge badge-light">{{ jobSelected.applymentCount }}</span>
+												</a>
+											</li>
+										</div>
+										<div *ngIf="jobCompanyInfo" class="col border p-3">
+											<span jhiTranslate="jobmatchApp.jobOffer.company"
+												class="font-weight-bold-500">Company</span>
+											<li *ngIf="jobCompanyInfo.companyType">
+												<span class="text-muted"
+													style="font-size: 14px">{{'jobmatchApp.CompanyType.' + jobCompanyInfo.companyType | translate}}</span>
+											</li>
+											<li
+												*ngIf="(jobCompanyInfo.companySize || jobCompanyInfo.numberOfEmployee) && jobCompanyInfo.companyType != 'INSTITUTION'">
+												<span class="text-muted"
+													style="font-size: 14px">{{'jobmatchApp.CompanySizeType.' + jobCompanyInfo.companySize | translate}}</span>
+												<span class="text-muted"
+													style="font-size: 14px">{{'jobmatchApp.NumberOfEmployees.' + jobCompanyInfo.numberOfEmployee | translate}}</span>
+											</li>
+
+										</div>
+									</div>
+								</div>
+								<div class="col-3">
+									<div class="row">
+
+										<div class="col">
+											<ul class="no-style-ul p-0">
+												<li *ngIf="!searchMode && jobSelected.editAvailable">
+													<h4><span
+															[ngClass]="{'badge':true, 'badge-primary': jobSelected.status=='ACTIVE', 'badge-warning': jobSelected.status=='DRAFT', 'badge-success': jobSelected.status=='ENDED'}"
+															jhiTranslate="{{'jobmatchApp.JobOfferStatus.' + jobSelected.status}}">{{jobSelected.status}}</span>
+													</h4>
+												</li>
+
+												<span jhiTranslate="jobmatchApp.jobOffer.details"
+													class="font-weight-bold-500">Job Offer Details</span>
+
+												<li *ngIf="jobSelected.jobOfferType">
+													<fa-icon [icon]="'briefcase'"></fa-icon>
+													<span
+														[ngClass]="{'badge':true, 'badge-primary': jobSelected.jobOfferType=='JOB', 'badge-warning': jobSelected.jobOfferType=='STAGE'}"
+														jhiTranslate="{{'jobmatchApp.JobOfferType.' + jobSelected.jobOfferType}}"></span>
+												</li>
+												<li *ngIf="jobSelected.employmentType">
+													<fa-icon [icon]="'business-time'"></fa-icon>
+													<span
+														style="font-size: 14px">{{'jobmatchApp.EmploymentType.' + jobSelected.employmentType | translate}}</span>
+												</li>
+												<li *ngIf="jobSelected.seniorityLevel">
+													<fa-icon [icon]="'layer-group'"></fa-icon>
+													<span
+														style="font-size: 14px">{{'jobmatchApp.SeniorityLevel.' + jobSelected.seniorityLevel | translate}}</span>
+												</li>
+												<li *ngIf="jobSelected.salaryOffered">
+													<fa-icon [icon]="'coins'"></fa-icon>
+													<span style="font-size: 14px">{{ jobSelected.salaryOffered }}</span>
+												</li>
+												<li *ngIf="jobSelected.jobCity">
+													<fa-icon [icon]="'map-marked-alt'"></fa-icon>
+													<span style="font-size: 14px">{{jobSelected.jobCity}},
+														{{('jobmatchApp.Country.' + jobSelected.jobCountry) | translate}}</span>
+												</li>
+
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+							<hr />
+							<ng-container *ngIf="jobSelected.skills && jobSelected.skills.length > 0">
+								<div class="row">
+									<div class="col-12">
+										<div *ngIf="jobSelected.appliedJobAvailable" class="pt-1 pb-2">
+											<div>
+												<span jhiTranslate="jobmatchApp.jobOffer.commonSkillInfo"
+													class="font-weight-bold-500">What do you have in common</span>
+												<ng-template #tooltipInfo class="tooltip-info">
+													<div>
+														<p jhiTranslate="jobmatchApp.jobOffer.commonSkillInfoTooltip">
+														</p>
+													</div>
+												</ng-template>
+												<button type="button"
+													class="btn btn-sm rounded bg-transparent help-icon text-muted"
+													[ngbTooltip]="tooltipInfo">
+													<fa-icon [icon]="'info-circle'">
+												</button>
+											</div>
+											<span class="text-muted" style="font-size: 14px"
+												jhiTranslate="jobmatchApp.jobOffer.commonSkillSubInfo">Criteri forniti
+												dall�autore dell�offerta di lavoro</span>
+										</div>
+										<div class="pt-1 pb-2">
+											<span jhiTranslate="jobmatchApp.jobOffer.skill"
+												class="font-weight-bold-500">Job Offer Skill</span>
+										</div>
+										<div *ngFor="let skill of jobSelected.skills"
+											[ngClass]="{'badge':true, 'badge-pill':true, 'm-r-10':true, 'badge-primary': !jobSelected.appliedJobAvailable || (jobSelected.appliedJobAvailable && skill.candidateOwner), 'badge-secondary': jobSelected.appliedJobAvailable && !skill.candidateOwner}">
+											{{ skill.skillTagName }}
+											<fa-icon [icon]="'check-circle'" *ngIf="skill.candidateOwner"></fa-icon>
+										</div>
+									</div>
+								</div>
+								<hr />
+							</ng-container>
+
+							<div class="row pt-2">
+								<div class="col-md-6">
+									<div>
+										<span jhiTranslate="jobmatchApp.jobOffer.sector"
+											class="font-weight-bold-500">Sector</span>
+									</div>
+									<div>
+										<span style="font-size: 14px" *ngIf="jobSelected.sectorDescription">
+											{{ jobSelected.sectorDescription }}</span>
+									</div>
+									<div>
+										<span jhiTranslate="jobmatchApp.jobOffer.salaryOffered"
+											class="font-weight-bold-500">salaryOffered</span>
+									</div>
+									<div>
+										<span style="font-size: 14px"
+											*ngIf="jobSelected.salaryOffered">{{ jobSelected.salaryOffered }}</span>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div>
+										<span jhiTranslate="jobmatchApp.jobOffer.employmentType"
+											class="font-weight-bold-500">employmentType</span>
+									</div>
+									<div>
+										<span style="font-size: 14px" *ngIf="jobSelected.employmentType">
+											{{'jobmatchApp.EmploymentType.' + jobSelected.employmentType | translate}}</span>
+									</div>
+									<div>
+										<span jhiTranslate="jobmatchApp.jobOffer.seniorityLevel"
+											class="font-weight-bold-500">seniorityLevel</span>
+									</div>
+									<div>
+										<span style="font-size: 14px"
+											*ngIf="jobSelected.seniorityLevel">{{'jobmatchApp.SeniorityLevel.' + jobSelected.seniorityLevel | translate}}</span>
+									</div>
+								</div>
+							</div>
+							<hr />
+
+							<ng-container *ngIf="jobSelected.jobDescription">
+								<div class="pb-1 pt-2">
+									<span
+										class="font-weight-bold-500">{{'jobmatchApp.jobOffer.jobDescription' | translate}}</span>
+								</div>
+								<div>
+									<span> {{ jobSelected.jobDescription }} </span>
+								</div>
+								<hr />
+							</ng-container>
+							<ng-container *ngIf="jobSelected.responsibilitiesDescription">
+								<div class="pb-1 pt-2">
+									<span
+										class="font-weight-bold-500">{{'jobmatchApp.jobOffer.responsibilitiesDescription' | translate}}</span>
+								</div>
+								<div>
+									<span> {{ jobSelected.responsibilitiesDescription }} </span>
+								</div>
+								<hr />
+							</ng-container>
+							<ng-container *ngIf="jobSelected.experiencesDescription">
+								<div class="pb-1 pt-2">
+									<span
+										class="font-weight-bold-500">{{'jobmatchApp.jobOffer.experiencesDescription' | translate}}</span>
+								</div>
+								<div>
+									<span> {{ jobSelected.experiencesDescription }} </span>
+								</div>
+								<hr />
+							</ng-container>
+							<ng-container *ngIf="jobSelected.attributesDescription">
+								<div class="pb-1 pt-2">
+									<span
+										class="font-weight-bold-500">{{'jobmatchApp.jobOffer.attributesDescription' | translate}}</span>
+								</div>
+								<div>
+									<span> {{ jobSelected.attributesDescription }} </span>
+								</div>
+								<hr />
+							</ng-container>
+							<ng-container *ngIf="jobSelected.jobFunctions">
+								<div class="pb-1 pt-2">
+									<span
+										class="font-weight-bold-500">{{'jobmatchApp.jobOffer.jobFunctions' | translate}}</span>
+								</div>
+								<div>
+									<span> {{ jobSelected.jobFunctions }} </span>
+								</div>
+							</ng-container>
+						</div>
+					</div>
+				</ng-container>
+			</div>
+		</div>
+	</div>
+</div>

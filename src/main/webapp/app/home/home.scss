@@ -1,0 +1,71 @@
+/* ==========================================================================
+Main page styles
+========================================================================== */
+
+.hipster {
+    display: inline-block;
+    width: 500px;
+    height: 250px;
+    background: url('../../content/images/interreg-jobmatch.png') no-repeat center top;
+    background-size: contain;
+}
+
+.home-left-logo {
+    width: 300px;
+    height: 100px;
+    float: right;
+    background: url('../../content/images/interreg-jobmatch.png') no-repeat center top;
+    background-size: contain;
+}
+
+
+.home-title-text {
+	font-weight: bold;
+	font-size: 92px;
+	font-family: Open Sans, sans-serif;
+	text-shadow: 2px 2px lightgrey;
+	color: #3077b4;
+}
+
+.home-title-button {
+	font-family: Open Sans, sans-serif;
+	background-color: #3077b4;
+	border: 2px solid #3077b4;
+	border-radius: 0.5rem;
+    font-weight: bold;
+    &:hover {
+		background-color: transparent;
+		color: #3077b4;
+	}
+}
+
+.home-box {
+	background-color: #f8f9fa;
+	border: none;
+}
+
+.home-jumbotron {
+    background-image: url('../../content/images/jobmatch_home.jpg');
+    background-color: #17234E;
+    margin-bottom: 0;
+    min-height: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+
+
+/* wait autoprefixer update to allow simple generation of high pixel density media query */
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (-moz-min-device-pixel-ratio: 2),
+    only screen and (-o-min-device-pixel-ratio: 2/1),
+    only screen and (min-resolution: 192dpi),
+    only screen and (min-resolution: 2dppx) {
+    .hipster {
+        background: url('../../content/images/interreg-jobmatch.png') no-repeat center top;
+        background-size: contain;
+    }
+}
+

@@ -1,0 +1,131 @@
+<div class="main-container-no-scroll container-fluid">
+	<div class="row justify-content-center job-offer-list-promote">
+		<div class="col-12 inner-cols card shadow-sm h-100">
+			<div class="row h-100">
+				<div class="col-md-3 col-4">
+					<span class="title">Promuovi Le Seguenti Offerte</span>
+				</div>
+				<div class="col-md-9 col-8 h-100 text-center" style="overflow: auto; margin-top: 2px;">
+					<div *ngFor="let offer of jobsOfferToPromote" class="badge badge-pill badge-primary"
+						style="margin-right: 5px; margin-bottom: 5px; font-size: 50%;">
+						<a class="btn-sm" style="color: white; font-size: 0.7rem">{{ offer.jobTitle }}
+						</a>
+						<a class="btn-sm btn-outline-primary btn-skill-tag-del" (click)="deleteJobOffer(offer)">
+							<fa-icon [icon]="'times-circle'"></fa-icon>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row candidate-list-details">
+		<div class="col-6">
+			<span>Candidati Aggiunti: {{ candidates ? candidates.length : 0 }}</span>
+		</div>
+		<div class="col-6">
+			<div class="float-right">
+				<button type="button" class="btn btn-outline-primary" [routerLink]="['/candidate', 'select']" (click)="keepCandidates()">
+					Aggiungi candidati
+					<fa-icon [icon]="'plus'"></fa-icon>
+				</button>
+				<button type="button" class="btn btn-outline-danger" (click)="undoLastCandidatesAdded()" [disabled]="!previousCandidatesAdded || previousCandidatesAdded.length === 0">
+					Annulla Precedente Azione
+					<fa-icon [icon]="'undo'"></fa-icon>
+				</button>
+			</div>
+		</div>
+	</div>
+	<div class="row border justify-content-center candidate-list">
+		<div class="col-12 p-0 h-100">
+			<div class="inner-cols h-100" style="border-top: 1px solid #e0e0d1">
+				<div class="table-responsive h-100">
+					<table class="table table-striped">
+						<thead>
+							<!-- <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse"
+								[callback]="transition.bind(this)"> -->
+							<tr>
+								<th>
+									<span jhiTranslate="jobmatchApp.candidate.lastName">Last</span>
+									<fa-icon [icon]="'sort'"></fa-icon>
+								</th>
+								<th>
+									<span jhiTranslate="jobmatchApp.candidate.firstName">FirstName</span>
+									<fa-icon [icon]="'sort'"></fa-icon>
+								</th>
+								<th>
+									<span jhiTranslate="jobmatchApp.jobExperience.jobTitle">JobTitle</span>
+								</th>
+								<th><span jhiTranslate="jobmatchApp.candidate.birthday">Birthday</span>
+									<fa-icon [icon]="'sort'"></fa-icon>
+								</th>
+								<th>
+									<span jhiTranslate="jobmatchApp.candidate.email">Email</span>
+									<fa-icon [icon]="'sort'"></fa-icon>
+								</th>
+								<th>
+									<span jhiTranslate="jobmatchApp.candidate.phone">Phone</span>
+									<fa-icon [icon]="'sort'"></fa-icon>
+								</th>
+								<th><span jhiTranslate="jobmatchApp.candidate.skill">Skills</span></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let candidate of candidates ;trackBy: trackId">
+								<td>{{candidate.lastName}}</td>
+								<td>{{candidate.firstName}}</td>
+								<td>
+									<div *ngIf="candidate.currentJobExperience">
+										<span>{{ candidate.currentJobExperience.jobTitle }}</span>
+										<span *ngIf="candidate.currentJobExperience.companyName">
+											{{'jobmatchApp.candidate.at' | translate}}
+											{{ candidate.currentJobExperience.companyName }}</span>
+										<span
+											*ngIf="candidate.currentJobExperience.city">{{ candidate.currentJobExperience.city }}</span>
+										<span
+											*ngIf="candidate.currentJobExperience.country">{{('jobmatchApp.Country.' + candidate.currentJobExperience.country) | translate}}</span>
+									</div>
+								</td>
+								<td>{{candidate.birthday | date:'mediumDate'}}</td>
+								<td>{{candidate.email}}</td>
+								<td>{{candidate.phone}} {{candidate.mobilePhone}}</td>
+								<td>
+									<ng-container *ngIf="candidate.skills && candidate.skills.length > 0">
+										<span *ngFor="let skill of candidate.skills"
+											class="badge badge-pill badge-primary skill-tag">{{ skill.skillTagName }}</span>
+									</ng-container>
+								</td>
+								<td class="text-right">
+									<div class="btn-group flex-btn-group-container">
+										<button type="button" class="btn btn-info btn-sm">
+											<fa-icon [icon]="'eye'"></fa-icon>
+											<span class="d-none d-md-inline"
+												jhiTranslate="entity.action.view">View</span>
+										</button>
+										<button type="button" (click)="onClickDeleteCandidate(candidate)"
+											class="btn btn-danger btn-sm">
+											<fa-icon [icon]="'times'"></fa-icon>
+											<span class="d-none d-md-inline"
+												jhiTranslate="entity.action.delete">Delete</span>
+										</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row button-area">
+		<div class="col p-0">
+			<button type="button" class="btn btn-info" (click)="back()">
+				<fa-icon [icon]="'arrow-left'"></fa-icon> <span jhiTranslate="entity.action.back"> Back</span>
+			</button>
+			<button type="button" class="btn btn-info float-right" (click)="promoteJobOffers()" [disabled]="!canBePromoted()">
+				<span>Promuovi </span>
+				<!-- <fa-icon [icon]="'arrow-right'"></fa-icon> -->
+			</button>
+		</div>
+	</div>
+</div>

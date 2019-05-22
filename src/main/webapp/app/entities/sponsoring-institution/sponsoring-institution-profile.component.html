@@ -1,0 +1,125 @@
+<div class="row p-0">
+    <div class="col-12">
+        <div class="bg-profile-image img-fluid"></div>
+        <div class="main-profile-image rounded-circle shadow-lg">
+            <a class="btn rounded-circle" (click)="selectFile()"></a>
+            <img [src]="sponsoringInstitution.imageUrl | imageProfile: {role: 'ROLE_PROMOTER'}" class="rounded-circle" alt="Avatar">
+            <input #imageInput type="file" id="inputPicture" (change)="processFile(imageInput)" accept="image/*"/>
+        </div>
+    </div>
+</div>
+<div class="my-profile-main-container row justify-content-center">
+    <div class="col-md-9 col-12">
+        <div class="card section shadow-sm">
+            <div class="personal-info-section card-body">
+                <div class="personal-info-actions">
+                    <ul *ngIf="sponsoringInstitution.editAvailable">
+                        <li>
+                            <a class="btn btn-outline-primary" (click)="onUpdateAnagrafica()">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-section">
+                 	<div>
+                        <span style="font-size: 1.75rem; font-weight: 400;">{{sponsoringInstitution.istituitionName}} 	<span class="badge badge-success" jhiTranslate="jobmatchApp.sponsoringInstitution.detail.title">Sponsoring Instituition</span></span>
+                    </div>
+
+                    <div *ngIf="sponsoringInstitution.istituitionSector">
+                    	<span style="font-size: 1.5rem; font-weight: 350; color: gray;" jhiTranslate="{{'jobmatchApp.IstituitionSectorType.' + sponsoringInstitution.istituitionSector}}">{{sponsoringInstitution.istituitionSector}}</span>
+                        <span *ngIf="sponsoringInstitution.city" style="font-size: 1.5rem; font-weight: 350; color: gray;">&middot; {{ sponsoringInstitution.city }}</span>
+                        <span *ngIf="sponsoringInstitution.country" style="font-size: 1.5rem; font-weight: 350; color: gray;">&middot; {{('jobmatchApp.Country.' + sponsoringInstitution.country) | translate}}</span>
+                    </div>
+                 	<br>
+                    <dl class="row-md jh-entity-details" style="column-count: 2">
+                        <dd *ngIf="sponsoringInstitution.istituitionType">
+                            <fa-icon [icon]="'university'"></fa-icon>
+                            <span jhiTranslate="{{'jobmatchApp.IstituitionType.' + sponsoringInstitution.istituitionType}}">{{sponsoringInstitution.istituitionType}}</span>
+                        </dd>
+                        <dd *ngIf="sponsoringInstitution.foundationDate">
+                            <fa-icon [icon]="'calendar'"></fa-icon>
+                            <span>{{sponsoringInstitution.foundationDate | date: 'dd/MM/yyyy' }}</span>
+                        </dd>
+                        <dd *ngIf="sponsoringInstitution.vatNumber">
+                            <fa-icon [icon]="'credit-card'"></fa-icon>
+                            <span>{{sponsoringInstitution.vatNumber}}</span>
+                        </dd>
+                        <dd *ngIf="sponsoringInstitution.email">
+                            <fa-icon [icon]="'envelope'"></fa-icon>
+                            <span>{{sponsoringInstitution.email}}</span>
+                        </dd>
+                        <dd *ngIf="sponsoringInstitution.phone">
+                            <fa-icon [icon]="'phone'"></fa-icon>
+                            <span>{{sponsoringInstitution.phone}}</span>
+                        </dd>
+                        <dd *ngIf="sponsoringInstitution.mobilePhone">
+                            <fa-icon [icon]="'mobile'"></fa-icon>
+                            <span>{{sponsoringInstitution.mobilePhone}}</span>
+                        </dd>
+                        <dd
+                            *ngIf="sponsoringInstitution.city || sponsoringInstitution.region ||
+                             sponsoringInstitution.country || sponsoringInstitution.cap || sponsoringInstitution.province">
+                            <fa-icon [icon]="'map'"></fa-icon>
+                            <span *ngIf="sponsoringInstitution.city">{{ sponsoringInstitution.city }}</span>
+                            <span *ngIf="sponsoringInstitution.cap">&middot; {{ sponsoringInstitution.cap }}</span>
+                            <span *ngIf="sponsoringInstitution.province">&middot; {{sponsoringInstitution.province}}</span>
+                            <span *ngIf="sponsoringInstitution.region"> &middot; {{ sponsoringInstitution.region }}</span>
+                            <span *ngIf="sponsoringInstitution.country">&middot; {{('jobmatchApp.Country.' + sponsoringInstitution.country) | translate}}</span>
+                        </dd>
+                        <dd *ngIf="sponsoringInstitution.streetAddress">
+                            <fa-icon [icon]="'road'"></fa-icon>
+                            <span>{{sponsoringInstitution.streetAddress}}</span>
+                        </dd>
+                    </dl>
+                </div>
+                <hr>
+                <div class="bottom-section">
+                    <div class="note-candidato" *ngIf="sponsoringInstitution.istituitionDescription">
+                        <div><b jhiTranslate="jobmatchApp.sponsoringInstitution.istituitionDescription">Copany Description</b></div>
+                        <p>{{sponsoringInstitution.istituitionDescription}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="no-padding-l-md col-md-3 col-12">
+     <div class="card section shadow-sm">
+         <span class="text-center" style="font-size: 1.5rem; font-weight: 350; color: gray;"
+             jhiTranslate="jobmatchApp.jobOffer.home.title">Job Offers</span>
+         <ng-container *ngIf="! jobOffers || jobOffers.length == 0">
+             <i jhiTranslate="jobmatchApp.company.noJobOffersListed">Nessuna offerta di lavoro</i>
+         </ng-container>
+         <ng-container *ngIf="jobOffers && jobOffers.length > 0">
+             <div class="card border-light rounded shadow-sm mb-2"
+                 *ngFor="let jobOffer of jobOffers;trackBy: trackById">
+                 <div class="card-body">
+                     <h5 class="card-title">{{jobOffer.jobTitle}}</h5>
+                     <p class="card-text">{{jobOffer.jobShortDescription}}</p>
+                     <div class="row">
+                         <div class="col card-text text-muted">
+                             <p *ngIf="jobOffer.jobCity || jobOffer.jobCountry">
+                                 {{jobOffer.jobCity}} {{('jobmatchApp.Country.' + jobOffer.jobCountry) | translate}}
+                             </p>
+                             <fa-icon [icon]="'clock'"></fa-icon>
+                             {{jobOffer.timePassed}}
+                         </div>
+                         <div class="col card-text text-right align-text-bottom">
+                             <button type="submit" [routerLink]="['/job-offer', jobOffer.id, 'view' ]"
+                                 class="btn btn-outline-primary ">
+                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                             </button>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </ng-container>
+     </div>
+    </div>
+</div>
+
+<div class="col">
+    <button *ngIf="showBackBtn" type="button" (click)="previousState()" class="btn btn-info">
+        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+</div>

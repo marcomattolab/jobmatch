@@ -1,0 +1,25 @@
+{
+    "jobmatchApp": {
+        "SkillLevelType": {
+            "null": "",
+            "BEGINNER": "Principiante",
+            "MEDIUM": "Intermedio",
+            "HIGTH": "Avanzato",
+            "EXPERT": "Esperto",
+            "OTHER": {
+                "null": "",
+                "BEGINNER": "Principiante",
+                "MEDIUM": "Intermedio",
+                "HIGTH": "Avanzato",
+                "EXPERT": "Esperto"
+            },
+            "LANGUAGE": {
+                "null": "",
+                "BEGINNER": "Conoscenza base",
+                "MEDIUM": "Conoscenza lavorativa limitata",
+                "HIGTH": "Conoscenza professionale",
+                "EXPERT": "Conoscenza madrelingua o bilingue"
+            }
+        }
+    }
+}

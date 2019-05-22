@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="appliedJob">
+            <h2><span jhiTranslate="jobmatchApp.appliedJob.detail.title">Applied Job</span> {{appliedJob.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jobmatchApp.appliedJob.createdBy">Created By</span></dt>
+                <dd>
+                    <span>{{appliedJob.createdBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.appliedJob.lastModifiedBy">Last Modified By</span></dt>
+                <dd>
+                    <span>{{appliedJob.lastModifiedBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.appliedJob.createdDate">Created Date</span></dt>
+                <dd>
+                    <span>{{appliedJob.createdDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.appliedJob.lastModifiedDate">Last Modified Date</span></dt>
+                <dd>
+                    <span>{{appliedJob.lastModifiedDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.appliedJob.appliedJobFeedback">Applied Job Feedback</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'jobmatchApp.AppliedJobFeedback.' + appliedJob.appliedJobFeedback}}">{{appliedJob.appliedJobFeedback}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.appliedJob.candidate">Candidate</span></dt>
+                <dd>
+                    <div *ngIf="appliedJob.candidateId">
+                        <a [routerLink]="['/candidate', appliedJob.candidateId, 'view']">{{appliedJob.candidateId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.appliedJob.jobOffer">Job Offer</span></dt>
+                <dd>
+                    <div *ngIf="appliedJob.jobOfferId">
+                        <a [routerLink]="['/job-offer', appliedJob.jobOfferId, 'view']">{{appliedJob.jobOfferId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/applied-job', appliedJob.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+{
+    "jobmatchApp": {
+        "AppliedJobFeedback": {
+            "null": "",
+            "INSUFFICIENT": "INSUFFICIENT",
+            "FAIRLY_GOOD": "FAIRLY_GOOD",
+            "GOOD": "GOOD",
+            "EXCELLENT": "EXCELLENT"
+        }
+    }
+}

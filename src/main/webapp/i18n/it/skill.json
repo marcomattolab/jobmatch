@@ -1,0 +1,28 @@
+{
+    "jobmatchApp": {
+        "skill": {
+            "home": {
+                "title": "Skills",
+                "createLabel": "Genera un nuovo Skill",
+                "createOrEditLabel": "Genera o modifica un Skill"
+            },
+            "created": "&Egrave; stato generato un nuovo Skill con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Skill identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Skill con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare la competenza {{ id }}?"
+            },
+            "detail": {
+                "title": "Skill"
+            },
+            "createdBy": "Created By",
+            "lastModifiedBy": "Last Modified By",
+            "createdDate": "Created Date",
+            "lastModifiedDate": "Last Modified Date",
+            "level": "Livello",
+            "proficNumberOfYear": "Anni di Esperienza",
+            "skillTag": "Nome",
+            "candidate": "Candidate"
+        }
+    }
+}

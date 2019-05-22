@@ -1,0 +1,25 @@
+{
+    "jobmatchApp": {
+        "SkillLevelType": {
+            "null": "",
+            "BEGINNER": "Beginner",
+            "MEDIUM": "Medium",
+            "HIGTH": "High",
+            "EXPERT": "Expert",
+            "OTHER": {
+                "null": "",
+                "BEGINNER": "Beginner",
+                "MEDIUM": "Medium",
+                "HIGTH": "High",
+                "EXPERT": "Expert"
+            },
+            "LANGUAGE": {
+                "null": "",
+                "BEGINNER": "Elementary proficiency",
+                "MEDIUM": "Limited working proficiency",
+                "HIGTH": "Professional working proficiency",
+                "EXPERT": "Native or bilingual proficiency"
+            }
+        }
+    }
+}

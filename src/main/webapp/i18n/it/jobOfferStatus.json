@@ -1,0 +1,10 @@
+{
+    "jobmatchApp": {
+        "JobOfferStatus": {
+            "null": "",
+            "DRAFT": "Bozza",
+            "ACTIVE": "Attiva",
+            "ENDED": "Conclusa"
+        }
+    }
+}

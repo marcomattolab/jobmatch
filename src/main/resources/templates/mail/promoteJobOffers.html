@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="#{email.appliedToCompany.title}">JHipster activation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" th:href="@{|${baseUrl}/favicon.ico|}" />
+</head>
+
+<body>
+    <span th:text="${obj.messageFromSender}">
+        Content
+    </span>
+    </br></br>
+    <table border="1" cellpadding="2">
+        <tr>
+            <th>COMPANY NAME</th>
+            <th>JOB TITLE</th>
+            <th>JOB DESCRIPTION</th>
+        </tr>
+        <tr th:each="jobOffer : ${obj.jobOffersDetail}">
+            <td><a th:href="@{|${baseUrl}/#/company/${jobOffer.getCompanyId()}|}" th:text="${jobOffer.getCompanyName()}">name</a></td>
+            <td><a th:href="@{|${baseUrl}/#/job-offer/${jobOffer.getId()}/view|}" th:text="${jobOffer.getJobTitle()}">title</a></td>
+            <td th:text="${jobOffer.getJobShortDescription()}">description</td>
+        </tr>
+    </table>
+</body>
+
+</html>

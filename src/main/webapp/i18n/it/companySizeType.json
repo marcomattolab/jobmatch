@@ -1,0 +1,10 @@
+{
+    "jobmatchApp": {
+        "CompanySizeType": {
+            "SMALL": "Piccola",
+            "MEDIUM": "Media",
+            "BIG": "Grande",
+            "INSTITUTION": "Ente o Universita'"
+        }
+    }
+}

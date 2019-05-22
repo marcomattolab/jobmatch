@@ -1,0 +1,34 @@
+{
+    "jobmatchApp": {
+        "project": {
+            "home": {
+                "title": "Progetti",
+                "createLabel": "Nuovo Progetto",
+                "editLabel": "Modifica Progetto",
+                "createOrEditLabel": "Genera o modifica un Progetto"
+            },
+            "created": "&Egrave; stato generato un nuovo Progetto con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato il Progetto identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato il Progetto con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare il Progetto {{ id }}?"
+            },
+            "detail": {
+                "title": "Progetto"
+            },
+            "createdBy": "Created By",
+            "lastModifiedBy": "Last Modified By",
+            "createdDate": "Created Date",
+            "lastModifiedDate": "Last Modified Date",
+            "title": "Titolo",
+            "description": "Descrizione",
+            "startDate": "Data Inizio",
+            "status": "Stato",
+            "endDate": "Data Fine",
+            "jobOffer": "Offerta Di Lavoro",
+            "company": "Azienda",
+            "sector": "Settore",
+            "noJobOffersListed": "Nessuna Offerta di Lavoro"
+        }
+    }
+}

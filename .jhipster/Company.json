@@ -1,0 +1,172 @@
+{
+    "name": "Company",
+    "fields": [
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "lastModifiedBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "lastModifiedDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "companyName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength",
+                "required"
+            ],
+            "fieldValidateRulesMaxlength": 255
+        },
+        {
+            "fieldName": "companyDescription",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "companySize",
+            "fieldType": "CompanySizeType",
+            "fieldValues": "SMALL,MEDIUM,BIG,INSTITUTION"
+        },
+        {
+            "fieldName": "companyType",
+            "fieldType": "CompanyType",
+            "fieldValues": "PRIVATE,PUBLIC,NO_PROFIT,ONG,SELF_EMPLOYED,ASSOCIATION,INSTITUTION,AUTHORITY,AGENCY,CHARITY"
+        },
+        {
+            "fieldName": "numberOfEmployee",
+            "fieldType": "NumberOfEmployees",
+            "fieldValues": "FROM_1_TO_9,FROM_10_TO_19,FROM_20_TO_49,FROM_50_TO_99,FROM_100_TO_499,FROM_500_TO_999,FROM_1000_TO_1499,FROM_1500_TO_1999,FROM_2000_TO_2499,FROM_2500_TO_4999,FROM_5000_TO_9999,MORE_THAN_10000"
+        },
+        {
+            "fieldName": "streetAddress",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "foundationDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "vatNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "pattern",
+                "required"
+            ],
+            "fieldValidateRulesPattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+        },
+        {
+            "fieldName": "phone",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "mobilePhone",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "country",
+            "fieldType": "Country",
+            "fieldValues": "IT,AF,AL,DZ,AD,AO,AI,AQ,AG,AN,SA,AR,AM,AW,AU,AT,AZ,BS,BH,BD,BB,BE,BZ,BJ,BM,BT,BY,BO,BA,BW,BR,BN,BG,BF,BI,KH,CM,CA,CV,TD,CL,CN,CY,CO,CG,KR,KP,CR,CI,HR,CU,DK,DM,EC,EG,SV,AE,ER,EE,ET,RU,FJ,PH,FI,FR,GA,GM,GE,GS,DE,GH,JM,JP,GI,DJ,JO,GR,GD,GL,GP,GU,GT,GG,GN,GQ,GW,GY,GF,HT,HM,HN,HK,IN,ID,IR,IQ,IE,IS,BV,CX,NF,IM,AX,KY,CC,KM,CK,FK,FO,PN,SB,TC,VI,VG,IL,JE,KZ,KE,KG,KI,KO,KW,LA,LS,LV,LB,LR,LY,LI,LT,LU,MO,MK,MG,MW,MY,MV,ML,MT,MP,MA,MH,MQ,MR,MU,YT,MX,MD,MC,MN,ME,MS,MZ,MM,NA,NR,NP,NI,NE,NG,NU,NO,NC,NZ,OM,NL,CB,PK,PW,PA,PG,PY,PE,PF,PL,PT,PR,QA,GB,CZ,CF,DO,CD,SK,RE,RO,RW,EH,KN,LC,PM,VC,WS,AS,SM,SH,SN,RS,CS,SC,SL,SG,SY,SI,SO,ES,LK,US,FM,VA,ZA,SD,SS,SR,SJ,SE,CH,SZ,ST,TJ,TW,TZ,TF,IO,PS,TH,TL,TG,TK,TO,TT,TN,TR,TM,TV,UA,UG,HU,UY,UZ,VU,VE,VN,WF,YE,ZM,ZW,OO"
+        },
+        {
+            "fieldName": "region",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "province",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "city",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "cap",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 20
+        },
+        {
+            "fieldName": "urlSite",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "pattern"
+            ],
+            "fieldValidateRulesPattern": "^www.[^@\\s]+\\.[^@\\s]+$"
+        },
+        {
+            "fieldName": "enabled",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "user",
+            "otherEntityRelationshipName": "company",
+            "relationshipName": "user",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "companySkill",
+            "otherEntityRelationshipName": "company",
+            "relationshipName": "skill"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "companySector",
+            "otherEntityRelationshipName": "company",
+            "relationshipName": "sector",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "sponsoringInstitution",
+            "otherEntityRelationshipName": "company",
+            "relationshipName": "sponsoringInstitution",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "companySector",
+            "otherEntityRelationshipName": "company",
+            "relationshipName": "sectors",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20190315085236",
+    "javadoc": "Entity Company",
+    "entityTableName": "company",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

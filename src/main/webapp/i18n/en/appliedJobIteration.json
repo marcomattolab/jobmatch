@@ -1,0 +1,28 @@
+{
+    "jobmatchApp": {
+        "appliedJobIteration": {
+            "home": {
+                "title": "Applied Job Iterations",
+                "createLabel": "Create a new Applied Job Iteration",
+                "createOrEditLabel": "Create or edit a Applied Job Iteration"
+            },
+            "created": "A new Applied Job Iteration is created with identifier {{ param }}",
+            "updated": "A Applied Job Iteration is updated with identifier {{ param }}",
+            "deleted": "A Applied Job Iteration is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Applied Job Iteration {{ id }}?"
+            },
+            "detail": {
+                "title": "Applied Job Iteration"
+            },
+            "createdBy": "Created By",
+            "lastModifiedBy": "Last Modified By",
+            "createdDate": "Created Date",
+            "lastModifiedDate": "Last Modified Date",
+            "iterationDate": "Iteration Date",
+            "iterationType": "Iteration Type",
+            "iterationNote": "Iteration Note",
+            "appliedJob": "Applied Job"
+        }
+    }
+}

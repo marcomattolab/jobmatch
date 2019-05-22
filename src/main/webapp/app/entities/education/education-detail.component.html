@@ -1,0 +1,69 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="education">
+            <h2><span jhiTranslate="jobmatchApp.education.detail.title">Education</span> {{education.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jobmatchApp.education.createdBy">Created By</span></dt>
+                <dd>
+                    <span>{{education.createdBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.education.lastModifiedBy">Last Modified By</span></dt>
+                <dd>
+                    <span>{{education.lastModifiedBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.education.createdDate">Created Date</span></dt>
+                <dd>
+                    <span>{{education.createdDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.education.lastModifiedDate">Last Modified Date</span></dt>
+                <dd>
+                    <span>{{education.lastModifiedDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.education.schoolName">School Name</span></dt>
+                <dd>
+                    <span>{{education.schoolName}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.education.fieldOfStudy">Field Of Study</span></dt>
+                <dd>
+                    <span>{{education.fieldOfStudy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.education.description">Description</span></dt>
+                <dd>
+                    <span>{{education.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.education.startDate">Start Date</span></dt>
+                <dd>
+                    <span>{{education.startDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.education.endDate">End Date</span></dt>
+                <dd>
+                    <span>{{education.endDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.education.current">Current</span></dt>
+                <dd>
+                    <span>{{education.current}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.education.candidate">Candidate</span></dt>
+                <dd>
+                    <div *ngIf="education.candidateId">
+                        <a [routerLink]="['/candidate', education.candidateId, 'view']">{{education.candidateId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/education', education.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

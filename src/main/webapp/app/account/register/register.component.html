@@ -1,0 +1,337 @@
+	<div class="row justify-content-center">
+		<div class="col-md-8 text-center">
+			<h1 *ngIf="hasRoleCandidate()" jhiTranslate="global.menu.account.registerCandidate">Register Candidate</h1>
+			<h1 *ngIf="hasRoleCompany()" jhiTranslate="global.menu.account.registerCompany">Register Company</h1>
+			<h1 *ngIf="hasRoleSponsoringInstitution()" jhiTranslate="global.menu.account.registerInstitution">Register Sponsoring Institution</h1>
+		</div>
+		<div class="col-md-8 ">
+			<div class="alert alert-success" *ngIf="success" jhiTranslate="register.messages.success">
+				<strong>Registration saved!</strong> Please check your email for confirmation.
+			</div>
+
+			<div class="alert alert-danger" *ngIf="error" jhiTranslate="register.messages.error.fail">
+				<strong>Registration failed!</strong> Please try again later.
+			</div>
+
+			<div class="alert alert-danger" *ngIf="errorUserExists" jhiTranslate="register.messages.error.userexists">
+				<strong>Login name already registered!</strong> Please choose
+				another one.
+			</div>
+
+			<div class="alert alert-danger" *ngIf="errorEmailExists" jhiTranslate="register.messages.error.emailexists">
+				<strong>Email is already in use!</strong> Please choose another one.
+			</div>
+
+			<div class="alert alert-danger" *ngIf="doNotMatch" jhiTranslate="global.messages.error.dontmatch">The password
+				and its confirmation do not match!</div>
+		</div>
+	</div>
+
+	<div class="row justify-content-center">
+		<div class="col-md-8">
+			<form name="form" role="form" (ngSubmit)="register()" #registerForm="ngForm" *ngIf="!success">
+
+				<div class="card section shadow-sm">
+					<div class="card-body">
+						<div>
+							<h3 hiTranslate="global.form.accountInfo">Dati Account</h3>
+						</div>
+						<hr/>
+						<div class="row form-group">
+							<div class="col-md-6 col-12">
+								<label class="form-control-label" for="firstName" jhiTranslate="settings.form.firstname">First Name</label> 
+								<input type="text" class="form-control" id="firstName" name="firstName" placeholder="{{'settings.form.firstname.placeholder' | translate}}"
+									[(ngModel)]="registerAccount.firstName" minlength=1 maxlength=50 #firstNameInput="ngModel" required>
+								<div *ngIf="firstNameInput.dirty && firstNameInput.invalid">
+									<small class="form-text text-danger" *ngIf="firstNameInput.errors.required" jhiTranslate="settings.messages.validate.firstname.required">
+										Your first name is required. 
+									</small> 
+									<small class="form-text text-danger" *ngIf="firstNameInput.errors.minlength" jhiTranslate="settings.messages.validate.firstname.minlength">
+										Your first name is required to be at least 1 character. 
+									</small> 
+									<small class="form-text text-danger" *ngIf="firstNameInput.errors.maxlength" jhiTranslate="settings.messages.validate.firstname.maxlength">
+										Your first name cannot be longer than 50 characters. 
+									</small>
+								</div>
+							</div>
+							<div class="col-md-6 col-12">
+								<label class="form-control-label" for="lastName" jhiTranslate="settings.form.lastname">Last Name</label> 
+								<input type="text" class="form-control" id="lastName" name="lastName" placeholder="{{'settings.form.lastname.placeholder' | translate}}"
+									[(ngModel)]="registerAccount.lastName" minlength=1 maxlength=50 #lastNameInput="ngModel" required>
+								<div *ngIf="lastNameInput.dirty && lastNameInput.invalid">
+									<small class="form-text text-danger" *ngIf="lastNameInput.errors.required" 
+										jhiTranslate="settings.messages.validate.lastname.required">
+										Your last name is required. 
+									</small> 
+									<small class="form-text text-danger" *ngIf="lastNameInput.errors.minlength"
+										jhiTranslate="settings.messages.validate.lastname.minlength">
+										Your last name is required to be at least 1 character. 
+									</small> 
+									<small
+										class="form-text text-danger" *ngIf="lastNameInput.errors.maxlength"
+										jhiTranslate="settings.messages.validate.lastname.maxlength">
+										Your last name cannot be longer than 50 characters. 
+									</small>
+								</div>
+							</div>
+						</div>
+					
+						<div class="row form-group">
+							<div class="col-md-6 col-12">
+								<label class="form-control-label" for="login"
+									jhiTranslate="global.form.username">Username</label> 
+									<input type="text" class="form-control"
+									[(ngModel)]="registerAccount.login" id="login" name="login"
+									#login="ngModel" placeholder="{{'global.form.username.placeholder' | translate}}"
+									required minlength="1" maxlength="50" pattern="^[_.@A-Za-z0-9-]*$">
+								<div *ngIf="login.dirty && login.invalid">
+									<small class="form-text text-danger" *ngIf="login.errors.required"
+										jhiTranslate="register.messages.validate.login.required">
+										Your username is required. 
+									</small> 
+									<small class="form-text text-danger" *ngIf="login.errors.minlength"
+										jhiTranslate="register.messages.validate.login.minlength">
+										Your username is required to be at least 1 character. 
+									</small> 
+									<small class="form-text text-danger" *ngIf="login.errors.maxlength"
+										jhiTranslate="register.messages.validate.login.maxlength">
+										Your username cannot be longer than 50 characters. 
+									</small> 
+									<small class="form-text text-danger" *ngIf="login.errors.pattern"
+										jhiTranslate="register.messages.validate.login.pattern">
+										Your username can only contain letters and digits. 
+									</small>
+								</div>
+							</div>
+							<div class="col-md-6 col-12">
+								<label class="form-control-label" for="email"
+									jhiTranslate="global.form.email">Email</label> <input
+									type="email" class="form-control" id="email" name="email"
+									#email="ngModel"
+									placeholder="{{'global.form.email.placeholder' | translate}}"
+									[(ngModel)]="registerAccount.email" minlength=5 maxlength=254
+									email required>
+								<div *ngIf="email.dirty && email.invalid">
+									<small class="form-text text-danger"
+										*ngIf="email.errors.required"
+										jhiTranslate="global.messages.validate.email.required">
+										Your email is required. </small> <small class="form-text text-danger"
+										*ngIf="email.errors.invalid"
+										jhiTranslate="global.messages.validate.email.invalid">
+										Your email is invalid. </small> <small class="form-text text-danger"
+										*ngIf="email.errors.minlength"
+										jhiTranslate="global.messages.validate.email.minlength">
+										Your email is required to be at least 5 characters. </small> <small
+										class="form-text text-danger" *ngIf="email.errors.maxlength"
+										jhiTranslate="global.messages.validate.email.maxlength">
+										Your email cannot be longer than 100 characters. </small>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row form-group">
+							<div class="col-md-6 col-12">
+								<label class="form-control-label" for="password"
+									jhiTranslate="global.form.newpassword">New password</label> <input
+									type="password" class="form-control" id="password"
+									name="password" #password="ngModel"
+									placeholder="{{'global.form.newpassword.placeholder' | translate}}"
+									[(ngModel)]="registerAccount.password" minlength=4 maxlength=50
+									required>
+								<div *ngIf="password.dirty && password.invalid">
+									<small class="form-text text-danger"
+										*ngIf="password.errors.required"
+										jhiTranslate="global.messages.validate.newpassword.required">
+										Your password is required. </small> <small
+										class="form-text text-danger" *ngIf="password.errors.minlength"
+										jhiTranslate="global.messages.validate.newpassword.minlength">
+										Your password is required to be at least 4 characters. </small> <small
+										class="form-text text-danger" *ngIf="password.errors.maxlength"
+										jhiTranslate="global.messages.validate.newpassword.maxlength">
+										Your password cannot be longer than 50 characters. </small>
+								</div>
+								<jhi-password-strength-bar
+									[passwordToCheck]="registerAccount.password"></jhi-password-strength-bar>
+							</div>
+							<div class="col-md-6 col-12">
+								<label class="form-control-label" for="confirmPassword"
+									jhiTranslate="global.form.confirmpassword">New password
+									confirmation</label> 
+									<input type="password" class="form-control"
+									id="confirmPassword" name="confirmPassword"
+									#confirmPasswordInput="ngModel"
+									placeholder="{{'global.form.confirmpassword.placeholder' | translate}}"
+									[(ngModel)]="confirmPassword" minlength=4 maxlength=50 required>
+								<div
+									*ngIf="confirmPasswordInput.dirty && confirmPasswordInput.invalid">
+									<small class="form-text text-danger"
+										*ngIf="confirmPasswordInput.errors.required"
+										jhiTranslate="global.messages.validate.confirmpassword.required">
+										Your confirmation password is required. </small> <small
+										class="form-text text-danger"
+										*ngIf="confirmPasswordInput.errors.minlength"
+										jhiTranslate="global.messages.validate.confirmpassword.minlength">
+										Your confirmation password is required to be at least 4
+										characters. </small> <small class="form-text text-danger"
+										*ngIf="confirmPasswordInput.errors.maxlength"
+										jhiTranslate="global.messages.validate.confirmpassword.maxlength">
+										Your confirmation password cannot be longer than 50 characters.
+									</small>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="card section shadow-sm" *ngIf="hasRoleCompany()">
+<!-- 					<div class="card-header"> -->
+<!-- 						<span jhiTranslate="global.form.companyInfo" class="card-title">Dati della tua azienda</span> -->
+<!-- 					</div> -->
+					<div class="card-body">
+						<div>
+							<h3 hiTranslate="global.form.companyInfo">Dati della tua azienda</h3>
+						</div>
+						<hr/>
+					
+						<div class="row form-group">
+							 <div class="col-md-9 col-12">
+			                    <label class="form-control-label" jhiTranslate="jobmatchApp.company.companyName" for="field_companyName">Company Name</label>
+			                    <input type="text" class="form-control" name="companyName" id="field_companyName"
+			                        [(ngModel)]="registerAccount.companyName" #companyName="ngModel" required maxlength="255"/>
+			                    <div *ngIf="companyName.dirty && companyName.invalid">
+			                        <small class="form-text text-danger"
+			                        [hidden]="!companyName?.errors?.required" jhiTranslate="entity.validation.required">
+			                        This field is required.
+			                        </small>
+			                        <small class="form-text text-danger"
+			                        [hidden]="!companyName?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 255 }">
+			                        This field cannot be longer than 255 characters.
+			                        </small>
+			                    </div>
+			                </div>
+			               	<div class="col-md-3 col-12">
+			                    <label class="form-control-label" jhiTranslate="jobmatchApp.company.foundationDate" for="field_foundationDate">Foundation Date</label>
+			                    <div class="input-group">
+			                        <input id="field_foundationDate" type="text" class="form-control" name="foundationDate" ngbDatepicker  #foundationDateDp="ngbDatepicker" [(ngModel)]="registerAccount.foundationDate"/>
+			                        <span class="input-group-append">
+			                            <button type="button" class="btn btn-secondary" (click)="foundationDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+			                        </span>
+			                    </div>
+                			</div>
+                		</div>
+                			
+			            <div class="form-group">
+			                  <label class="form-control-label" jhiTranslate="jobmatchApp.company.companyDescription" for="field_companyDescription">Company Description</label>
+			                  <textarea class="form-control" name="companyDescription" id="field_companyDescription"
+			                        [(ngModel)]="registerAccount.companyDescription" ></textarea>
+			            </div>
+			            
+			            <div class="row form-group">
+				            <div class="col-md-4 col-12">
+			                    <label class="form-control-label" jhiTranslate="jobmatchApp.company.country" for="field_country">Country</label>
+			                    <select class="form-control" name="country" [(ngModel)]="registerAccount.country" id="field_country" >
+	                           		 <option *ngFor="let country of countries" [value]="country">{{('jobmatchApp.Country.' + country) | translate}}</option>
+	                       		</select>
+			                </div>
+			                <div class="col-md-4 col-12">
+                    			<label class="form-control-label" jhiTranslate="jobmatchApp.company.vatNumber" for="field_vatNumber">Vat Number</label>
+                    			<input type="text" class="form-control" name="vatNumber" id="field_vatNumber"
+                        			[(ngModel)]="registerAccount.vatNumber" #vatNumber="ngModel" pattern="^[0-9]{11}$"/>
+                       		    <div [hidden]="!(vatNumber?.dirty && vatNumber?.invalid)">
+				                    <small class="form-text text-danger"
+				                    [hidden]="!vatNumber?.errors?.required" jhiTranslate="entity.validation.required">
+				                    This field is required.
+				                    </small>
+				                    <small class="form-text text-danger"
+				                        [hidden]="!vatNumber?.errors?.pattern" jhiTranslate="entity.validation.vatNumberPattern">
+				                        This field should follow pattern for "Vat".
+				                    </small>
+				            	</div>
+                			</div>
+							<div class="col-md-4 col-12">
+			                    <label class="form-control-label" jhiTranslate="jobmatchApp.company.phone" for="field_phone">Phone</label>
+			                    <input type="text" class="form-control" name="phone" id="field_phone"
+			                        [(ngModel)]="registerAccount.phone"  #phone="ngModel" pattern="^[0-9+ ]{8,15}$"/>
+				                <div [hidden]="!(phone?.dirty && phone?.invalid)">
+				                    <small class="form-text text-danger"
+				                    [hidden]="!phone?.errors?.required" jhiTranslate="entity.validation.required">
+				                    This field is required.
+				                    </small>
+				                    <small class="form-text text-danger"
+				                        [hidden]="!phone?.errors?.pattern" jhiTranslate="entity.validation.phonePattern">
+				                        This field should follow pattern for "Phone".
+				                    </small>
+				            	</div>
+							</div>
+                		</div>
+                		
+			            <div class="row form-group">
+	                    	<div class="col-md-6 col-12 component-autocomplete">
+	                            <label jhiTranslate="jobmatchApp.company.sector" for="field_sector">Sector</label>
+	                               	<input id="companySector" name="companySector" type="text" class="form-control"
+	                               				[ngbTypeahead]="searchCompanySector"
+	                               (selectItem)="onSelectCompanySector($event)" #companySectorTypeahead="ngbTypeahead"
+	                               (focus)="companySectorFocus$.next($event.target.value)" (click)="companySectorClick$.next($event.target.value)">
+	                          </div>
+                		    <div class="col-md-6 col-12">
+			                    <label class="form-control-label" jhiTranslate="jobmatchApp.company.companyType" for="field_companyType">Company Type</label>
+			                    <select class="form-control" name="companyType" [(ngModel)]="registerAccount.companyType" id="field_companyType" >
+			                        <option value="PRIVATE">{{'jobmatchApp.CompanyType.PRIVATE' | translate}}</option>
+			                        <option value="PUBLIC">{{'jobmatchApp.CompanyType.PUBLIC' | translate}}</option>
+			                        <option value="NO_PROFIT">{{'jobmatchApp.CompanyType.NO_PROFIT' | translate}}</option>
+			                        <option value="ONG">{{'jobmatchApp.CompanyType.ONG' | translate}}</option>
+			                        <option value="SELF_EMPLOYED">{{'jobmatchApp.CompanyType.SELF_EMPLOYED' | translate}}</option>
+			                        <option value="ASSOCIATION">{{'jobmatchApp.CompanyType.ASSOCIATION' | translate}}</option>
+			                        <option value="INSTITUTION">{{'jobmatchApp.CompanyType.INSTITUTION' | translate}}</option>
+			                        <option value="AUTHORITY">{{'jobmatchApp.CompanyType.AUTHORITY' | translate}}</option>
+			                        <option value="CHARITY">{{'jobmatchApp.CompanyType.CHARITY' | translate}}</option>
+			                    </select>
+			                </div>
+                		</div>
+			                
+			            <div class="row form-group">
+			             
+			                <div class="col-md-6 col-12">
+			                	<label class="form-control-label" jhiTranslate="jobmatchApp.company.companySize" for="field_companySize">Company Size</label>
+			                    <select class="form-control" name="companySize" [(ngModel)]="registerAccount.companySize" id="field_companySize"  (selectItem)="onSelectCompanySize($event)">
+			                        <option value="SMALL">{{'jobmatchApp.CompanySizeType.SMALL' | translate}}</option>
+			                        <option value="MEDIUM">{{'jobmatchApp.CompanySizeType.MEDIUM' | translate}}</option>
+			                        <option value="BIG">{{'jobmatchApp.CompanySizeType.BIG' | translate}}</option>
+ 				                    <option value="INSTITUTION">{{'jobmatchApp.CompanySizeType.INSTITUTION' | translate}}</option>
+			                    </select>
+			                </div>
+			                <div class="col-md-6 col-12">
+			                    <label class="form-control-label" jhiTranslate="jobmatchApp.company.numberOfEmployee" for="field_numberOfEmployee">Number Of Employee</label>
+			                    <select class="form-control" name="numberOfEmployee" [(ngModel)]="registerAccount.numberOfEmployee" id="field_numberOfEmployee" [disabled]="!registerAccount.companySize || registerAccount.companySize==='INSTITUTION'">
+			                     	<option value=""></option>
+			                        <option value="FROM_1_TO_9" *ngIf="registerAccount.companySize==='SMALL'">{{'jobmatchApp.NumberOfEmployees.FROM_1_TO_9' | translate}}</option>
+			                        <option value="FROM_10_TO_19" *ngIf="registerAccount.companySize==='SMALL'">{{'jobmatchApp.NumberOfEmployees.FROM_10_TO_19' | translate}}</option>
+			                        <option value="FROM_20_TO_49" *ngIf="registerAccount.companySize==='MEDIUM'">{{'jobmatchApp.NumberOfEmployees.FROM_20_TO_49' | translate}}</option>
+			                        <option value="FROM_50_TO_99" *ngIf="registerAccount.companySize==='MEDIUM'">{{'jobmatchApp.NumberOfEmployees.FROM_50_TO_99' | translate}}</option>
+			                        <option value="FROM_100_TO_499" *ngIf="registerAccount.companySize==='MEDIUM' || registerAccount.companySize==='BIG'">{{'jobmatchApp.NumberOfEmployees.FROM_100_TO_499' | translate}}</option>
+			                        <option value="FROM_500_TO_999" *ngIf="registerAccount.companySize==='MEDIUM' || registerAccount.companySize==='BIG'">{{'jobmatchApp.NumberOfEmployees.FROM_500_TO_999' | translate}}</option>
+			                        <option value="FROM_1000_TO_1499" *ngIf="registerAccount.companySize==='BIG'">{{'jobmatchApp.NumberOfEmployees.FROM_1000_TO_1499' | translate}}</option>
+			                        <option value="FROM_1500_TO_1999" *ngIf="registerAccount.companySize==='BIG'">{{'jobmatchApp.NumberOfEmployees.FROM_1500_TO_1999' | translate}}</option>
+			                        <option value="FROM_2000_TO_2499" *ngIf="registerAccount.companySize==='BIG'">{{'jobmatchApp.NumberOfEmployees.FROM_2000_TO_2499' | translate}}</option>
+			                        <option value="FROM_2500_TO_4999" *ngIf="registerAccount.companySize==='BIG'">{{'jobmatchApp.NumberOfEmployees.FROM_2500_TO_4999' | translate}}</option>
+			                        <option value="FROM_5000_TO_9999" *ngIf="registerAccount.companySize==='BIG'">{{'jobmatchApp.NumberOfEmployees.FROM_5000_TO_9999' | translate}}</option>
+			                        <option value="MORE_THAN_10000" *ngIf="registerAccount.companySize==='BIG'">{{'jobmatchApp.NumberOfEmployees.MORE_THAN_10000' | translate}}</option>
+			                    </select>
+			                </div>
+		                </div>
+		                
+		                 <div class="row form-group">
+			                <div class="col-md-4 col-12">
+			                </div>
+			             </div>
+		                
+					</div>
+				</div>
+				<br>
+				
+				<button type="submit" [disabled]="registerForm.form.invalid"
+					class="btn btn-primary" jhiTranslate="register.form.button">Register</button>
+			</form>
+			<br>
+		</div>
+	</div>

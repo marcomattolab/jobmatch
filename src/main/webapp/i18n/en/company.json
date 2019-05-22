@@ -1,0 +1,55 @@
+{
+	"jobmatchApp": {
+		"company": {
+			"home": {
+				"title": "Companies",
+				"searchCompanyTitle": "Search Companies",
+				"createLabel": "New Company",
+				"createOrEditLabel": "Create or edit a Company"
+			},
+			"created": "A new Company is created with identifier {{ param }}",
+			"updated": "A Company is updated with identifier {{ param }}",
+			"deleted": "A Company is deleted with identifier {{ param }}",
+			"delete": {
+				"question": "Are you sure you want to delete Company {{ id }}?"
+			},
+			"detail": {
+				"title": "Company"
+			},
+			"createdBy": "Created By",
+			"lastModifiedBy": "Last Modified By",
+			"createdDate": "Created Date",
+			"lastModifiedDate": "Last Modified Date",
+			"companyName": "Company Name",
+			"companyDescription": "Company Description",
+			"companySize": "Company Size",
+			"companyType": "Company Type",
+			"numberOfEmployee": "Number Of Employee",
+			"streetAddress": "Street Address",
+			"address": "Address",
+			"picture": "Picture",
+			"foundationDate": "Foundation Date",
+			"vatNumber": "Vat Number",
+			"email": "Email",
+			"phone": "Phone",
+			"mobilePhone": "Mobile Phone",
+			"country": "Country",
+			"region": "Region",
+			"province": "Province",
+			"city": "City",
+			"cap": "Cap",
+			"urlSite": "Url Site",
+			"enabled": "Enabled",
+			"user": "User",
+			"sector": "Sector",
+			"noJobOffersListed": "No job offer listed",
+			"noSkillsListed": "Skills not specified",
+			"suggestedCompanies": "Companies",
+			"suggestedCompaniesDescription": "that may interest you",
+			"noSuggestedCompanies": "Add skills to your profile to view suggestions for companies that suit you",
+			"searchForMoreCompanies": "Search for more Companies",
+			"applyed": "Applied",
+			"apply": "Apply"
+		}
+	}
+}

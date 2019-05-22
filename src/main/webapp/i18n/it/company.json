@@ -1,0 +1,55 @@
+{
+	"jobmatchApp": {
+		"company": {
+			"home": {
+				"title": "Aziende",
+				"searchCompanyTitle": "Cerca Aziende",
+				"createLabel": "Nuova Azienda",
+				"createOrEditLabel": "Genera o modifica un'Azienda"
+			},
+			"created": "&Egrave; stato generato un nuovo Company con identificatore {{ param }}",
+			"updated": "&Egrave; stato aggiornato Company identificato da {{ param }}",
+			"deleted": "&Egrave; stato eliminato Company con identificatore {{ param }}",
+			"delete": {
+				"question": "Sei sicuro di volere eliminare Company {{ id }}?"
+			},
+			"detail": {
+				"title": "Azienda"
+			},
+			"createdBy": "Created By",
+			"lastModifiedBy": "Last Modified By",
+			"createdDate": "Created Date",
+			"lastModifiedDate": "Last Modified Date",
+			"companyName": "Nome Azienda",
+			"companyDescription": "Descrizione Azienda",
+			"companySize": "Dimensione",
+			"companyType": "Tipologia",
+			"numberOfEmployee": "Numero di dipendenti",
+			"streetAddress": "Via",
+			"address": "Indirizzo",
+			"picture": "Immagine",
+			"foundationDate": "Data Fondazione",
+			"vatNumber": "P.IVA",
+			"email": "Email",
+			"phone": "Telefono",
+			"mobilePhone": "Cellulare",
+			"country": "Nazione",
+			"region": "Regione",
+			"province": "Pronicia",
+			"city": "Citta'",
+			"cap": "Cap",
+			"urlSite": "Sito Web",
+			"enabled": "Abilitato",
+			"user": "Utente",
+			"sector": "Settore",
+			"noJobOffersListed": "Nessuna Offerta di Lavoro",
+			"noSkillsListed": "Competenze non specificate",
+			"suggestedCompanies": "Aziende",
+			"suggestedCompaniesDescription": "suggerite sulla base del tuo profilo",
+			"noSuggestedCompanies": "Aggiungi competenze al tuo profilo per visualizzare suggerimenti sulle aziende adatte a te",
+			"searchForMoreCompanies": "Cerca altre aziende",
+			"applyed": "Sei candidato a questa azienda",
+			"apply": "Candidati"
+		}
+	}
+}

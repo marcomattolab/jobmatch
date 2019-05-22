@@ -1,0 +1,78 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="jobmatchApp.companySector.home.title">Company Sectors</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-company-sector" [routerLink]="['/company-sector/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="jobmatchApp.companySector.home.createLabel">
+            Create new Company Sector
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="companySectors">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdDate"><span jhiTranslate="entity.created">Created</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastModifiedDate"><span jhiTranslate="entity.lastModified">Last Modified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!-- <th jhiSortBy="createdBy"><span jhiTranslate="jobmatchApp.companySector.createdBy">Created By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastModifiedBy"><span jhiTranslate="jobmatchApp.companySector.lastModifiedBy">Last Modified By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdDate"><span jhiTranslate="jobmatchApp.companySector.createdDate">Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastModifiedDate"><span jhiTranslate="jobmatchApp.companySector.lastModifiedDate">Last Modified Date</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+            <th jhiSortBy="code"><span jhiTranslate="jobmatchApp.companySector.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="descriptionEN"><span jhiTranslate="jobmatchApp.companySector.descriptionEN">Description EN</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="descriptionIT"><span jhiTranslate="jobmatchApp.companySector.descriptionIT">Description IT</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let companySector of companySectors ;trackBy: trackId">
+                <td>{{companySector.id}}</td>
+                <td>{{companySector.createdDate | date:'medium'}} ({{companySector.createdBy}})</td>
+                <td><span>{{companySector.lastModifiedDate | date:'medium'}}</span> <span *ngIf="companySector.lastModifiedBy">({{companySector.lastModifiedBy}})</span></td>
+                <!-- <td>{{companySector.createdBy}}</td>
+                <td>{{companySector.lastModifiedBy}}</td>
+                <td>{{companySector.createdDate | date:'medium'}}</td>
+                <td>{{companySector.lastModifiedDate | date:'medium'}}</td> -->
+                <td>{{companySector.code}}</td>
+                <td>{{companySector.descriptionEN}}</td>
+                <td>{{companySector.descriptionIT}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <!-- <button type="submit"
+                                [routerLink]="['/company-sector', companySector.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button> -->
+                        <button type="submit"
+                                [routerLink]="['/company-sector', companySector.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'company-sector', { outlets: { popup: companySector.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="companySectors && companySectors.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

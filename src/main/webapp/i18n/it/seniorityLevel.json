@@ -1,0 +1,10 @@
+{
+    "jobmatchApp": {
+        "SeniorityLevel": {
+            "null": "",
+            "BEGINNER": "Principiante",
+            "MEDIUM": "Intermedio",
+            "EXPERT": "Esperto"
+        }
+    }
+}

@@ -1,0 +1,97 @@
+{
+	"jobmatchApp": {
+		"candidate": {
+			"home": {
+				"title": "Candidates",
+				"searchCandidateTitle": "Search Candidates",
+				"createLabel": "New Candidate",
+				"createOrEditLabel": "Create or edit a Candidate"
+			},
+			"created": "A new Candidate is created with identifier {{ param }}",
+			"updated": "A Candidate is updated with identifier {{ param }}",
+			"deleted": "A Candidate is deleted with identifier {{ param }}",
+			"delete": {
+				"question": "Are you sure you want to delete Candidate {{ id }}?"
+			},
+			"detail": {
+				"title": "Candidate"
+			},
+			"anagrafica": {
+				"title": "Edit Personal Informations"
+			},
+			"jobExperienceDetail": {
+				"newTitle": "New Job Experience",
+				"editTitle": "Edit Job Experience"
+			},
+			"educationDetail": {
+				"newTitle": "New Education",
+				"editTitle": "Edit Education"
+			},
+			"certificationDetail": {
+				"newTitle": "New Certification",
+				"editTitle": "Edit Certification"
+			},
+			"skillDetail": {
+				"newTitle": "New Skill",
+				"editTitle": "Edit Skill"
+			},
+			"languageDetail": {
+				"newTitle": "New Language",
+				"editTitle": "Edit Language"
+			},
+			"cvDetail": {
+				"newTitle": "New CV",
+				"editTitle": "Edit CV"
+			},
+			"createdBy": "Created By",
+			"lastModifiedBy": "Last Modified By",
+			"createdDate": "Created Date",
+			"lastModifiedDate": "Last Modified Date",
+			"lastName": "Last Name",
+			"firstName": "First Name",
+			"gender": "Gender",
+			"birthday": "Birthday",
+			"streetAddress": "Street Address",
+			"picture": "Picture",
+			"email": "Email",
+			"phone": "Phone",
+			"mobilePhone": "Mobile Phone",
+			"country": "Country",
+			"region": "Region",
+			"province": "Province",
+			"city": "City",
+			"cap": "Cap",
+			"cv": "My CV",
+			"note": "Candidate's note",
+			"noteCandidate": "Candidate's note (Italian)",
+			"noteENCandidate": "Candidate's note (English)",
+			"enabled": "Enabled",
+			"user": "User",
+			"document": "Documents",
+			"jobExperience": "Job Experiences",
+			"education": "Educations",
+			"certification": "Certifications",
+			"skill": "Skills",
+			"language": "Languages",
+			"addJobExperience": "Add Job Experience",
+			"addEducation": "Add Education",
+			"addCertification": "Add Certification",
+			"addSkill": "Add Skill",
+			"addLanguage": "Add Language",
+			"noJobExperiencesListed": "The candidate do not have job experiences or they haven't been specified.",
+			"noEducationsListed": "The candidate do not have educations or they haven't been specified.",
+			"noCertificationsListed": "The candidate do not have certifications or they haven't been specified.",
+			"noSkillsListed": "The candidate do not have skills or they haven't been specified.",
+			"noLanguagesListed": "The candidate do not have languages or they haven't been specified.",
+			"at": "at",
+			"from": "From",
+			"to": "to",
+			"current": "Current",
+			"profileStrength": "Profile Strength",
+			"searchForMoreCandidates": "Search More Candidates",
+            "suggestedCandidates": "Candidates",
+			"suggestedCandidatesDescription": "suggested based on your company's skills",
+			"noSuggestedCandidates": "Add skills to your profile to view suggestions for candidate that suit you"
+		}
+	}
+}

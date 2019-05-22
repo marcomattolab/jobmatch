@@ -1,0 +1,9 @@
+{
+    "jobmatchApp": {
+        "ProjectStatus": {
+            "null": "",
+            "ACTIVE": "Active",
+            "ENDED": "Ended"
+        }
+    }
+}

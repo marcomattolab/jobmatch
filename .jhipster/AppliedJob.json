@@ -1,0 +1,75 @@
+{
+    "name": "AppliedJob",
+    "fields": [
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "lastModifiedBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "lastModifiedDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "appliedJobFeedback",
+            "fieldType": "AppliedJobFeedback",
+            "fieldValues": "INSUFFICIENT,FAIRLY_GOOD,GOOD,EXCELLENT"
+        },
+        {
+            "fieldName": "feedbackNote",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "appiedJobStatus",
+            "fieldType": "AppiedJobStatus",
+            "fieldValues": "NEW,EVALUATION_IN_PROGRESS,APPROVED,REJECTED"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "appliedJobIteration",
+            "otherEntityRelationshipName": "appliedJob",
+            "relationshipName": "appliedJobIteration"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "candidate",
+            "otherEntityRelationshipName": "appliedJob",
+            "relationshipName": "candidate",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "jobOffer",
+            "otherEntityRelationshipName": "appliedJob",
+            "relationshipName": "jobOffer",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190326155932",
+    "javadoc": "Entity Applied Job (Candidatura)",
+    "entityTableName": "applied_job",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

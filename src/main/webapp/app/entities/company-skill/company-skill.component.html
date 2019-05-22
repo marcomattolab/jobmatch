@@ -1,0 +1,84 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="jobmatchApp.companySkill.home.title">Company Skills</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-company-skill" [routerLink]="['/company-skill/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="jobmatchApp.companySkill.home.createLabel">
+            Create new Company Skill
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="companySkills">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdBy"><span jhiTranslate="jobmatchApp.companySkill.createdBy">Created By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastModifiedBy"><span jhiTranslate="jobmatchApp.companySkill.lastModifiedBy">Last Modified By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdDate"><span jhiTranslate="jobmatchApp.companySkill.createdDate">Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastModifiedDate"><span jhiTranslate="jobmatchApp.companySkill.lastModifiedDate">Last Modified Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="level"><span jhiTranslate="jobmatchApp.companySkill.level">Level</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="proficNumberOfYear"><span jhiTranslate="jobmatchApp.companySkill.proficNumberOfYear">Profic Number Of Year</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="skillTagId"><span jhiTranslate="jobmatchApp.companySkill.skillTag">Skill Tag</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="companyId"><span jhiTranslate="jobmatchApp.companySkill.company">Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let companySkill of companySkills ;trackBy: trackId">
+                <td><a [routerLink]="['/company-skill', companySkill.id, 'view' ]">{{companySkill.id}}</a></td>
+                <td>{{companySkill.createdBy}}</td>
+                <td>{{companySkill.lastModifiedBy}}</td>
+                <td>{{companySkill.createdDate | date:'medium'}}</td>
+                <td>{{companySkill.lastModifiedDate | date:'medium'}}</td>
+                <td jhiTranslate="{{'jobmatchApp.SkillLevelType.' + companySkill.level}}">{{companySkill.level}}</td>
+                <td jhiTranslate="{{'jobmatchApp.ProficNumberOfYear.' + companySkill.proficNumberOfYear}}">{{companySkill.proficNumberOfYear}}</td>
+                <td>
+                    <div *ngIf="companySkill.skillTagId">
+                        <a [routerLink]="['../skill-tag', companySkill.skillTagId , 'view' ]" >{{companySkill.skillTagId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="companySkill.companyId">
+                        <a [routerLink]="['../company', companySkill.companyId , 'view' ]" >{{companySkill.companyId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/company-skill', companySkill.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/company-skill', companySkill.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'company-skill', { outlets: { popup: companySkill.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="companySkills && companySkills.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

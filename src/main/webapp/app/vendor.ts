@@ -1,0 +1,162 @@
+/* after changing this file run 'npm run webpack:build' */
+/* tslint:disable */
+import '../content/scss/vendor.scss';
+
+// Imports all fontawesome core and solid icons
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+    faUser,
+    faSort,
+    faSortUp,
+    faSortDown,
+    faBirthdayCake,
+    faSync,
+    faStickyNote,
+    faGenderless,
+    faVenusMars,
+    faEye,
+    faCalendar,
+    faBan,
+    faPlusCircle,
+    faMap,
+    faMapMarkedAlt,
+    faTimes,
+    faTimesCircle,
+    faArrowLeft,
+    faSave,
+    faPlus,
+    faPencilAlt,
+    faBars,
+    faThList,
+    faUserPlus,
+    faRoad,
+    faTachometerAlt,
+    faHeart,
+    faList,
+    faBell,
+    faEnvelope,
+    faMobile,
+    faPhone,
+    faBook,
+    faHdd,
+    faFlag,
+    faWrench,
+    faClock,
+    faCloud,
+    faCoins,
+    faLayerGroup,
+    faSignOutAlt,
+    faSignInAlt,
+    faCalendarAlt,
+    faSearch,
+    faSearchPlus,
+    faTrashAlt,
+    faAsterisk,
+    faAngleDoubleDown,
+    faTasks,
+    faHome,
+    faBuilding,
+    faUniversity,
+    faCreditCard,
+    faUserCircle,
+    faUsers,
+    faBlog,
+    faUsersCog,
+    faTags,
+    faBoxes,
+    faEllipsisV,
+    faBriefcase,
+    faBusinessTime,
+    faFolderPlus,
+    faProjectDiagram,
+    faFileAlt,
+    faAddressCard,
+    faCaretDown,
+    faUndo,
+    faFileUpload,
+    faCheckCircle,
+    faCheck,
+    faInfoCircle,
+    faSitemap,
+    faClipboardCheck
+} from '@fortawesome/free-solid-svg-icons';
+// Adds the SVG icon to the library so you can use it in your page
+library.add(faUser);
+library.add(faAngleDoubleDown);
+library.add(faSort);
+library.add(faUndo);
+library.add(faSortUp);
+library.add(faPlusCircle);
+library.add(faEllipsisV);
+library.add(faCoins);
+library.add(faLayerGroup);
+library.add(faSortDown);
+library.add(faCalendar);
+library.add(faSync);
+library.add(faBlog);
+library.add(faEye);
+library.add(faCreditCard);
+library.add(faBirthdayCake);
+library.add(faBan);
+library.add(faCheck);
+library.add(faGenderless);
+library.add(faVenusMars);
+library.add(faMap);
+library.add(faEnvelope);
+library.add(faMobile);
+library.add(faPhone);
+library.add(faUsersCog);
+library.add(faStickyNote),
+library.add(faTimes);
+library.add(faTimesCircle);
+library.add(faArrowLeft);
+library.add(faSave);
+library.add(faPlus);
+library.add(faPencilAlt);
+library.add(faBars);
+library.add(faHome);
+library.add(faThList);
+library.add(faUserPlus);
+library.add(faRoad);
+library.add(faTachometerAlt);
+library.add(faHeart);
+library.add(faList);
+library.add(faBell);
+library.add(faTasks);
+library.add(faBook);
+library.add(faHdd);
+library.add(faFlag);
+library.add(faWrench);
+library.add(faClock);
+library.add(faCloud);
+library.add(faSignOutAlt);
+library.add(faSignInAlt);
+library.add(faCalendarAlt);
+library.add(faSearch);
+library.add(faSearchPlus);
+library.add(faTrashAlt);
+library.add(faAsterisk);
+library.add(faBuilding);
+library.add(faUniversity);
+library.add(faUserCircle);
+library.add(faUsers);
+library.add(faTags);
+library.add(faBoxes);
+library.add(faBriefcase);
+library.add(faBusinessTime);
+library.add(faFolderPlus);
+library.add(faProjectDiagram);
+library.add(faFileAlt);
+library.add(faAddressCard);
+library.add(faCaretDown);
+library.add(faFileUpload);
+library.add(faCheckCircle);
+library.add(faMapMarkedAlt);
+library.add(faInfoCircle);
+library.add(faSitemap);
+library.add(faClipboardCheck);
+
+
+
+// jhipster-needle-add-element-to-vendor - JHipster will add new menu items here

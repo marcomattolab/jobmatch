@@ -1,0 +1,61 @@
+{
+    "name": "AppliedJobIteration",
+    "fields": [
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "lastModifiedBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "lastModifiedDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "iterationDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "iterationType",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "iterationNote",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "appliedJob",
+            "otherEntityRelationshipName": "appliedJobIteration",
+            "relationshipName": "appliedJob",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190326155933",
+    "javadoc": "Entity Applied Job Iteration  (Iterazione Candidato-Azienda)",
+    "entityTableName": "applied_job_iteration",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

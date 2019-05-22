@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="companySkill">
+            <h2><span jhiTranslate="jobmatchApp.companySkill.detail.title">Company Skill</span> {{companySkill.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jobmatchApp.companySkill.createdBy">Created By</span></dt>
+                <dd>
+                    <span>{{companySkill.createdBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.companySkill.lastModifiedBy">Last Modified By</span></dt>
+                <dd>
+                    <span>{{companySkill.lastModifiedBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.companySkill.createdDate">Created Date</span></dt>
+                <dd>
+                    <span>{{companySkill.createdDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.companySkill.lastModifiedDate">Last Modified Date</span></dt>
+                <dd>
+                    <span>{{companySkill.lastModifiedDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.companySkill.level">Level</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'jobmatchApp.SkillLevelType.' + companySkill.level}}">{{companySkill.level}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.companySkill.proficNumberOfYear">Profic Number Of Year</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'jobmatchApp.ProficNumberOfYear.' + companySkill.proficNumberOfYear}}">{{companySkill.proficNumberOfYear}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.companySkill.skillTag">Skill Tag</span></dt>
+                <dd>
+                    <div *ngIf="companySkill.skillTagId">
+                        <a [routerLink]="['/skill-tag', companySkill.skillTagId, 'view']">{{companySkill.skillTagId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.companySkill.company">Company</span></dt>
+                <dd>
+                    <div *ngIf="companySkill.companyId">
+                        <a [routerLink]="['/company', companySkill.companyId, 'view']">{{companySkill.companyId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/company-skill', companySkill.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

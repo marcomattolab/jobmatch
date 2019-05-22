@@ -1,0 +1,68 @@
+{
+    "name": "Skill",
+    "fields": [
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "lastModifiedBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "lastModifiedDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "level",
+            "fieldType": "SkillLevelType",
+            "fieldValues": "BEGINNER,MEDIUM,HIGTH,EXPERT",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "proficNumberOfYear",
+            "fieldType": "ProficNumberOfYear",
+            "fieldValues": "ZERO_TO_ONE,ONE_TO_THREE,THREE_TO_FIVE,FIVE_TO_TEN,MORE_THAN_TEN"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "skillTag",
+            "otherEntityRelationshipName": "skill",
+            "relationshipName": "skillTag",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "candidate",
+            "otherEntityRelationshipName": "skill",
+            "relationshipName": "candidate",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190315085234",
+    "javadoc": "Candidate Skill",
+    "entityTableName": "skill",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,257 @@
+<div>
+	<jhi-alert></jhi-alert>
+
+	<div class="card shadow-sm">
+		<form role="form" novalidate (ngSubmit)="search()" #searchForm="ngForm">
+			<ngb-accordion #acc="ngbAccordion" activeIds="searchFiltersPanel">
+				<ngb-panel id="searchFiltersPanel">
+					<ng-template ngbPanelTitle>
+						<h3 id="page-heading">
+							<span jhiTranslate="jobmatchApp.candidate.home.searchCandidateTitle">Candidates</span>
+						</h3>
+					</ng-template>
+					<ng-template ngbPanelContent>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label jhiTranslate="jobmatchApp.candidate.lastName" for="lastName">lastName</label>
+									<input type="text" class="form-control" [(ngModel)]="filters.lastName"
+										name="lastName" id="field_lastName" maxlength="50" />
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label jhiTranslate="jobmatchApp.candidate.firstName"
+										for="firstName">firstName</label>
+									<input type="text" class="form-control" [(ngModel)]="filters.firstName"
+										name="firstName" id="field_firstName" maxlength="50" />
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="form-control-label" jhiTranslate="jobmatchApp.candidate.city"
+										for="field_city">City</label>
+									<input type="text" class="form-control" name="city"
+										[(ngModel)]="filters.currentJobCity" id="field_city" maxlength="50" />
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="form-control-label" jhiTranslate="jobmatchApp.candidate.country"
+										for="field_country">Country</label>
+									<select class="form-control" name="country" [(ngModel)]="filters.currentJobCountry"
+										id="field_country">
+										<option value="" label=""></option>
+										<option *ngFor="let country of countries" [value]="country">
+											{{('jobmatchApp.Country.' + country) | translate}}</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label jhiTranslate="jobmatchApp.jobExperience.jobTitle"
+										for="firstName">jobTitle</label>
+									<input type="text" class="form-control" [(ngModel)]="filters.currentJobTitle"
+										name="jobTitle" id="field_jobTitle" maxlength="100" />
+								</div>
+							</div>
+							<div class="col-md-6 form-group component-autocomplete">
+								<label jhiTranslate="jobmatchApp.candidate.skill" for="skill">Skill</label>
+								<input id="field_skillTagName" name="skillTagName" class="form-control" type="text"
+									[disabled]="filters.skillsTag && filters.skillsTag.length > 4" class="form-control"
+									[(ngModel)]="skillTagNameTemp" [ngbTypeahead]="searchSkills"
+									(selectItem)="onSelectSkillTag($event)" />
+								<ng-container *ngIf="filters.skillsTag && filters.skillsTag.length > 0">
+									<div class="p-2">
+										<div *ngFor="let skillTag of filters.skillsTag"
+											class="badge badge-pill badge-primary skill-tag">
+											<a class="btn-sm" style="color: white;">{{ skillTag.name }}
+											</a>
+											<a class="btn-sm btn-outline-primary btn-skill-tag-del"
+												(click)="removeSkillTag(skillTag)">
+												<fa-icon [icon]="'times-circle'"></fa-icon>
+											</a>
+										</div>
+									</div>
+								</ng-container>
+							</div>
+						</div>
+						<div class="form-group float-right">
+							<button class="btn btn-link" type="button" (click)="resetFilters()">
+								<span jhiTranslate="global.menu.search.clearfiltersLabel">Pulisci Filtri</span>
+							</button>
+							<button class="btn btn-primary" type="submit">
+								<fa-icon [icon]="'search'"></fa-icon>
+								<span jhiTranslate="global.menu.search.buttonLabel">Cerca</span>
+							</button>
+						</div>
+						<div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="showTable">
+							<label ngbButtonLabel class="btn btn-outline-secondary">
+								<input ngbButton type="radio" [value]="false" [disabled]="selectMode">
+								<fa-icon [icon]="'address-card'"></fa-icon>
+							</label>
+							<label ngbButtonLabel class="btn btn-outline-secondary">
+								<input ngbButton type="radio" [value]="true">
+								<fa-icon [icon]="'list'"></fa-icon>
+							</label>
+						</div>
+					</ng-template>
+				</ngb-panel>
+			</ngb-accordion>
+		</form>
+	</div>
+	<br>
+	<div class="card-columns" *ngIf="!showTable && candidates && !selectMode">
+		<div class="card section shadow-sm hand-pointer" *ngFor="let candidate of candidates ;trackBy: trackId"
+			[routerLink]="['/candidate', candidate.id ]">
+			<div class="row no-gutters">
+				<div class="col-md-3 ">
+					<img [src]="candidate.imageUrl | imageProfile: {role: 'ROLE_CANDIDATE', gender: candidate.gender}"
+						class="card-img profile-image-list rounded-circle">
+				</div>
+				<div class="col-md-9">
+					<div class="card-body">
+						<h5 class="card-title">{{candidate.lastName}} {{candidate.firstName}}</h5>
+						<div *ngIf="candidate.currentJobExperience" class="card-subtitle mb-2 text-muted">
+							<div class="row">
+								<div class="col-md-12" *ngIf="candidate.currentJobExperience">
+									<h6 class="card-subtitle mb-2 text-muted">
+										<span> {{ candidate.currentJobExperience.jobTitle }}</span>
+										<span *ngIf="candidate.currentJobExperience.companyName">
+											{{'jobmatchApp.candidate.at' | translate}}
+											{{ candidate.currentJobExperience.companyName }}</span>
+									</h6>
+									<h6 class="card-subtitle mb-2 text-muted">
+										<span class="card-subtitle mb-2 text-muted"
+											*ngIf="candidate.currentJobExperience.city">{{ candidate.currentJobExperience.city }}</span>
+										<span
+											*ngIf="candidate.currentJobExperience.country">{{('jobmatchApp.Country.' + candidate.currentJobExperience.country) | translate}}</span>
+									</h6>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 mt-2">
+				<ng-container *ngIf="candidate.skills && candidate.skills.length > 0">
+					<span *ngFor="let skill of filterSkill(candidate.skills)"
+						class="badge badge-pill badge-primary skill-tag">{{ skill.skillTagName }}</span>
+				</ng-container>
+				<div class="card-text">
+					<dl class="row-md jh-entity-details" style="column-count: 2">
+						<dd *ngIf="candidate.birthday" class="text-muted">
+							<fa-icon [icon]="'birthday-cake'"></fa-icon>
+							<small>{{ candidate.birthday | date: 'dd/MM/yyyy' }}</small>
+						</dd>
+						<dd *ngIf="candidate.email" class="text-muted">
+							<fa-icon [icon]="'envelope'"></fa-icon>
+							<small>
+								{{ candidate.email }}
+							</small>
+						</dd>
+						<dd *ngIf="candidate.mobilePhone" class="text-muted">
+							<fa-icon [icon]="'mobile'"></fa-icon>
+							<small>
+								{{ candidate.mobilePhone }}
+							</small>
+						</dd>
+						<dd *ngIf="candidate.phone" class="text-muted">
+							<fa-icon [icon]="'phone'"></fa-icon>
+							<small>
+								{{ candidate.phone }}
+							</small>
+						</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="table-responsive" *ngIf="selectMode || showTable && candidates">
+		<table class="table table-striped">
+			<thead>
+				<tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+					<th *ngIf="selectMode"><input type="checkbox" (change)="selectAll($event)" /></th>
+					<th jhiSortBy="lastName"><span jhiTranslate="jobmatchApp.candidate.lastName">Last Name</span>
+						<fa-icon [icon]="'sort'"></fa-icon>
+					</th>
+					<th jhiSortBy="firstName"><span jhiTranslate="jobmatchApp.candidate.firstName">First Name</span>
+						<fa-icon [icon]="'sort'"></fa-icon>
+					</th>
+
+					<th><span jhiTranslate="jobmatchApp.jobExperience.jobTitle">JobTitle</span></th>
+					<th jhiSortBy="birthday"><span jhiTranslate="jobmatchApp.candidate.birthday">Birthday</span>
+						<fa-icon [icon]="'sort'"></fa-icon>
+					</th>
+					<th jhiSortBy="email"><span jhiTranslate="jobmatchApp.candidate.email">Email</span>
+						<fa-icon [icon]="'sort'"></fa-icon>
+					</th>
+					<th jhiSortBy="phone"><span jhiTranslate="jobmatchApp.candidate.phone">Phone</span>
+						<fa-icon [icon]="'sort'"></fa-icon>
+					</th>
+					<th><span jhiTranslate="jobmatchApp.candidate.skill">Skills</span></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let candidate of candidates ;trackBy: trackId">
+					<td *ngIf="selectMode"><input type="checkbox" [(ngModel)]="candidate.selected"
+							[disabled]="alreadySelectedPreviously(candidate.id)" /></td>
+					<td>{{candidate.lastName}}</td>
+					<td>{{candidate.firstName}}</td>
+					<td>
+						<div *ngIf="candidate.currentJobExperience">
+							<span>{{ candidate.currentJobExperience.jobTitle }}</span>
+							<span *ngIf="candidate.currentJobExperience.companyName">
+								{{'jobmatchApp.candidate.at' | translate}}
+								{{ candidate.currentJobExperience.companyName }}</span>
+							<span
+								*ngIf="candidate.currentJobExperience.city">{{ candidate.currentJobExperience.city }}</span>
+							<span
+								*ngIf="candidate.currentJobExperience.country">{{('jobmatchApp.Country.' + candidate.currentJobExperience.country) | translate}}</span>
+						</div>
+					</td>
+					<td>{{candidate.birthday | date:'mediumDate'}}</td>
+					<td>{{candidate.email}}</td>
+					<td>{{candidate.phone}} {{candidate.mobilePhone}}</td>
+					<td>
+						<ng-container *ngIf="candidate.skills && candidate.skills.length > 0">
+							<span *ngFor="let skill of filterSkill(candidate.skills)"
+								class="badge badge-pill badge-primary skill-tag">{{ skill.skillTagName }}</span>
+						</ng-container>
+					</td>
+					<td class="text-right">
+						<div class="btn-group flex-btn-group-container">
+							<button type="submit" [routerLink]="['/candidate', candidate.id ]"
+								class="btn btn-info btn-sm">
+								<fa-icon [icon]="'eye'"></fa-icon>
+								<span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+							</button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<hr />
+	<div *ngIf="candidates && candidates.length">
+		<div class="row justify-content-center">
+			<jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage">
+			</jhi-item-count>
+		</div>
+		<div class="row justify-content-center">
+			<ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
+				[rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<div class="text-right">
+				<button *ngIf="selectMode" type="button" (click)="onSelectedModeSubmit()" class="btn btn-info">
+					<span>Conferma Selezione</span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

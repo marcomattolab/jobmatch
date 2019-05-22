@@ -1,0 +1,43 @@
+{
+    "jobmatchApp": {
+        "sponsoringInstitution": {
+            "home": {
+                "title": "Enti Promotori",
+                "createLabel": "Nuovo Ente Promotore",
+                "createOrEditLabel": "Genera o modifica un Ente Promotore"
+            },
+            "created": "&Egrave; stato generato un nuovo Ente Promotore con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato l'Ente Promotore identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato l'Ente Promotore con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare l'Ente Promotore {{ id }}?"
+            },
+            "detail": {
+                "title": "Ente Promotore"
+            },
+            "createdBy": "Created By",
+            "lastModifiedBy": "Last Modified By",
+            "createdDate": "Created Date",
+            "lastModifiedDate": "Last Modified Date",
+            "istituitionName": "Nome Ente",
+            "istituitionDescription": "Descrizione Ente",
+            "istituitionSector": "Settore Ente",
+            "istituitionType": "Tipologia Ente",
+            "streetAddress": "Via",
+            "picture": "Foto",
+            "foundationDate": "Date Fondazione",
+            "vatNumber": "P.Iva",
+            "email": "Email",
+            "phone": "Telefono",
+            "mobilePhone": "Cellulare",
+            "country": "Nazione",
+            "region": "Regione",
+            "province": "Provincia",
+            "city": "Citta'",
+            "cap": "Cap",
+            "urlSite": "Sito Web",
+            "enabled": "Attivo",
+            "user": "User"
+        }
+    }
+}

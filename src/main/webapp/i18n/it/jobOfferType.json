@@ -1,0 +1,9 @@
+{
+    "jobmatchApp": {
+        "JobOfferType": {
+            "null": "",
+            "JOB": "Offerta di Lavoro",
+            "STAGE": "Stage/Tirocinio"
+        }
+    }
+}

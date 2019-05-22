@@ -1,0 +1,681 @@
+@import 'bootstrap-variables';
+
+/* ==============================================================
+Bootstrap tweaks
+===============================================================*/
+
+$profile-image-size: 130px;
+$margin-top-jh-card: 21px;
+
+$footerHeight: 100px;
+$navbarHeight: 80px;
+
+body,
+h1,
+h2,
+h3,
+h4 {
+    font-weight: 300;
+}
+
+a {
+    color: #533f03;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #533f03;
+    font-weight: bold;
+    /* make sure browsers use the pointer cursor for anchors, even with no href */
+    cursor: pointer;
+}
+
+/* ==========================================================================
+Browser Upgrade Prompt
+========================================================================== */
+.browserupgrade {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+/* ==========================================================================
+Generic styles
+========================================================================== */
+
+/* Error highlight on input fields */
+.ng-valid[required],
+.ng-valid.required {
+    border-left: 5px solid green;
+}
+
+.ng-invalid:not(form) {
+    border-left: 5px solid red;
+}
+
+/* other generic styles */
+
+.jh-card {
+    padding: 1.5%;
+    margin-top: $margin-top-jh-card;
+    border: none;
+}
+
+.error {
+    color: white;
+    background-color: red;
+}
+
+.pad {
+    padding: 10px;
+}
+
+.w-40 {
+    width: 40% !important;
+}
+
+.w-60 {
+    width: 60% !important;
+}
+
+.break {
+    white-space: normal;
+    word-break: break-all;
+}
+
+.readonly {
+    background-color: #eee;
+    opacity: 1;
+}
+
+.footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.hand,
+[jhisortby] {
+    cursor: pointer;
+}
+
+/* ==========================================================================
+Custom alerts for notification
+========================================================================== */
+.alerts {
+    .alert {
+        text-overflow: ellipsis;
+        pre {
+            background: none;
+            border: none;
+            font: inherit;
+            color: inherit;
+            padding: 0;
+            margin: 0;
+        }
+        .popover pre {
+            font-size: 10px;
+        }
+    }
+    .toast {
+        position: fixed;
+        width: 100%;
+        &.left {
+            left: 5px;
+        }
+        &.right {
+            right: 5px;
+        }
+        &.top {
+            top: 55px;
+        }
+        &.bottom {
+            bottom: 55px;
+        }
+    }
+}
+
+@media screen and (min-width: 480px) {
+    .alerts .toast {
+        width: 50%;
+    }
+}
+
+/* ==========================================================================
+entity tables helpers
+========================================================================== */
+
+/* Remove Bootstrap padding from the element
+http://stackoverflow.com/questions/19562903/remove-padding-from-columns-in-bootstrap-3 */
+@mixin no-padding($side) {
+    @if $side == 'all' {
+        .no-padding {
+            padding: 0 !important;
+        }
+    } @else {
+        .no-padding-#{$side} {
+            padding-#{$side}: 0 !important;
+        }
+    }
+}
+@include no-padding('left');
+@include no-padding('right');
+@include no-padding('top');
+@include no-padding('bottom');
+@include no-padding('all');
+
+/* bootstrap 3 input-group 100% width
+http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
+.width-min {
+    width: 1% !important;
+}
+
+/* Makes toolbar not wrap on smaller screens
+http://www.sketchingwithcss.com/samplechapter/cheatsheet.html#right */
+.flex-btn-group-container {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+}
+
+/* ==========================================================================
+entity detail page css
+========================================================================== */
+.row.jh-entity-details > {
+    dd {
+        margin-bottom: 15px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .row.jh-entity-details > {
+        dt {
+            margin-bottom: 15px;
+        }
+        dd {
+            border-bottom: 1px solid #eee;
+            padding-left: 180px;
+            margin-left: 0;
+        }
+    }
+}
+
+/* ==========================================================================
+ui bootstrap tweaks
+========================================================================== */
+.nav,
+.pagination,
+.carousel,
+.panel-title a {
+    cursor: pointer;
+}
+
+.datetime-picker-dropdown > li.date-picker-menu div > table .btn-default,
+.uib-datepicker-popup > li > div.uib-datepicker > table .btn-default {
+    border: 0;
+}
+
+.datetime-picker-dropdown > li.date-picker-menu div > table:focus,
+.uib-datepicker-popup > li > div.uib-datepicker > table:focus {
+    outline: none;
+}
+
+.thread-dump-modal-lock {
+    max-width: 450px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.component-autocomplete .dropdown-menu {
+    width: 100%;
+    max-height: 350px; 
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.main-container {
+    min-height: calc(100vh - #{$navbarHeight} - #{$footerHeight} - 2px);
+	 > .jh-card {
+			margin-top: 11px;
+	    	margin-bottom: 10px;
+		}
+}
+
+@media only screen and (min-width: 600px) {
+    .main-container {
+        margin-right: 5%;
+        margin-left: 5%;
+    }
+
+    .no-padding-l-md {
+        padding-left: 0px;
+    }
+}
+
+@media only screen and (max-width: 599px) {
+    .mobile-hidden {
+        display: none;
+    }
+}
+
+.my-profile-main-container {
+    padding: 10px;
+}
+
+.bg-profile-image {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    background-image: url("../images/bg-profile-image.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.company-avatar-image {
+    background-image: url("../images/company-avatar.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.main-profile-image {
+    position: absolute;
+    top: 200px;
+    transform: translate(50%, -50%);
+    z-index: 1000;
+    width: 130px;
+    height: 130px;
+    background-color: white;
+    img {
+        width: 100%;
+        height: 100%;
+        border: 3px cornflowerblue solid;
+    }
+    input {
+        display:none;
+    }
+    a {
+        width: $profile-image-size;
+        height: $profile-image-size;
+        position: absolute;
+    }
+}
+
+.personal-info-actions {
+    text-align: right;
+    min-height: 30px;
+}
+
+.no-style-ul {
+    list-style-type:none;
+}
+
+.no-padding-left {
+    padding-left: 0px;
+}
+
+.add-section {
+    padding: 0px;
+    > ul {
+        display: inline-grid;
+        padding: 0px;
+        a {
+            text-align: left;
+        }
+    }
+}
+
+.vertical-align-middle {
+	top: 50%;
+	position: relative;
+	transform: translateY(-50%);
+}
+
+.section {
+    padding: 20px;
+    min-height: 200px;
+    margin-bottom: 20px;
+    ul {
+        list-style-type:none;
+        padding-left: 0px;
+    }
+}
+
+.min-height-80 {
+    min-height: 80px;
+}
+
+.padding-10 {
+    padding: 10px;
+}
+
+.hoverable:hover {
+    background-color: #f8f9fa; /*#b3ccff;*/
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.btn-show-on-hover {
+    .btn {
+        display: none;
+    }
+    &:hover {
+        .btn {
+            display: inline-block;
+        }
+    }
+}
+
+.skill-tag {
+	margin-right: 10px; 
+	margin-bottom: 10px;
+}
+
+.btn-skill-tag-del {
+	margin-left: -15px; 
+	margin-right: -8px; 
+	border-radius: 1.5em;
+}
+
+.hand-pointer:hover {
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 600px) {
+    .main-container-jobs-list {
+        height: calc(100vh - 140px);
+        overflow: hidden;
+    }
+    .jobs-offers-container {
+        > div {
+            height: 100%;
+            overflow-y: scroll;
+        }
+        height: calc(100vh - 200px)
+    }
+    .jobs-offer-filters-container {
+        height: 65px;
+    }
+}
+
+.jobs-offers-container {
+    .job-offer-item {
+        hr {
+            margin: 0px;
+        }
+        padding-top: 20px;
+        padding-left: 15px;
+        max-width: 100%;
+        border-bottom: 1px solid #e0e0d1;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .main-container-no-scroll {
+        height: calc(100vh - 140px);
+        overflow: hidden;
+    }
+    .job-offer-list-promote {
+        margin-top: 2px;
+        height: 100px;
+        > .col-12 > .row > div:first-child {
+            font-size: 20px;
+            margin-top: 15px;
+            height: 100px;
+            > .title {
+                margin-left: 10px;
+            }
+        }
+    }
+    .candidate-list-details {
+        height: 45px;
+        div {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+    }
+    .candidate-list {
+        height: calc(100vh - 330px)
+    }
+    .button-area {
+        height: 55px;
+        > .col {
+            height: 45px;
+            margin-top: 10px;
+        }
+    }
+}
+
+.jobs-offers-container {
+    .job-offer-item {
+        hr {
+            margin: 0px;
+        }
+        padding-top: 20px;
+        padding-left: 15px;
+        max-width: 100%;
+    }
+}
+
+.default-heights-complete {
+    min-height: auto !important;
+    max-height: auto !important;
+    height: auto !important;
+}
+
+.image-company-jobs {
+    width: 100%;
+}
+
+.max-width-70-perc {
+    max-width: 70%;
+}
+
+.max-width-100-perc {
+    max-width: 100%;
+}
+
+.image-company-jobs-item {
+    max-width: 100px;
+    max-height: auto;
+}
+
+.image-company-jobs-item-list {
+    width: auto;
+    max-height: 75px;
+}
+
+.image-job-offer-item {
+    width: auto;
+    max-height: 100px;
+}
+
+
+.card-job-offer-detail {
+    .image-company-jobs-item {
+        width: 80%;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+.job-offer-card-section {
+    margin-bottom: 10px;
+}
+
+.m-r-10 {
+    margin-right: 10px;
+}
+
+.circular--portrait {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.circular--portrait img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+
+@media only screen and (max-width: 599px) {
+	.profile-image-list {
+	    width: 50%;
+	}
+}
+/*.accordion #jobOfferSearchFiltersPanel-header > .btn {
+	width: 100%;
+}*/
+
+.accordion {
+	.card {
+	    overflow: visible;
+	}
+	.card-header {
+		padding: 0rem !important;
+		padding-top: 0.5rem !important;
+		
+		.btn {
+			text-align: left !important;
+			width: 100%;
+		}
+	 	.btn-link {
+			text-decoration: none !important
+        }
+    }
+}
+
+.tooltip-info {
+    min-width: 500px;
+    min-height: 100px;
+    text-align: justify;
+    margin: 2%;
+}
+
+.font-weight-bold-500 {
+    font-weight: 500 !important;
+}
+
+.font-weight-bold-400 {
+    font-weight: 400 !important;
+}
+
+@media only screen and (min-width: 600px) {
+	.candidate-card {
+		overflow: hidden;
+		min-height: 250px;
+		max-height: 250px;
+	}
+	.company-card {
+		overflow: hidden;
+		min-height: 250px;
+		max-height: 250px;
+	}
+	.joboffer-card {
+		overflow: hidden;
+		min-height: 250px;
+		max-height: 250px;
+    }
+    .suggested-candidate-card {
+        overflow: hidden;
+        min-height: 120px;
+        max-height: 120px;
+    }
+    .news-card {
+		overflow: hidden;
+		min-height: 260px;
+		max-height: 260px;
+    }
+}
+
+.card {
+    .shadow-sm.hand-pointer:hover {
+    	cursor: pointer;
+    	background-color: #f8f9fa;
+    	border-color: #b3ccff;
+    	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    	/*box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;*/
+    }
+    
+    .brief-news.hand-pointer:hover {
+    	cursor: pointer;
+    	border-color: #b3ccff;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 0.1rem 0.5rem !important;
+    	/*box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;*/
+	}
+}
+
+.job-offer-item.shadow-sm.hand-pointer:hover {
+	cursor: pointer;
+	background-color: #f8f9fa;
+	border: 2px solid #b3ccff !important;
+	border-color: #b3ccff;
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+	/*box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;*/
+}
+
+.job-offer-item-selected {
+	/* background-color: #dee2e6;*/
+	border: 2px solid #b3ccff !important;
+}
+
+.profile-image-menu{
+    width: $profile-image-size;
+    height: $profile-image-size;
+}
+
+
+.img-thumbnail {
+     background-color: transparent;
+}
+
+/* HIDE RADIO */
+.custom-image-radio [type=radio] { 
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+  
+  /* IMAGE STYLES */
+.custom-image-radio [type=radio] + img {
+    cursor: pointer;
+}
+  
+/* CHECKED STYLES */
+.custom-image-radio [type=radio]:checked + img {
+    outline: 2px solid #f00;
+}
+
+.footer {
+    height: 100px;
+    background-color: rgba(27, 24, 24, 0.37);
+}
+
+#footerContainer {
+    display: none;
+}
+
+
+/* jhipster-needle-scss-add-main JHipster will add new css style */

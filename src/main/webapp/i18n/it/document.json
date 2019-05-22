@@ -1,0 +1,29 @@
+{
+    "jobmatchApp": {
+        "document": {
+            "home": {
+                "title": "Documenti",
+                "createLabel": "Nuovo Documento",
+                "createOrEditLabel": "Genera o modifica un Documento"
+            },
+            "created": "&Egrave; stato generato un nuovo Documento con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato il Documento identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato il Documento con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare il documento {{ id }}?"
+            },
+            "detail": {
+                "title": "Document"
+            },
+            "createdBy": "Created By",
+            "lastModifiedBy": "Last Modified By",
+            "createdDate": "Created Date",
+            "lastModifiedDate": "Last Modified Date",
+            "documentType": "Tipologia",
+            "name": "Nome",
+            "content": "Contenuto",
+            "description": "Descrizione",
+            "candidate": "Candidato"
+        }
+    }
+}

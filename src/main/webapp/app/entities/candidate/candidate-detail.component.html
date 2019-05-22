@@ -1,0 +1,103 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="candidate">
+            <h2><span jhiTranslate="jobmatchApp.candidate.detail.title">Candidate</span> {{candidate.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jobmatchApp.candidate.createdBy">Created By</span></dt>
+                <dd>
+                    <span>{{candidate.createdBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.candidate.lastModifiedBy">Last Modified By</span></dt>
+                <dd>
+                    <span>{{candidate.lastModifiedBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.candidate.createdDate">Created Date</span></dt>
+                <dd>
+                    <span>{{candidate.createdDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.candidate.lastModifiedDate">Last Modified Date</span></dt>
+                <dd>
+                    <span>{{candidate.lastModifiedDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.candidate.lastName">Last Name</span></dt>
+                <dd>
+                    <span>{{candidate.lastName}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.candidate.firstName">First Name</span></dt>
+                <dd>
+                    <span>{{candidate.firstName}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.candidate.gender">Gender</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'jobmatchApp.GenderType.' + candidate.gender}}">{{candidate.gender}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.candidate.birthday">Birthday</span></dt>
+                <dd>
+                    <span>{{candidate.birthday}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.candidate.streetAddress">Street Address</span></dt>
+                <dd>
+                    <span>{{candidate.streetAddress}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.candidate.email">Email</span></dt>
+                <dd>
+                    <span>{{candidate.email}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.candidate.phone">Phone</span></dt>
+                <dd>
+                    <span>{{candidate.phone}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.candidate.mobilePhone">Mobile Phone</span></dt>
+                <dd>
+                    <span>{{candidate.mobilePhone}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.candidate.country">Country</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'jobmatchApp.Country.' + candidate.country}}">{{candidate.country}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.candidate.region">Region</span></dt>
+                <dd>
+                    <span>{{candidate.region}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.candidate.province">Province</span></dt>
+                <dd>
+                    <span>{{candidate.province}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.candidate.city">City</span></dt>
+                <dd>
+                    <span>{{candidate.city}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.candidate.cap">Cap</span></dt>
+                <dd>
+                    <span>{{candidate.cap}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.candidate.note">Note</span></dt>
+                <dd>
+                    <span>{{candidate.note}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.candidate.enabled">Enabled</span></dt>
+                <dd>
+                    <span>{{candidate.enabled}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.candidate.user">User</span></dt>
+                <dd>
+                    {{candidate.userId}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/candidate', candidate.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

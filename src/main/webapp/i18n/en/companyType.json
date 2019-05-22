@@ -1,0 +1,16 @@
+{
+    "jobmatchApp": {
+        "CompanyType": {
+            "null": "",
+            "PRIVATE": "Private",
+            "PUBLIC": "Public",
+            "NO_PROFIT": "No Profit",
+            "ONG": "ONG",
+            "SELF_EMPLOYED": "Self Employed",
+            "ASSOCIATION": "Association",
+            "INSTITUTION": "Institution",
+            "AUTHORITY": "Authority",
+            "CHARITY": "Charity"
+        }
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "jobmatchApp": {
+        "ProficNumberOfYear": {
+            "null": "",
+            "ZERO_TO_ONE": "Da 0 a 1 anno",
+            "ONE_TO_THREE": "Da 1 a 3 anni",
+            "THREE_TO_FIVE": "da 3 a 5 anni",
+            "FIVE_TO_TEN": "da 5 a 10 anni",
+            "MORE_THAN_TEN": "Oltre 10 anni"
+        }
+    }
+}

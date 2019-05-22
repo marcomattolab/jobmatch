@@ -1,0 +1,86 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="jobmatchApp.education.home.title">Educations</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-education" [routerLink]="['/education/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="jobmatchApp.education.home.createLabel">
+            Create new Education
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="educations">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdBy"><span jhiTranslate="jobmatchApp.education.createdBy">Created By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastModifiedBy"><span jhiTranslate="jobmatchApp.education.lastModifiedBy">Last Modified By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdDate"><span jhiTranslate="jobmatchApp.education.createdDate">Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastModifiedDate"><span jhiTranslate="jobmatchApp.education.lastModifiedDate">Last Modified Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="schoolName"><span jhiTranslate="jobmatchApp.education.schoolName">School Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="fieldOfStudy"><span jhiTranslate="jobmatchApp.education.fieldOfStudy">Field Of Study</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="description"><span jhiTranslate="jobmatchApp.education.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="startDate"><span jhiTranslate="jobmatchApp.education.startDate">Start Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="endDate"><span jhiTranslate="jobmatchApp.education.endDate">End Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="current"><span jhiTranslate="jobmatchApp.education.current">Current</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="candidateId"><span jhiTranslate="jobmatchApp.education.candidate">Candidate</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let education of educations ;trackBy: trackId">
+                <td><a [routerLink]="['/education', education.id, 'view' ]">{{education.id}}</a></td>
+                <td>{{education.createdBy}}</td>
+                <td>{{education.lastModifiedBy}}</td>
+                <td>{{education.createdDate | date:'medium'}}</td>
+                <td>{{education.lastModifiedDate | date:'medium'}}</td>
+                <td>{{education.schoolName}}</td>
+                <td>{{education.fieldOfStudy}}</td>
+                <td>{{education.description}}</td>
+                <td>{{education.startDate | date:'mediumDate'}}</td>
+                <td>{{education.endDate | date:'mediumDate'}}</td>
+                <td>{{education.current}}</td>
+                <td>
+                    <div *ngIf="education.candidateId">
+                        <a [routerLink]="['../candidate', education.candidateId , 'view' ]" >{{education.candidateId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/education', education.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/education', education.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'education', { outlets: { popup: education.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="educations && educations.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

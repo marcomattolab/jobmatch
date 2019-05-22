@@ -1,0 +1,49 @@
+{
+    "jobmatchApp": {
+        "education": {
+            "home": {
+                "title": "Educations",
+                "createLabel": "Create a new Education",
+                "createOrEditLabel": "Create or edit a Education"
+            },
+            "created": "A new Education is created with identifier {{ param }}",
+            "updated": "A Education is updated with identifier {{ param }}",
+            "deleted": "A Education is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Education {{ id }}?"
+            },
+            "detail": {
+                "title": "Education"
+            },
+            "createdBy": "Created By",
+            "lastModifiedBy": "Last Modified By",
+            "createdDate": "Created Date",
+            "lastModifiedDate": "Last Modified Date",
+            "schoolName": "School Name",
+            "schoolNamePlaceholder": "Es: Universita' degli Studi di Pavia",
+            "type": "Type",
+            "fieldOfStudy": "Field Of Study",
+            "fieldOfStudyPlaceholder": "Es: Master",
+            "description": "Description",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "graduaded": "Graduaded",
+            "current": "Current",
+            "candidate": "Candidate",
+            "expires": "Expires",
+            "educationType": "Education Type",
+            "education": {
+                "schoolName": "School Name",
+                "schoolNamePlaceholder": "Es: Universita' degli Studi di Pavia",
+                "fieldOfStudy": "Field Of Study",
+                "fieldOfStudyPlaceholder": "Es: Master"
+            },
+            "certification": {
+                "schoolName": "Organization emitter",
+                "schoolNamePlaceholder": "Es: Cisco",
+                "fieldOfStudy": "Name",
+                "fieldOfStudyPlaceholder": "Es: Certificazione Cisco CCNA Security"
+            }
+        }
+    }
+}

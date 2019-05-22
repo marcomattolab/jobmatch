@@ -1,0 +1,515 @@
+
+entity Candidate {
+    createdBy String maxlength(50),
+    lastModifiedBy String maxlength(50),
+    createdDate Instant,
+    lastModifiedDate Instant,
+    lastName String maxlength(50) required,
+	firstName String maxlength(50) required,
+    gender GenderType,
+	birthday LocalDate,
+    streetAddress String,
+    email String pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/) required,
+	phone String,
+	mobilePhone String,
+	country Country,
+	region String,
+	province String,
+	city String,
+	cap String,
+	note TextBlob,
+	noteEN TextBlob,
+	enabled Boolean
+}
+
+entity JobExperience {
+    createdBy String maxlength(50),
+    lastModifiedBy String maxlength(50),
+    createdDate Instant,
+    lastModifiedDate Instant,
+	jobTitle String required,
+	jobDescription TextBlob,
+	companyName String required,
+	city String,
+	country Country,
+	startDate LocalDate required,
+	endDate LocalDate
+	current Boolean,
+	enabled Boolean 
+}
+
+/**
+* Entity Education
+*/
+entity Education {
+	createdBy String maxlength(50),
+    lastModifiedBy String maxlength(50),
+    createdDate Instant,
+    lastModifiedDate Instant,
+	schoolName String required,
+    fieldOfStudy String required,
+    description TextBlob,
+	startDate LocalDate required,
+	endDate LocalDate,
+    current Boolean,
+	expires Boolean,
+	educationType EducationType
+}
+
+/**
+* Candidate Skill
+*/
+entity Skill {
+  	createdBy String maxlength(50),
+    lastModifiedBy String maxlength(50),
+    createdDate Instant,
+    lastModifiedDate Instant,
+	level SkillLevelType required, 
+    proficNumberOfYear ProficNumberOfYear
+}
+
+/**
+* Skill Tag
+*/
+entity SkillTag {
+  	createdBy String maxlength(50),
+    lastModifiedBy String maxlength(50),
+    createdDate Instant,
+    lastModifiedDate Instant,
+	name String required
+    type SkillType,
+}
+
+/**
+* Entity Company
+*/
+entity Company {
+    createdBy String maxlength(50),
+    lastModifiedBy String maxlength(50),
+    createdDate Instant,
+    lastModifiedDate Instant,
+    companyName String maxlength(255) required,
+	companyDescription TextBlob,
+    companySize CompanySizeType,
+    companyType CompanyType,
+    numberOfEmployee NumberOfEmployees,
+    streetAddress String,
+    foundationDate LocalDate,
+	vatNumber String,
+    email String pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/) required,
+    phone String,
+	mobilePhone String,
+	country Country,
+	region String,
+	province String,
+	city String,
+	cap String maxlength(20),
+    urlSite String pattern(/^www.[^@\s]+\.[^@\s]+$/),
+	enabled Boolean
+}
+
+/**
+* Entity Company Sector
+*/
+entity CompanySector {
+ 	createdBy String maxlength(50),
+    lastModifiedBy String maxlength(50),
+    createdDate Instant,
+    lastModifiedDate Instant,
+	code String,
+	descriptionIT String,
+	descriptionEN String
+}
+
+/**
+* Entity Sponsoring Institution
+*/
+entity SponsoringInstitution {
+    createdBy String maxlength(50),
+    lastModifiedBy String maxlength(50),
+    createdDate Instant,
+    lastModifiedDate Instant,
+	istituitionName String maxlength(255) required,
+	istituitionDescription TextBlob,
+    istituitionSector IstituitionSectorType,
+    istituitionType IstituitionType,
+	streetAddress String,
+    foundationDate LocalDate,
+    vatNumber String,
+    email String pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/) required,
+    phone String,
+	mobilePhone String,
+	country Country,
+	region String,
+	province String,
+	city String,
+	cap String maxlength(20),
+    urlSite String pattern(/^www.[^@\s]+\.[^@\s]+$/),
+	enabled Boolean 
+}
+
+/**
+* Entity Document
+*/
+entity Document {
+ 	createdBy String maxlength(50),
+    lastModifiedBy String maxlength(50),
+    createdDate Instant,
+    lastModifiedDate Instant,
+    documentType DocumentType,
+	name String required maxlength(50),
+    content Blob required,
+    description String maxlength(255)
+}
+
+/**
+* Entity Project
+*/
+entity Project {
+    createdBy String maxlength(50),
+    lastModifiedBy String maxlength(50),
+    createdDate Instant,
+    lastModifiedDate Instant,
+	title String required,
+	description TextBlob,
+	startDate LocalDate required,
+	status ProjectStatus,
+	endDate LocalDate
+}
+
+/**
+* Entity Job Offer
+*/
+entity JobOffer {
+	createdBy String maxlength(50),
+    lastModifiedBy String maxlength(50),
+    createdDate Instant,
+    lastModifiedDate Instant,
+	startDate LocalDate required,
+	jobTitle String required,
+	jobShortDescription String required required,
+	jobDescription TextBlob,
+	jobOfferType JobOfferType,
+	responsibilitiesDescription TextBlob,
+	experiencesDescription TextBlob,
+	attributesDescription TextBlob,
+	jobFunctions String,
+	jobCity String,
+	jobCountry Country,
+	employmentType EmploymentType,
+	seniorityLevel SeniorityLevel,
+    salaryOffered String,
+	status JobOfferStatus,
+	enabled Boolean
+}
+
+/**
+* Entity Job Offer Skill
+*/
+entity JobOfferSkill {
+	createdBy String maxlength(50),
+    lastModifiedBy String maxlength(50),
+    createdDate Instant,
+    lastModifiedDate Instant,
+	level SkillLevelType, 
+    proficNumberOfYear ProficNumberOfYear
+}
+
+/**
+* Entity Company Skill
+*/
+entity CompanySkill {
+	createdBy String maxlength(50),
+    lastModifiedBy String maxlength(50),
+    createdDate Instant,
+    lastModifiedDate Instant,
+	level SkillLevelType, 
+    proficNumberOfYear ProficNumberOfYear
+}
+
+
+/**
+* Entity Applied Job (Candidatura)
+*/
+entity AppliedJob {
+	createdBy String maxlength(50),
+    lastModifiedBy String maxlength(50),
+    createdDate Instant,
+    lastModifiedDate Instant,
+	appliedJobFeedback AppliedJobFeedback,
+	feedbackNote String,
+	appiedJobStatus AppiedJobStatus
+}
+
+/**
+* Entity Applied Job Iteration  (Iterazione Candidato-Azienda)
+*/
+entity AppliedJobIteration {
+	createdBy String maxlength(50),
+    lastModifiedBy String maxlength(50),
+    createdDate Instant,
+    lastModifiedDate Instant,
+	iterationDate Instant,
+	iterationType String,
+	iterationNote TextBlob
+}
+
+
+/**
+* Entity Direct Application (Candidatura diretta verso Azienda)
+*/
+entity DirectApplication {
+	createdBy String maxlength(50),
+    lastModifiedBy String maxlength(50),
+    createdDate Instant,
+    lastModifiedDate Instant,
+	appiedJobStatus AppiedJobStatus
+}
+
+/**
+* Enum Gender Type
+*/
+enum GenderType {
+	MALE, 
+	FEMALE
+}
+
+/**
+* Enum Document Type
+*/
+enum DocumentType {
+	CV, OTHER
+}
+
+/**
+* Enum Skill Type
+*/
+enum SkillType {
+	LANGUAGE,
+    OTHER
+}
+
+/**
+* Enum Skill Level Type
+*/
+enum SkillLevelType {
+	BEGINNER, 
+	MEDIUM,
+	HIGTH,
+	EXPERT
+}
+
+/**
+* Enum Proficient Number of Year
+*/
+enum ProficNumberOfYear {
+	ZERO_TO_ONE,
+	ONE_TO_THREE,
+	THREE_TO_FIVE,
+    FIVE_TO_TEN,
+    MORE_THAN_TEN
+}
+
+/**
+* Enum Company Type
+*/
+enum CompanyType {
+	PRIVATE,
+	PUBLIC,
+	NO_PROFIT,
+	ONG,
+	SELF_EMPLOYED,
+	ASSOCIATION,
+	INSTITUTION,
+	AUTHORITY,
+	AGENCY,
+	CHARITY
+}
+
+/**
+* Enum Promoter Type
+*/
+enum IstituitionType {
+	PUBLIC,
+	PRIVATE,
+	OMG,
+	RESEARCH,
+	OTHER
+}
+
+/**
+* Enum Authority Sector Type
+*/
+enum IstituitionSectorType {
+	ICT_IT,
+	CHARITY,
+	GOVERNAMENT,
+	LAW,
+	PUBLIC,
+	PRIVATE,
+	OTHER
+}
+
+/**
+* Enum Number of Employees
+*/
+enum NumberOfEmployees {
+	FROM_1_TO_9,
+    FROM_10_TO_19,
+    FROM_20_TO_49,
+    FROM_50_TO_99,
+    FROM_100_TO_499,
+    FROM_500_TO_999,
+    FROM_1000_TO_1499,
+    FROM_1500_TO_1999,
+    FROM_2000_TO_2499,
+    FROM_2500_TO_4999,
+    FROM_5000_TO_9999,
+   	MORE_THAN_10000
+}
+
+/**
+* Enum Company Size Type
+*/
+enum CompanySizeType {
+	SMALL,
+	MEDIUM,
+	BIG,
+    INSTITUTION
+}
+/** 
+* Nazioni 
+*/
+enum Country {
+	IT, AF, AL, DZ, AD, AO, AI, AQ, AG, AN, SA, AR, AM, AW, AU, AT, AZ, BS, BH, BD, 
+	BB, BE, BZ, BJ, BM, BT, BY, BO, BA, BW, BR, BN, BG, BF, BI, KH, CM, CA, CV, TD, 
+	CL, CN, CY, CO, CG, KR, KP, CR, CI, HR, CU, DK, DM, EC, EG, SV, AE, ER, EE, ET, 
+	RU, FJ, PH, FI, FR, GA, GM, GE, GS, DE, GH, JM, JP, GI, DJ, JO, GR, GD, GL, GP, 
+	GU, GT, GG, GN, GQ, GW, GY, GF, HT, HM, HN, HK, IN, ID, IR, IQ, IE, IS, BV, CX, 
+	NF, IM, AX, KY, CC, KM, CK, FK, FO, PN, SB, TC, VI, VG, IL, JE, KZ, KE, KG, KI, 
+	KO, KW, LA, LS, LV, LB, LR, LY, LI, LT, LU, MO, MK, MG, MW, MY, MV, ML, MT, MP, 
+	MA, MH, MQ, MR, MU, YT, MX, MD, MC, MN, ME, MS, MZ, MM, NA, NR, NP, NI, NE, NG, 
+	NU, NO, NC, NZ, OM, NL, CB, PK, PW, PA, PG, PY, PE, PF, PL, PT, PR, QA, GB, CZ, 
+	CF, DO, CD, SK, RE, RO, RW, EH, KN, LC, PM, VC, WS, AS, SM, SH, SN, RS, CS, SC, 
+	SL, SG, SY, SI, SO, ES, LK, US, FM, VA, ZA, SD, SS, SR, SJ, SE, CH, SZ, ST, TJ, 
+	TW, TZ, TF, IO, PS, TH, TL, TG, TK, TO, TT, TN, TR, TM, TV, UA, UG, HU, UY, UZ, 
+	VU, VE, VN, WF, YE, ZM, ZW, OO 
+}
+
+/** 
+* Tipo Lavoro
+*/
+enum EmploymentType {
+	FULL_TIME, PART_TIME
+}
+
+/** 
+* Esperienza 
+*/
+enum SeniorityLevel {
+	BEGINNER, MEDIUM, EXPERT
+}
+
+/** 
+* Feedback Candidatura 
+*/
+enum AppliedJobFeedback {
+	INSUFFICIENT, FAIRLY_GOOD, GOOD, EXCELLENT
+}
+/**
+* Satus Job Offer
+*/
+enum JobOfferStatus {
+	DRAFT, ACTIVE, ENDED
+}
+
+/**
+* Satus Project Offer
+*/
+enum ProjectStatus {
+	ACTIVE, ENDED
+}
+
+/**
+* Enum Education Type
+*/
+enum EducationType {
+	EDUCATION,
+	CERTIFICATION
+}
+
+/**
+* Enum Education Type
+*/
+enum AppiedJobStatus {
+	NEW,
+	EVALUATION_IN_PROGRESS,
+	APPROVED,
+	REJECTED
+}
+ 
+/**
+* Enum Job Offer Type
+*/
+enum JobOfferType {
+	JOB,
+	STAGE
+}
+
+// defining multiple OneToOne relationships
+relationship OneToOne {
+   Candidate{user} to User,
+   Company{user} to User,
+   SponsoringInstitution{user} to User
+}
+
+// defining multiple OneToMany relationships
+relationship OneToMany {
+	Candidate{document} to Document{candidate},
+    Candidate{jobExperience} to JobExperience{candidate},
+	Candidate{Education} to Education{candidate},
+	Candidate{skill} to Skill{Candidate},
+    JobOffer{skill} to JobOfferSkill{jobOffer},
+	Project{jobOffer} to JobOffer{project},
+	AppliedJob{appliedJobIteration} to AppliedJobIteration{appliedJob},
+	Company{skill} to CompanySkill{company}
+}
+
+// defining multiple ManyToOne relationships
+relationship ManyToOne {
+	Skill{skillTag} to SkillTag,
+    JobOffer{company} to Company,
+	JobOfferSkill{skillTag} to SkillTag,
+	AppliedJob{candidate} to Candidate,
+	AppliedJob{jobOffer} to JobOffer,
+	Project{company} to Company,
+    Project{sector} to CompanySector,
+    JobOffer{sector} to CompanySector,
+	Company{sector} to CompanySector,
+	CompanySkill{skillTag} to SkillTag, 
+	Company{sponsoringInstitution} to SponsoringInstitution,
+	DirectApplication{company} to Company,
+	DirectApplication{candidate} to Candidate
+}
+
+// defining multiple ManyToMany relationships
+relationship ManyToMany {
+    Company{sectors} to CompanySector
+}
+
+
+// Set pagination options
+//paginate JobHistory, Employee with infinite-scroll
+paginate * with pagination
+
+// Use Data Transfert Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all
+service * with serviceImpl
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
+
+// filtering
+filter *			

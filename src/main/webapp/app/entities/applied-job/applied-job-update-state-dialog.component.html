@@ -1,0 +1,66 @@
+<form name="feedbackForm" role="form" novalidate (ngSubmit)="confirm()" #feedbackForm="ngForm">
+    <div class="modal-header">
+        <h4 class="modal-title">{{'jobmatchApp.appliedJob.detail.title' | translate}} {{'jobmatchApp.AppiedJobStatus.' + nextState | translate}}</h4>
+        <button type="button" class="close" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+            	<div class="row p-3">
+                    <div class="col text-center">
+                        <label class="custom-image-radio">
+                            <div>
+                            	<input type="radio" name="result" value="INSUFFICIENT" [(ngModel)]="appliedJob.appliedJobFeedback" [attr.disabled]="readOnly" required >
+                            	<img [src]="'content/images/insufficientFace.png'" width="70" height="70">
+                            </div>
+                            <span jhiTranslate="jobmatchApp.AppliedJobFeedback.INSUFFICIENT">INSUFFICIENT</span>
+                        </label>
+                    </div>
+                    <div class="col text-center">
+                        <label class="custom-image-radio">
+                            <div>
+	                            <input type="radio" name="result" value="FAIRLY_GOOD" [(ngModel)]="appliedJob.appliedJobFeedback" [attr.disabled]="readOnly" required >
+                            	<img [src]="'content/images/fairlyGoodFace.png'" width="70" height="70">
+                            </div>
+                            <span jhiTranslate="jobmatchApp.AppliedJobFeedback.FAIRLY_GOOD">FAIRLY_GOOD</span>
+                        </label>
+                    </div>
+                    <div class="col text-center">
+                        <label class="custom-image-radio">
+                            <div>
+                            	<input type="radio" name="result" value="GOOD" [(ngModel)]="appliedJob.appliedJobFeedback" [attr.disabled]="readOnly" required >
+                            	<img [src]="'content/images/goodFace.png'" width="70" height="70">
+                            </div>
+                            <span jhiTranslate="jobmatchApp.AppliedJobFeedback.GOOD">GOOD</span>
+                        </label>
+                    </div>
+                    <div class="col text-center">
+                        <label class="custom-image-radio">
+                            <div>
+                            	<input type="radio" name="result" value="EXCELLENT" [(ngModel)]="appliedJob.appliedJobFeedback" [attr.disabled]="readOnly" required >
+                            	<img [src]="'content/images/excellentFace.png'" width="70" height="70">
+                            </div>
+                            <span jhiTranslate="jobmatchApp.AppliedJobFeedback.EXCELLENT">EXCELLENT</span>
+                        </label>
+                    </div>
+                </div>
+            
+                <label class="form-control-label" jhiTranslate="jobmatchApp.appliedJob.feedbackNote" for="feedbackNote">Note</label>
+                <textarea class="form-control" name="feedbackNote" [(ngModel)]="appliedJob.feedbackNote" [required]="!readOnly" [disabled]="readOnly" rows="5"></textarea>
+                
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;
+            <span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <ng-container *ngIf="!readOnly">
+            <button type="submit" class="btn btn-primary" [disabled]="feedbackForm.form.invalid">
+                <fa-icon [icon]="'save'"></fa-icon>&nbsp;
+                <span jhiTranslate="entity.action.confirm">Conferma</span>
+            </button>
+        </ng-container>
+    </div>
+</form>

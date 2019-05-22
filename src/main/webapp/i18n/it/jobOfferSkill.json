@@ -1,0 +1,28 @@
+{
+    "jobmatchApp": {
+        "jobOfferSkill": {
+            "home": {
+                "title": "JobOfferSkills",
+                "createLabel": "Genera un nuovo Job Offer Skill",
+                "createOrEditLabel": "Genera o modifica un Job Offer Skill"
+            },
+            "created": "&Egrave; stato generato un nuovo Job Offer Skill con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Job Offer Skill identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Job Offer Skill con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare Job Offer Skill {{ id }}?"
+            },
+            "detail": {
+                "title": "Job Offer Skill"
+            },
+            "createdBy": "Created By",
+            "lastModifiedBy": "Last Modified By",
+            "createdDate": "Created Date",
+            "lastModifiedDate": "Last Modified Date",
+            "level": "Level",
+            "proficNumberOfYear": "Profic Number Of Year",
+            "skillTag": "Skill Tag",
+            "jobOffer": "Offerta di Lavoro"
+        }
+    }
+}

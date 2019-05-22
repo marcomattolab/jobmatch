@@ -1,0 +1,41 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "it.aranciaict.jobmatch",
+      "nativeLanguage": "it"
+    },
+    "jhipsterVersion": "5.8.2",
+    "applicationType": "monolith",
+    "baseName": "jobmatch",
+    "packageName": "it.aranciaict.jobmatch",
+    "packageFolder": "it/aranciaict/jobmatch",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "NDczOTg4OWVjNmM0NDJhMzA5NDNjNWJjNGI5MDA5MGQwYTFhYjZjYWMxNDlkYWE4NTQ0YjUxMzFkMzA5YTI3YzQ4MWUxODUzNjU3OTY4N2VlNjA2NjBkN2MzYWM1OTUyZTYyNzE5NGNhMTEzOGY4YWI0OGJmYjE0ZWE4YjVlODM=",
+    "clientFramework": "angularX",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "it",
+    "languages": [
+      "it",
+      "en"
+    ]
+  }
+}

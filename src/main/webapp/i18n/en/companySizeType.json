@@ -1,0 +1,11 @@
+{
+    "jobmatchApp": {
+        "CompanySizeType": {
+            "null": "",
+            "SMALL": "Small",
+            "MEDIUM": "Medium",
+            "BIG": "Big",
+            "INSTITUTION": "Institution"
+        }
+    }
+}

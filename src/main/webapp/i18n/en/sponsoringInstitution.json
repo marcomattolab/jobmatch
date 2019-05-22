@@ -1,0 +1,43 @@
+{
+    "jobmatchApp": {
+        "sponsoringInstitution": {
+            "home": {
+                "title": "Sponsoring Institutions",
+                "createLabel": "Create a new Sponsoring Institution",
+                "createOrEditLabel": "Create or edit a Sponsoring Institution"
+            },
+            "created": "A new Sponsoring Institution is created with identifier {{ param }}",
+            "updated": "A Sponsoring Institution is updated with identifier {{ param }}",
+            "deleted": "A Sponsoring Institution is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Sponsoring Institution {{ id }}?"
+            },
+            "detail": {
+                "title": "Sponsoring Institution"
+            },
+            "createdBy": "Created By",
+            "lastModifiedBy": "Last Modified By",
+            "createdDate": "Created Date",
+            "lastModifiedDate": "Last Modified Date",
+            "istituitionName": "Istituition Name",
+            "istituitionDescription": "Istituition Description",
+            "istituitionSector": "Istituition Sector",
+            "istituitionType": "Istituition Type",
+            "streetAddress": "Street Address",
+            "picture": "Picture",
+            "foundationDate": "Foundation Date",
+            "vatNumber": "Vat Number",
+            "email": "Email",
+            "phone": "Phone",
+            "mobilePhone": "Mobile Phone",
+            "country": "Country",
+            "region": "Region",
+            "province": "Province",
+            "city": "City",
+            "cap": "Cap",
+            "urlSite": "Url Site",
+            "enabled": "Enabled",
+            "user": "User"
+        }
+    }
+}

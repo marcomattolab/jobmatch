@@ -1,0 +1,119 @@
+<div class="row p-0">
+    <div class="col-12" *ngIf="company">
+         <div class="row">
+           	<div class="col-sm-1">
+           	    <img [src]="company.imageUrl | imageProfile: {role: 'ROLE_COMPANY'}" class="img-thumbnail rounded " alt="Avatar">
+           	</div>
+           	<div class="col-sm-11 text-left">
+           		<h2><span *ngIf="company" class="font-weight-bold">{{company.companyName}}</span></h2>
+           		<h6><span *ngIf="company.sectorDescription" style="color: gray;">{{company.sectorDescription}}</span></h6>
+		    	<h6><span  *ngIf="company.city" style="color: gray;">{{company.city}}</span>
+		    	<span  *ngIf="company.country" style="color: gray;">{{('jobmatchApp.Country.' + company.country) | translate}}</span></h6>
+           	</div>
+		 </div>
+         <hr>
+    </div>
+</div>
+
+<jhi-alert-error></jhi-alert-error>
+
+<div class="my-profile-main-container row justify-content-center">
+   <div class="col-md-9 col-12">
+    	<div class="card section shadow-sm">
+		     <div class="personal-info-section card-body">
+		     	<h2>
+		            <span jhiTranslate="jobmatchApp.project.detail.title">Project </span> 
+		            <span class="font-weight-bold" style="color: gray;"> {{project.title}}
+		        </h2>
+		        <hr>
+		        <div class="personal-info-actions">
+		             <ul *ngIf="project.editAvailable">
+		                <li>
+		                    <a class="btn btn-outline-primary"
+		                        [routerLink]="['/project', project.id, 'edit']"
+		                        replaceUrl="true">
+		                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
+		                    </a>
+		                </li>
+		            </ul>
+		        </div>
+		        <div class="content-section" *ngIf="project">
+		            <dl class="row-md jh-entity-details">
+		                <dt><span jhiTranslate="jobmatchApp.project.title">Title</span></dt>
+		                <dd>
+		                    <span>{{project.title}}</span>
+		                </dd>
+		                <dt><span jhiTranslate="jobmatchApp.project.description">Description</span></dt>
+		                <dd>
+		                    <span>{{project.description}}</span>
+		                </dd>
+		                
+		             </dl>
+		             <dl class="row-md jh-entity-details" style="column-count: 2">
+		                
+		                <dt><span jhiTranslate="jobmatchApp.project.sector">Sector</span></dt>
+		                <dd>
+			                <span *ngIf="sector">{{sector.description}}</span>
+		                </dd>
+		                
+		                <dt><span jhiTranslate="jobmatchApp.project.startDate">Start Date</span></dt>
+		                <dd>
+		                    <span>{{project.startDate | date: 'dd/MM/yyyy'}}</span>
+		                </dd>
+		                
+		                <dt><span jhiTranslate="jobmatchApp.project.status">Status</span></dt>
+		                <dd>
+		                    <span jhiTranslate="{{'jobmatchApp.ProjectStatus.' + project.status}}">{{project.status}}</span>
+		                </dd>
+		                
+		                <dt><span jhiTranslate="jobmatchApp.project.endDate">End Date</span></dt>
+		                <dd>
+		                    <span>{{project.endDate | date: 'dd/MM/yyyy'}}</span>
+		                </dd>
+		            </dl>
+		       	</div>
+	     	 </div>
+   		 </div>
+    </div>
+    <div class="no-padding-l-md col-md-3 col-12">
+		<div class="card section shadow-sm">
+			 <span class="text-center" style="font-size: 1.5rem; font-weight: 350; color: gray;" jhiTranslate="jobmatchApp.jobOffer.home.title">Job Offers</span>
+			 <ng-container *ngIf="! jobOffers || jobOffers.length == 0">
+		                     <i jhiTranslate="jobmatchApp.project.noJobOffersListed">Nessuna offerta di lavoro</i>
+		              </ng-container>
+			 <ng-container *ngIf="jobOffers && jobOffers.length > 0">
+			 	<div class="card border-light rounded shadow-sm mb-2" *ngFor="let jobOffer of jobOffers;trackBy: trackById">
+		           		<div class="card-body">
+							<h5 class="card-title">
+								<span class="pr-3">{{jobOffer.jobTitle}}</span> 
+								<span [ngClass]="{'badge':true, 'badge-primary': jobOffer.status=='ACTIVE', 'badge-warning': jobOffer.status=='DRAFT', 'badge-success': jobOffer.status=='ENDED'}" 
+									jhiTranslate="{{'jobmatchApp.JobOfferStatus.' + jobOffer.status}}">{{jobOffer.status}}</span>
+							</h5>
+							<p class="card-text">{{jobOffer.jobShortDescription}}</p>
+							<div class="row">
+								<div class="col card-text text-muted">
+									<p *ngIf="jobOffer.jobCity || jobOffer.jobCountry">
+										{{jobOffer.jobCity}} {{('jobmatchApp.Country.' + jobOffer.jobCountry) | translate}}
+									</p>
+									<fa-icon [icon]="'clock'"></fa-icon>
+									{{jobOffer.timePassed}}
+								</div>
+								<div class="col card-text text-right align-text-bottom">
+									 <button type="submit" [routerLink]="['/job-offer', jobOffer.id, 'view' ]" class="btn btn-outline-primary ">
+			                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+			                   		 </button>
+								</div>
+							</div>
+						</div>
+					</div>
+			 </ng-container>
+		  </div>
+    </div>
+    
+    <div class="col">
+    		<button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+    </div>

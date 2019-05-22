@@ -1,0 +1,98 @@
+{
+	"jobmatchApp": {
+		"candidate": {
+			"home": {
+				"title": "Candidati",
+				"searchCandidateTitle": "Cerca Candidati",
+				"createLabel": "Nuovo Candidato",
+				"createOrEditLabel": "Modifica Profilo Candidato"
+			},
+			"created": "&Egrave; stato generato un nuovo Candidate con identificatore {{ param }}",
+			"updated": "&Egrave; stato aggiornato Candidate identificato da {{ param }}",
+			"deleted": "&Egrave; stato eliminato Candidate con identificatore {{ param }}",
+			"delete": {
+				"question": "Sei sicuro di volere eliminare Candidate {{ id }}?"
+			},
+			"detail": {
+				"title": "Profilo Candidato"
+			},
+			"anagrafica": {
+				"title": "Modifica Dati Anagrafici"
+			},
+			"jobExperienceDetail": {
+				"newTitle": "Nuova Esperienza Lavorativa",
+				"editTitle": "Modifica Esperienza Lavorativa"
+			},
+			"educationDetail": {
+				"newTitle": "Nuova Istruzione",
+				"editTitle": "Modifica Istruzione"
+			},
+			"certificationDetail": {
+				"newTitle": "Nuova Certificazione",
+				"editTitle": "Modifica Certificazione"
+			},
+			"skillDetail": {
+				"newTitle": "Nuova Competenza",
+				"editTitle": "Modifica Competenza"
+			},
+			"languageDetail": {
+				"newTitle": "Nuova Lingua",
+				"editTitle": "Modifica Lingua"
+			},
+			"cvDetail": {
+				"newTitle": "Nuovo CV",
+				"editTitle": "Modifica CV"
+			},
+			"createdBy": "Created By",
+			"lastModifiedBy": "Last Modified By",
+			"createdDate": "Created Date",
+			"lastModifiedDate": "Last Modified Date",
+			"lastName": "Cognome",
+			"firstName": "Nome",
+			"gender": "Sesso",
+			"birthday": "Data di Nascita",
+			"streetAddress": "Via",
+			"address": "Indirizzo",
+			"picture": "Foto",
+			"email": "Email",
+			"phone": "Telefono",
+			"mobilePhone": "Telefono Cellulare",
+			"country": "Nazione",
+			"region": "Regione",
+			"province": "Provincia",
+			"city": "Citta",
+			"cap": "Cap",
+			"cv": "Il mio CV",
+			"note": "Informazioni Aggiuntive",
+			"noteCandidate": "Informazioni Aggiuntive (In Italiano)",
+			"noteENCandidate": "Informazioni Aggiuntive (In Inglese)",
+			"enabled": "Enabled",
+			"user": "User",
+			"document": "Document",
+			"jobExperience": "Esperienze Lavorative",
+			"education": "Istruzione",
+			"certification": "Certificazioni",
+			"skill": "Competenze",
+			"language": "Lingue",
+			"addJobExperience": "Aggiungi Esperienza Lavorativa",
+			"addEducation": "Aggiungi Istruzione",
+			"addCertification": "Aggiungi Certificazione",
+			"addSkill": "Aggiungi Competenza",
+			"addLanguage": "Aggiungi Lingua",
+			"noJobExperiencesListed": "Il candidato non possiede esperienze lavorative o non sono state specificate.",
+			"noEducationsListed": "Il candidato non ha un istruzione o non è stata specificata.",
+			"noCertificationsListed": "Il candidato non ha certificazioni o non sono state specificate",
+			"noSkillsListed": "Il candidato non ha competenze o non sono state specificate",
+			"noLanguagesListed": "Il candidato non ha lingue o non sono state specificate",
+			"at": "presso",
+			"from": "Dal",
+			"to": "al",
+			"current": "Attuale",
+			"profileStrength": "Efficacia Profilo",
+			"searchForMoreCandidates": "Cerca altri candidati",
+			"suggestedCandidates": "Candidati",
+			"suggestedCandidatesDescription": "suggeriti sulla base delle competenze aziendali",
+			"noSuggestedCandidates": "Aggiungi competenze al tuo profilo aziendale per visualizzare suggerimenti sui candidati idonei"
+		}
+	}
+}

@@ -1,0 +1,9 @@
+{
+    "jobmatchApp": {
+        "SkillType": {
+            "null": "",
+            "LANGUAGE": "Language",
+            "OTHER": "Generic"
+        }
+    }
+}

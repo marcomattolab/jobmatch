@@ -1,0 +1,95 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="jobmatchApp.candidate.home.title">Candidates</span>
+        <!-- <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-candidate" [routerLink]="['/candidate/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="jobmatchApp.candidate.home.createLabel">
+            Create new Candidate
+            </span>
+        </button> -->
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="candidates">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <!-- <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdBy"><span jhiTranslate="jobmatchApp.candidate.createdBy">Created By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastModifiedBy"><span jhiTranslate="jobmatchApp.candidate.lastModifiedBy">Last Modified By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdDate"><span jhiTranslate="jobmatchApp.candidate.createdDate">Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastModifiedDate"><span jhiTranslate="jobmatchApp.candidate.lastModifiedDate">Last Modified Date</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+            <th jhiSortBy="lastName"><span jhiTranslate="jobmatchApp.candidate.lastName">Last Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="firstName"><span jhiTranslate="jobmatchApp.candidate.firstName">First Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+<!--             <th jhiSortBy="gender"><span jhiTranslate="jobmatchApp.candidate.gender">Gender</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+            <th jhiSortBy="birthday"><span jhiTranslate="jobmatchApp.candidate.birthday">Birthday</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="streetAddress"><span jhiTranslate="jobmatchApp.candidate.address">Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="country"><span jhiTranslate="jobmatchApp.candidate.country">Country</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="email"><span jhiTranslate="jobmatchApp.candidate.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="phone"><span jhiTranslate="jobmatchApp.candidate.phone">Phone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+<!--             <th jhiSortBy="mobilePhone"><span jhiTranslate="jobmatchApp.candidate.mobilePhone">Mobile Phone</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+            
+<!--             <th jhiSortBy="region"><span jhiTranslate="jobmatchApp.candidate.region">Region</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+<!--             <th jhiSortBy="province"><span jhiTranslate="jobmatchApp.candidate.province">Province</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+            <th jhiSortBy="userName"><span jhiTranslate="jobmatchApp.candidate.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+<!--             <th jhiSortBy="enabled"><span jhiTranslate="jobmatchApp.candidate.enabled">Enabled</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let candidate of candidates ;trackBy: trackId">
+                <!-- <td><a [routerLink]="['/candidate', candidate.id, 'view' ]">{{candidate.id}}</a></td>
+                <td>{{candidate.createdBy}}</td>
+                <td>{{candidate.lastModifiedBy}}</td>
+                <td>{{candidate.createdDate | date:'medium'}}</td>
+                <td>{{candidate.lastModifiedDate | date:'medium'}}</td> -->
+                <td>{{candidate.lastName}}</td>
+                <td>{{candidate.firstName}}</td>
+<!--                 <td jhiTranslate="{{'jobmatchApp.GenderType.' + candidate.gender}}">{{candidate.gender}}</td> -->
+                <td>{{candidate.birthday | date:'mediumDate'}}</td>
+                <td>{{candidate.streetAddress}} {{candidate.cap}} {{candidate.city}}</td>
+                <td jhiTranslate="{{'jobmatchApp.Country.' + candidate.country}}">{{candidate.country}}</td>
+                <td>{{candidate.email}}</td>
+                <td>{{candidate.phone}} {{candidate.mobilePhone}}</td>
+<!--                 <td>{{candidate.mobilePhone}}</td> -->
+<!--                 <td>{{candidate.region}}</td> -->
+<!--                 <td>{{candidate.province}}</td> -->
+                <td>{{candidate.userName}}</td>
+<!--                 <td>{{candidate.enabled}}</td> -->
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/candidate', candidate.id ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                       <!--  <button type="submit"
+                                [routerLink]="['/candidate', candidate.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'candidate', { outlets: { popup: candidate.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button> -->
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="candidates && candidates.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

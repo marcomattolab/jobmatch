@@ -1,0 +1,478 @@
+    <div class="row">
+        <div class="col-12">
+            <img [src]="'content/images/bg-profile-image.jpg'" class="bg-profile-image img-fluid"
+                alt="Background image">
+            <div class="main-profile-image rounded-circle shadow-lg">
+                <a class="btn rounded-circle" (click)="selectFile()" *ngIf="candidate.editAvailable"></a>
+                <img [src]="candidate.imageUrl | imageProfile: {role: 'ROLE_CANDIDATE', gender: candidate.gender}" class="rounded-circle" alt="Avatar">
+                <input #imageInput type="file" id="inputPicture" (change)="processFile(imageInput)" accept="image/*"/>
+            </div>
+        </div>
+    </div>
+    <div class="my-profile-main-container row justify-content-center">
+        <div class="col-md-9 col-12">
+            <div class="card section shadow-sm">
+                <div class="personal-info-section card-body">
+                    <div class="personal-info-actions">
+                        <ul *ngIf="candidate.editAvailable">
+                            <li>
+                                <a class="btn btn-outline-primary" (click)="onUpdateAnagrafica()">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="content-section">
+                   		<div>
+                            <span style="font-size: 1.75rem; font-weight: 400;">{{ candidate.firstName }} {{ candidate.lastName }}</span> 
+                        </div>
+                        <div *ngIf="currentJobExperience">
+							<span style="font-size: 1.5rem; font-weight: 350; color: gray;">{{ currentJobExperience.jobTitle }}</span>
+                            <span *ngIf="currentJobExperience.companyName" style="font-size: 1.5rem; font-weight: 350; color: gray;"> {{'jobmatchApp.candidate.at' | translate}} {{ currentJobExperience.companyName }}</span>
+                            <span *ngIf="currentJobExperience.city" style="font-size: 1.5rem; font-weight: 350; color: gray;">&middot; {{ currentJobExperience.city }}</span>
+                            <span *ngIf="currentJobExperience.country" style="font-size: 1.5rem; font-weight: 350; color: gray;">&middot; {{('jobmatchApp.Country.' + currentJobExperience.country) | translate}}</span>
+                        </div>
+                         
+                   		<br>
+                        <dl class="row-md jh-entity-details" style="column-count: 2">
+                            
+                            <dd *ngIf="candidate.birthday">
+                                <fa-icon [icon]="'birthday-cake'"></fa-icon>
+                                <span>{{ candidate.birthday | date: 'dd/MM/yyyy' }}</span>
+                            </dd>
+                            <dd *ngIf="candidate.city || candidate.region || candidate.country">
+                                <fa-icon [icon]="'map'"></fa-icon>
+                                <span *ngIf="candidate.city">
+                                    {{ candidate.city }}
+                                </span>
+                                <span *ngIf="candidate.cap">
+                                    {{ candidate.cap }},
+                                </span>
+                                <span *ngIf="candidate.region">
+                                    {{ candidate.region }}
+                                </span>
+                                <span *ngIf="candidate.country" jhiTranslate="{{'jobmatchApp.Country.' + candidate.country}}">
+                                    {{ candidate.country }}
+                                </span>
+                            </dd>
+                            <dd *ngIf="candidate.gender">
+                                <fa-icon [icon]="'venus-mars'"></fa-icon>
+                                <span
+                                    jhiTranslate="{{'jobmatchApp.GenderType.' + candidate.gender}}">
+                                    {{candidate.gender}}
+                                </span>
+                            </dd>
+                            <dd *ngIf="candidate.email">
+                                <fa-icon [icon]="'envelope'"></fa-icon>
+                                <span>
+                                    {{ candidate.email }}
+                                </span>
+                            </dd>
+                            <dd *ngIf="candidate.mobilePhone">
+                                <fa-icon [icon]="'mobile'"></fa-icon>
+                                <span>
+                                    {{ candidate.mobilePhone }}
+                                </span>
+                            </dd>
+                            <dd *ngIf="candidate.phone">
+                                <fa-icon [icon]="'phone'"></fa-icon>
+                                <span>
+                                    {{ candidate.phone }}
+                                </span>
+                            </dd>
+                        </dl>
+                    </div>
+                    <hr>
+                    <div class="bottom-section">
+                        <div class="note-candidato" *ngIf="candidate.note">
+                            <div><b jhiTranslate="jobmatchApp.candidate.note">Note del candidato</b></div>
+                            <p *ngIf="currentLanguage === 'it'">{{ candidate.note }}</p>
+                            <p *ngIf="currentLanguage === 'en'">{{ candidate.noteEN }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card section shadow-sm">
+                <div class="card-body">
+                    <div class="row"> 
+                        <div class="col-md-11 col-10">
+                            <h3 jhiTranslate="jobmatchApp.candidate.jobExperience">Esperienze Lavorative</h3>
+                        </div>
+                        <div *ngIf="candidate.editAvailable" class="col-md-1 col-2">
+                            <a class="btn btn-outline-primary" (click)="onUpdateJobExperience(null)">
+                                <fa-icon [icon]="'plus'"></fa-icon>
+                            </a>
+                        </div>
+                    </div>
+                    <hr/>
+                    <ng-container *ngIf="jobExperiences && jobExperiences.length > 0">
+                        <ul>
+                            <li class="hoverable padding-10 min-height-80 btn-show-on-hover" *ngFor="let experience of jobExperiences">
+                                <div class="row">
+                                    <div class="col-md-9 col-12 p-0">
+                                        <div>
+                                            <div class="padding-10">
+                                                <span style="font-weight: bold;">{{ experience.jobTitle }}</span>
+                                                <span *ngIf="experience.companyName" style="font-weight: bold;"> {{'jobmatchApp.candidate.at' | translate}} {{ experience.companyName }}</span>
+                                                <span> ({{ getJobExperienceTimePassed(experience) }})</span>
+                                                <ul>
+                                                    <li>
+                                                        <span>{{'jobmatchApp.candidate.from' | translate}} {{ experience.startDate | date: 'dd/MM/yyyy' }} </span>
+                                                        <span *ngIf="experience.current"> (Attuale)</span>
+                                                        <span *ngIf="!experience.current && experience.endDate"> {{'jobmatchApp.candidate.to' | translate}} {{ experience.endDate | date: 'dd/MM/yyyy' }}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-12 text-center p-0 align-self-center">
+                                        <a class="btn btn-outline-primary" (click)="onUpdateJobExperience(experience)" *ngIf="candidate.editAvailable">
+                                            <fa-icon  [icon]="'pencil-alt'"></fa-icon>
+                                        </a>
+                                        <a class="btn btn-outline-danger" (click)="onDeleteJobExperience(experience)" *ngIf="candidate.deleteAvailable">
+                                            <fa-icon  [icon]="'trash-alt'"></fa-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </ng-container>
+                    <ng-container *ngIf="!jobExperiences || jobExperiences.length == 0">
+                        <i jhiTranslate="jobmatchApp.candidate.noJobExperiencesListed">Il candidato non ha esperienze lavorative</i>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="card section shadow-sm">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-11 col-10">
+                            <h3 jhiTranslate="jobmatchApp.candidate.education">Istruzione</h3>
+                        </div>
+                        <div *ngIf="candidate.editAvailable" class="col-md-1 col-2">
+                            <a class="btn btn-outline-primary" (click)="onUpdateEducation(null, 'EDUCATION')">
+                                <fa-icon [icon]="'plus'"></fa-icon>
+                            </a>
+                        </div>
+                    </div>
+                    <hr/>
+                    <ng-container *ngIf="educations && educations.length > 0">
+                        <ul>
+                            <li class="hoverable padding-10 min-height-80 btn-show-on-hover" *ngFor="let education of educations">
+                                <div class="row">
+                                    <div class="col-md-9 col-12 p-0">
+                                        <div>
+                                            <div class="padding-10">
+                                                <span *ngIf="education.fieldOfStudy" style="font-weight: bold;">{{ education.fieldOfStudy }}</span>
+                                                <span *ngIf="education.schoolName" style="font-weight: bold;"> {{'jobmatchApp.candidate.at' | translate}} {{ education.schoolName }}</span>
+                                                <ul>
+                                                    <li>
+                                                        <span>{{'jobmatchApp.candidate.from' | translate}} {{ education.startDate | date: 'dd/MM/yyyy' }} </span>
+                                                        <span *ngIf="education.current"> ({{'jobmatchApp.candidate.current' | translate}})</span>
+                                                        <span *ngIf="!education.current && education.endDate"> {{'jobmatchApp.candidate.to' | translate}} {{ education.endDate | date: 'dd/MM/yyyy' }}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-12 text-center p-0 align-self-center">
+                                        <a class="btn btn-outline-primary" (click)="onUpdateEducation(education, 'EDUCATION')" *ngIf="candidate.editAvailable">
+                                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                        </a>
+                                        <a class="btn btn-outline-danger" (click)="onDeleteEducation(education)" *ngIf="candidate.deleteAvailable">
+                                            <fa-icon [icon]="'trash-alt'"></fa-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </ng-container>
+                    <ng-container *ngIf="!educations || educations.length == 0">
+                        <i jhiTranslate="jobmatchApp.candidate.noEducationsListed">Il candidato non ha un'istruzione</i>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="card section shadow-sm">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-11 col-10">
+                            <h3 jhiTranslate="jobmatchApp.candidate.certification">Certificazioni</h3>
+                        </div>
+                        <div *ngIf="candidate.editAvailable" class="col-md-1 col-2">
+                            <a class="btn btn-outline-primary" (click)="onUpdateEducation(null, 'CERTIFICATION')">
+                                <fa-icon [icon]="'plus'"></fa-icon>
+                            </a>
+                        </div>
+                    </div>
+                    <hr/>
+                    <ng-container *ngIf="certifications && certifications.length > 0">
+                        <ul>
+                            <li class="hoverable padding-10 min-height-80 btn-show-on-hover" *ngFor="let certification of certifications">
+                                <div class="row">
+                                    <div class="col-md-9 col-12 p-0">
+                                        <div>
+                                            <div class="padding-10">
+                                                <span *ngIf="certification.fieldOfStudy" style="font-weight: bold;">{{ certification.fieldOfStudy }}</span>
+                                                <span *ngIf="certification.schoolName" style="font-weight: bold;"> {{'jobmatchApp.candidate.at' | translate}} {{ certification.schoolName }}</span>
+                                                <ul>
+                                                    <li>
+                                                        <span>{{'jobmatchApp.candidate.from' | translate}} {{ certification.startDate | date: 'dd/MM/yyyy' }} </span>
+                                                        <span *ngIf="certification.expires && certification.endDate"> {{'jobmatchApp.candidate.to' | translate}} {{ certification.endDate | date: 'dd/MM/yyyy' }}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-12 text-center p-0 align-self-center">
+                                        <a class="btn btn-outline-primary" (click)="onUpdateEducation(certification, 'CERTIFICATION')" *ngIf="candidate.editAvailable">
+                                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                        </a>
+                                        <a class="btn btn-outline-danger" (click)="onDeleteEducation(certification)" *ngIf="candidate.deleteAvailable">
+                                            <fa-icon [icon]="'trash-alt'"></fa-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </ng-container>
+                    <ng-container *ngIf="!certifications || certifications.length == 0">
+                        <i jhiTranslate="jobmatchApp.candidate.noCertificationsListed">Il candidato non ha certificazioni</i>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="card section shadow-sm">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-11 col-10">
+                            <h3 jhiTranslate="jobmatchApp.candidate.skill">Competenze</h3>
+                        </div>
+                        <div *ngIf="candidate.editAvailable" class="col-md-1 col-2">
+                            <a class="btn btn-outline-primary" (click)="onUpdateSkill(null, 'OTHER')">
+                                <fa-icon [icon]="'plus'"></fa-icon>
+                            </a>
+                        </div>
+                    </div>
+                    <hr/>
+                    <ng-container *ngIf="otherSkills && otherSkills.length > 0">
+                    
+	                    <div *ngFor="let skill of otherSkills" class="badge badge-pill badge-primary skill-tag" >
+	                    	 <a (click)="onUpdateSkill(skill, 'OTHER')" *ngIf="candidate.editAvailable"
+	                            class="btn" style="font-weight: 500; color: white;">{{ skill.skillTagName }}
+	                         </a>
+	                          <a *ngIf="!candidate.editAvailable"
+	                            replaceUrl="true" class="btn" style="font-weight: 500; color: white;">{{ skill.skillTagName }}
+	                         </a>
+	                         <a class="btn btn-outline-primary btn-skill-tag-del" (click)="onDeleteSkill(skill)" *ngIf="candidate.deleteAvailable">
+                                 <fa-icon [icon]="'times-circle'"></fa-icon>
+                             </a>
+	                    </div>
+                        
+                    </ng-container>
+                    <ng-container *ngIf="!otherSkills || otherSkills.length == 0">
+                        <i jhiTranslate="jobmatchApp.candidate.noSkillsListed">Il candidato non ha competenze</i>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="card section shadow-sm">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-11 col-10">
+                            <h3 jhiTranslate="jobmatchApp.candidate.language">Language</h3>
+                        </div>
+                        <div *ngIf="candidate.editAvailable" class="col-md-1 col-2">
+                            <a class="btn btn-outline-primary" (click)="onUpdateSkill(null, 'LANGUAGE')">
+                                <fa-icon [icon]="'plus'"></fa-icon>
+                            </a>
+                        </div>
+                    </div>
+                    <hr/>
+                    <ng-container *ngIf="languageSkills && languageSkills.length > 0">
+                        <ul>
+                            <li class="hoverable padding-10 min-height-80 btn-show-on-hover" *ngFor="let skill of languageSkills">
+                                <div class="row">
+                                    <div class="col-md-9 col-12 p-0">
+                                        <div>
+                                            <div class="padding-10">
+                                                <span style="font-weight: bold;">{{ skill.skillTagName }}</span>
+                                                <span *ngIf="skill.level">({{'jobmatchApp.SkillLevelType.LANGUAGE.' + skill.level | translate}})</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-12 text-center p-0 align-self-center">
+                                        <div>
+                                            <div class="padding-10">
+                                                <a class="btn btn-outline-primary" (click)="onUpdateSkill(skill, 'LANGUAGE')" *ngIf="candidate.editAvailable">
+                                                    <fa-icon  [icon]="'pencil-alt'"></fa-icon>
+                                                </a>
+                                                <a class="btn btn-outline-danger" (click)="onDeleteSkill(skill)" *ngIf="candidate.deleteAvailable">
+                                                    <fa-icon  [icon]="'trash-alt'"></fa-icon>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                    </ng-container>
+                    <ng-container *ngIf="!languageSkills || languageSkills.length == 0">
+                        <i jhiTranslate="jobmatchApp.candidate.noLanguagesListed">Il candidato non ha competenze</i>
+                    </ng-container>
+                </div>
+            </div>
+            
+            <!-- <div class="card section shadow-sm">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-11 col-10">
+                            <h3 jhiTranslate="jobmatchApp.candidate.documents">Documents</h3>
+                        </div>
+                        <div *ngIf="candidate.editAvailable" class="col-md-1 col-2">
+                            <a class="btn btn-outline-primary" [routerLink]="['/', 'candidate', { outlets: { popup: candidate.id + '/new/document'} }]" replaceUrl="true">
+                                <fa-icon [icon]="'plus'"></fa-icon>
+                            </a>
+                        </div>
+                    </div>
+                    <hr/>
+                    <ng-container *ngIf="documentsCv && documentsCv.length > 0">
+                        <ul>
+                            <li class="padding-10 min-height-80" *ngFor="let document of documents">
+                                <div class="row hoverable btn-show-on-hover">
+                                    <div class="col-md-9 col-12 p-0">
+                                        <div>
+                                            <div class="padding-10">
+                                                <span style="font-weight: bold;">{{ document.name }}</span>
+                                                <span *ngIf="document.description">{{ document.description }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-12 text-center p-0 align-self-center">
+                                        <div>
+                                            <div class="padding-10">
+                                                <a class="btn btn-outline-primary" [routerLink]="['/', 'candidate', { outlets: { popup: 'edit/document/' + cv.id } }]" replaceUrl="true">
+                                                    <fa-icon  [icon]="'pencil-alt'"></fa-icon>
+                                                </a>
+                                                <a class="btn btn-outline-danger" [routerLink]="['/', 'candidate', { outlets: { popup: 'delete/document/' + cv.id } }]" replaceUrl="true">
+                                                    <fa-icon  [icon]="'trash-alt'"></fa-icon>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                    </ng-container>
+                    <ng-container *ngIf="!documents || documents.length == 0">
+                        <i jhiTranslate="jobmatchApp.candidate.noDocumentsListed">Il candidato non ha documenti</i>
+                    </ng-container>
+                </div>
+            </div> -->
+            
+        </div>
+        <div class="no-padding-l-md col-md-3 col-12">
+            <div *ngIf="candidate.editAvailable" class="card section shadow-sm">
+                <div class="add-section card-body">
+                    <ul style="width: 100%">
+                        <li>
+                        	<button type="button" class="btn btn-outline-primary btn-sm btn-block" style="text-align: left; margin-bottom: 5px; padding-left: 25px;"
+                        			(click)="onUpdateJobExperience(null)">
+                        		 <fa-icon  [icon]="'plus'"></fa-icon> 
+                        		 <span jhiTranslate="jobmatchApp.candidate.addJobExperience">Aggiungi Esperienza Lavorativa</span>
+                        	</button>
+                        </li>
+                        <li>
+                        	<button type="button" class="btn btn-outline-primary btn-sm btn-block" style="text-align: left; margin-bottom: 5px; padding-left: 25px;"
+                                (click)="onUpdateEducation(null, 'EDUCATION')">
+                        		 <fa-icon  [icon]="'plus'"></fa-icon> 
+                        		 <span jhiTranslate="jobmatchApp.candidate.addEducation">Aggiungi Istruzione</span>
+                        	</button>
+                        </li>
+                        <li>
+                        	<button type="button" class="btn btn-outline-primary btn-sm btn-block" style="text-align: left; margin-bottom: 5px; padding-left: 25px;"
+                                (click)="onUpdateEducation(null, 'CERTIFICATION')">
+                        		 <fa-icon  [icon]="'plus'"></fa-icon> 
+                        		 <span jhiTranslate="jobmatchApp.candidate.addCertification">Aggiungi Certificazione</span>
+                        	</button>
+                        </li>
+                        <li>
+                        	<button type="button" class="btn btn-outline-primary btn-sm btn-block" style="text-align: left; margin-bottom: 5px; padding-left: 25px;"
+                                (click)="onUpdateSkill(null, 'OTHER')">
+                        		 <fa-icon  [icon]="'plus'"></fa-icon> 
+                        		 <span jhiTranslate="jobmatchApp.candidate.addSkill">Aggiungi Competenza</span>
+                        	</button>
+                        </li>
+                        <li>
+                        	<button type="button" class="btn btn-outline-primary btn-sm btn-block" style="text-align: left; margin-bottom: 5px; padding-left: 25px;"
+                                (click)="onUpdateSkill(null, 'LANGUAGE')">
+                        		 <fa-icon  [icon]="'plus'"></fa-icon> 
+                        		 <span jhiTranslate="jobmatchApp.candidate.addLanguage">Aggiungi Lingua</span>
+                        	</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+             <div class="card section shadow-sm">
+                <div class="add-section card-body">
+                   <div class="row">
+                        <div class="col-md-9">
+                            <h4 jhiTranslate="jobmatchApp.candidate.cv">CV</h4>
+                        </div>
+                        <div *ngIf="candidate.editAvailable && (!documentsCv || documentsCv.length < 1)" class="col-md-3">
+                            <a class="btn btn-outline-primary" (click)="onUpdateCV(null, 'CV')">
+                                <fa-icon [icon]="'plus'"></fa-icon>
+                            </a>
+                        </div>
+                    </div>
+                    <hr/>
+                    <ng-container *ngIf="documentsCv && documentsCv.length > 0">
+                        <ul style="width: 100%">
+                            <li class="hoverable padding-10 min-height-80 btn-show-on-hover" *ngFor="let cv of documentsCv">
+                                <div class="row">
+                                    <div class="col-md-8 col-12 p-0">
+                                        <div>
+                                            <div class="padding-10">
+                                              <fa-icon  [icon]="'file-alt'"></fa-icon>
+                                              <a style="font-weight: 400;" (click)="dowloadCv(cv.id)">{{ cv.name }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-12 text-center p-0 align-self-center">
+                                        <div>
+                                            <div class="padding-10">
+                                                <a class="btn btn-outline-primary" (click)="onUpdateCV(cv, 'CV')" *ngIf="candidate.editAvailable">
+                                                    <fa-icon  [icon]="'pencil-alt'"></fa-icon>
+                                                </a>
+                                                <a class="btn btn-outline-danger" (click)="onDeleteCV(cv)" *ngIf="candidate.deleteAvailable">
+                                                    <fa-icon  [icon]="'trash-alt'"></fa-icon>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                    </ng-container>
+                </div>
+            </div>
+            
+            <div *ngIf="candidate.editAvailable" class="card section shadow-sm">
+                <div class="add-section card-body">
+                 <div class="row">
+                 	<div class="col">
+                		<h4 jhiTranslate="jobmatchApp.candidate.profileStrength">Efficacia Profilo</h4>
+                	</div>
+                </div>
+	            <ngb-progressbar [showValue]="true" [striped]="true" height="25px" [value]="getPercentualeEfficaciaProfilo()"></ngb-progressbar>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <button *ngIf="showBackBtn" type="button"
+                (click)="previousState()"
+                class="btn btn-info">
+            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+        </button>
+    </div>

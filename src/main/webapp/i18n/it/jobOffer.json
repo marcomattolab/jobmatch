@@ -1,0 +1,69 @@
+{
+	"jobmatchApp": {
+		"jobOffer": {
+			"home": {
+				"title": "Offerte di lavoro",
+				"searchJobOffersTitle": "Cerca Offerte di Lavoro",
+				"myJobOffersTitle": "Le mie Offerte di Lavoro",
+				"createLabel": "Nuova offerta di lavoro",
+				"createOrEditLabel": "Genera o modifica un'offerta di lavoro"
+			},
+			"created": "&Egrave; stata generata una nuova offerta di lavoro con identificatore {{ param }}",
+			"updated": "&Egrave; stata aggiornata l'offerta di lavoro identificato da {{ param }}",
+			"deleted": "&Egrave; stata eliminata l'offerta di lavoro con identificatore {{ param }}",
+			"delete": {
+				"question": "Sei sicuro di volere eliminare l'offerta di lavoro {{ id }}?"
+			},
+			"changeStatus": {
+				"question": "Sei sicuro di voler impostare come {{ status }} l'offerta di lavoro {{ id }}?"
+			},
+			"detail": {
+				"title": "Offerta di lavoro"
+			},
+			"createdBy": "Created By",
+			"lastModifiedBy": "Last Modified By",
+			"createdDate": "Data di creazione",
+			"lastModifiedDate": "Last Modified Date",
+			"startDate": "Data Pubblicazione",
+			"jobTitle": "Titolo Offerta",
+			"jobShortDescription": "Descrizione Breve",
+			"jobDescription": "Descrizione del Lavoro",
+			"responsibilitiesDescription": "Responsabilita'",
+			"experiencesDescription": "Esperienze",
+			"attributesDescription": "Attributi",
+			"jobFunctions": "Funzioni lavorative",
+			"jobCity": "Citta'",
+			"jobCountry": "Nazione",
+			"employmentType": "Tipo di impiego",
+			"seniorityLevel": "Livello di anzianita'",
+			"salaryOffered": "Stipendio",
+			"candidateCompanyLabel": "Candidati",
+			"applicationsCount": "Candidature",
+			"modifyLabel": "Modifica",
+			"deleteLabel": "Elimina",
+			"status": "Stato",
+			"enabled": "Enabled",
+			"skill": "Competenze",
+			"company": "Azienda",
+			"sector": "Settore",
+			"project": "Progetto",
+			"candidateOffers": "Le Mie Candidature",
+			"applyedCandidates": "Candidature",
+			"applyed": "Sei candidato a questa offerta",
+			"apply": "Candidati",
+			"details": "Dettagli offerta di lavoro",
+			"publishLabel": "Attiva",
+			"endLabel": "Concludi",
+			"publicationDate": "Data di pubblicazione",
+			"correspondingSkills": "Competenze corrispondenti",
+			"commonSkillInfo": "Cosa hai in comune",
+			"commonSkillInfoTooltip": "Vedi quanto il tuo profilo corrisponde alle preferenze dell'autore dell'offerta di lavoro.",
+			"commonSkillSubInfo": "Criteri forniti dall'autore dell'offerta di lavoro",
+			"suggestedJobOffers": "Offerte di lavoro",
+			"suggestedJobOffersDescription": "suggerite sulla base del tuo profilo",
+			"noSuggestedOffers": "Aggiungi competenze al tuo profilo per visualizzare suggerimenti sulle offerte di lavoro adatte a te",
+			"searchForMoreJobs": "Cerca altre offerte di lavoro",
+			"jobOfferType": "Tipologia Annuncio"
+		}
+	}
+}

@@ -1,0 +1,41 @@
+{
+	"jobmatchApp": {
+		"appliedJob": {
+			"home": {
+				"title": "Candidature",
+				"createLabel": "Nuova Candidatura",
+				"createOrEditLabel": "modifica Candidatura"
+			},
+			"created": "&Egrave; stato generato un nuovo Applied Job con identificatore {{ param }}",
+			"updated": "&Egrave; stato aggiornato Applied Job identificato da {{ param }}",
+			"deleted": "&Egrave; stato eliminato Applied Job con identificatore {{ param }}",
+			"delete": {
+				"question": "Sei sicuro di volere eliminare Applied Job {{ id }}?"
+			},
+			"detail": {
+				"title": "Candidatura"
+			},
+			"createdBy": "Created By",
+			"lastModifiedBy": "Last Modified By",
+			"createdDate": "Data Candidatura",
+			"lastModifiedDate": "Last Modified Date",
+			"appliedJobFeedback": "Feedback",
+			"feedbackNote": "Commento del Feedback",
+			"appiedJobStatus": "Stato Candidatura",
+			"appliedJobIteration": "Interazioni con Candidato",
+			"candidate": "Candidato",
+			"company": "Azienda",
+			"jobOffer": "Offerta di Lavoro",
+			"searchForMoreAppliedJobs": "Visualizza tutte",
+			"lastestAppliedJobs": "Ultime candidature",
+			"lastestAppliedJobsDescription": "ricevute nell'ultima settimana",
+			"nolastestAppliedJobs": "Non ci sono candidature recenti",
+			"appliedJobStatus": "Stato",
+			"changeStateTitle": "Cambio Stato",
+			"changeStateMessage": "Si è sicuri di voler impostare lo stato della candidatura a {{ param }} ?",
+			"approve": "Approva",
+			"reject": "Rifiuta",
+			"evaluate" : "Prendi Visione"
+		}
+	}
+}

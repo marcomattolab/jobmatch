@@ -1,0 +1,65 @@
+{
+    "name": "CompanySkill",
+    "fields": [
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "lastModifiedBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "lastModifiedDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "level",
+            "fieldType": "SkillLevelType",
+            "fieldValues": "BEGINNER,MEDIUM,HIGTH,EXPERT"
+        },
+        {
+            "fieldName": "proficNumberOfYear",
+            "fieldType": "ProficNumberOfYear",
+            "fieldValues": "ZERO_TO_ONE,ONE_TO_THREE,THREE_TO_FIVE,FIVE_TO_TEN,MORE_THAN_TEN"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "skillTag",
+            "otherEntityRelationshipName": "companySkill",
+            "relationshipName": "skillTag",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "company",
+            "otherEntityRelationshipName": "skill",
+            "relationshipName": "company",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190411091903",
+    "javadoc": "Entity Company Skill",
+    "entityTableName": "company_skill",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

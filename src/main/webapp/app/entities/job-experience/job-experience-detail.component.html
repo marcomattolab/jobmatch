@@ -1,0 +1,73 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="jobExperience">
+            <h2><span jhiTranslate="jobmatchApp.jobExperience.detail.title">Job Experience</span> {{jobExperience.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jobmatchApp.jobExperience.createdBy">Created By</span></dt>
+                <dd>
+                    <span>{{jobExperience.createdBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.jobExperience.lastModifiedBy">Last Modified By</span></dt>
+                <dd>
+                    <span>{{jobExperience.lastModifiedBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.jobExperience.createdDate">Created Date</span></dt>
+                <dd>
+                    <span>{{jobExperience.createdDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.jobExperience.lastModifiedDate">Last Modified Date</span></dt>
+                <dd>
+                    <span>{{jobExperience.lastModifiedDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.jobExperience.jobTitle">Job Title</span></dt>
+                <dd>
+                    <span>{{jobExperience.jobTitle}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.jobExperience.jobDescription">Job Description</span></dt>
+                <dd>
+                    <span>{{jobExperience.jobDescription}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.jobExperience.companyName">Company Name</span></dt>
+                <dd>
+                    <span>{{jobExperience.companyName}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.jobExperience.startDate">Start Date</span></dt>
+                <dd>
+                    <span>{{jobExperience.startDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.jobExperience.endDate">End Date</span></dt>
+                <dd>
+                    <span>{{jobExperience.endDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.jobExperience.current">Current</span></dt>
+                <dd>
+                    <span>{{jobExperience.current}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.jobExperience.enabled">Enabled</span></dt>
+                <dd>
+                    <span>{{jobExperience.enabled}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.jobExperience.candidate">Candidate</span></dt>
+                <dd>
+                    <div *ngIf="jobExperience.candidateId">
+                        <a [routerLink]="['/candidate', jobExperience.candidateId, 'view']">{{jobExperience.candidateId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/job-experience', jobExperience.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

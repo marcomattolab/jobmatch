@@ -1,0 +1,9 @@
+{
+    "jobmatchApp": {
+        "GenderType": {
+            "null": "",
+            "MALE": "MALE",
+            "FEMALE": "FEMALE"
+        }
+    }
+}

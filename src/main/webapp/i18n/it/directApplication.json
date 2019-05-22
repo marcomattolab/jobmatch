@@ -1,0 +1,27 @@
+{
+    "jobmatchApp": {
+        "directApplication": {
+            "home": {
+                "title": "DirectApplications",
+                "createLabel": "Genera un nuovo Direct Application",
+                "createOrEditLabel": "Genera o modifica un Direct Application"
+            },
+            "created": "&Egrave; stato generato un nuovo Direct Application con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Direct Application identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Direct Application con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare Direct Application {{ id }}?"
+            },
+            "detail": {
+                "title": "Direct Application"
+            },
+            "createdBy": "Created By",
+            "lastModifiedBy": "Last Modified By",
+            "createdDate": "Created Date",
+            "lastModifiedDate": "Last Modified Date",
+            "appiedJobStatus": "Appied Job Status",
+            "company": "Company",
+            "candidate": "Candidate"
+        }
+    }
+}

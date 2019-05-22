@@ -1,0 +1,200 @@
+<div class="row p-0">
+    <div class="col-12">
+        <img [src]="'content/images/bg-profile-image.jpg'" class="bg-profile-image img-fluid"
+            alt="Background image">
+        <div class="main-profile-image rounded-circle shadow-lg">
+            <a class="btn rounded-circle" (click)="selectFile()" *ngIf="company.editAvailable"></a>
+            <img [src]="company.imageUrl | imageProfile: {role: 'ROLE_COMPANY'}" class="rounded-circle" alt="Avatar">
+            <input #imageInput type="file" id="inputPicture" (change)="processFile(imageInput)" accept="image/*"/>
+        </div>
+    </div>
+</div>
+<div class="my-profile-main-container row justify-content-center">
+    <div class="col-md-9 col-12">
+        <div class="card section shadow-sm">
+            <div class="personal-info-section card-body">
+                <div class="personal-info-actions">
+                    <ul *ngIf="company.editAvailable">
+                        <li>
+                            <a class="btn btn-outline-primary" (click)="onAnagraficaUpdate()">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul *ngIf="company.applicationAvailable">
+                        <li *ngIf="!alreadyApplied">
+                            <button class="btn btn-primary" (click)="onCandidateCompany()">
+                            	<fa-icon [icon]="'file-upload'"></fa-icon>
+                                {{ 'jobmatchApp.company.apply' | translate }}
+                                
+                            </button>
+                        </li>
+                        <li *ngIf="alreadyApplied">
+                            <button class="btn btn-primary" disabled>
+                                 <fa-icon [icon]="'file-upload'"></fa-icon>
+                                 {{ 'jobmatchApp.company.applyed' | translate }}
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-section">
+                    <div>
+                        <span style="font-size: 1.75rem; font-weight: 400;">{{company.companyName}}</span>
+                        <!-- <span style="font-size: 1.2rem; color: gray;">({{ company.userName }})</span> -->
+                    </div>
+                    <div *ngIf="company.sponsoringInstitutionId">
+                    	<span class="badge badge-success" jhiTranslate="jobmatchApp.sponsoringInstitution.detail.title">Sponsoring Instituition</span>
+                    </div>
+                    <div *ngIf="company.sectorDescription">
+                        <span style="font-size: 1.5rem; font-weight: 350; color: gray;">{{ company.sectorDescription }}</span>
+                        <span *ngIf="company.city" style="font-size: 1.5rem; font-weight: 350; color: gray;">&middot; {{ company.city }}</span>
+                        <span *ngIf="company.country" style="font-size: 1.5rem; font-weight: 350; color: gray;">&middot; {{('jobmatchApp.Country.' + company.country) | translate}}</span>
+                    </div>
+                    <br>
+                    <dl class="row-md jh-entity-details" style="column-count: 2">
+                        <dd *ngIf="company.companyType">
+                            <fa-icon [icon]="'building'"></fa-icon>
+                            <span
+                                jhiTranslate="{{'jobmatchApp.CompanyType.' + company.companyType}}">{{company.companyType}}</span>
+                        </dd>
+                        <dd *ngIf="company.companySize">
+                            <fa-icon [icon]="'users-cog'"></fa-icon>
+                            <span
+                                jhiTranslate="{{'jobmatchApp.CompanySizeType.' + company.companySize}}">{{company.companySize}}</span>
+                        </dd>
+                        <dd *ngIf="company.numberOfEmployee">
+                            <fa-icon [icon]="'users-cog'"></fa-icon>
+                            <span
+                                jhiTranslate="{{'jobmatchApp.NumberOfEmployees.' + company.numberOfEmployee}}">{{company.numberOfEmployee}}</span>
+                        </dd>
+                        <dd *ngIf="company.foundationDate">
+                            <fa-icon [icon]="'calendar'"></fa-icon>
+                            <span>{{company.foundationDate | date: 'dd/MM/yyyy'}}</span>
+                        </dd>
+                        <dd *ngIf="company.vatNumber">
+                            <fa-icon [icon]="'credit-card'"></fa-icon>
+                            <span>{{company.vatNumber}}</span>
+                        </dd>
+                        <dd *ngIf="company.email">
+                            <fa-icon [icon]="'envelope'"></fa-icon>
+                            <span>{{company.email}}</span>
+                        </dd>
+                        <dd *ngIf="company.phone">
+                            <fa-icon [icon]="'phone'"></fa-icon>
+                            <span>{{company.phone}}</span>
+                        </dd>
+                        <dd *ngIf="company.mobilePhone">
+                            <fa-icon [icon]="'mobile'"></fa-icon>
+                            <span>{{company.mobilePhone}}</span>
+                        </dd>
+                        <dd
+                            *ngIf="company.city || company.region || company.country || company.cap || company.province">
+                            <fa-icon [icon]="'map'"></fa-icon>
+                            <span *ngIf="company.city">
+                                {{ company.city }}
+                            </span>
+                            <span *ngIf="company.cap">
+                                &middot; {{ company.cap }}
+                            </span>
+                            <span *ngIf="company.province">
+                                &middot; {{company.province}}
+                            </span>
+                            <span *ngIf="company.region">
+                                &middot; {{ company.region }}
+                            </span>
+                            <span *ngIf="company.country">
+                                &middot; {{('jobmatchApp.Country.' + company.country) | translate}}
+                            </span>
+                        </dd>
+                        <dd *ngIf="company.streetAddress">
+                            <fa-icon [icon]="'road'"></fa-icon>
+                            <span>{{company.streetAddress}}</span>
+                        </dd>
+                        <dd *ngIf="company.urlSite">
+                            <fa-icon [icon]="'blog'"></fa-icon>
+                            <span>{{company.urlSite}}</span>
+                        </dd>
+                    </dl>
+                </div>
+                <hr>
+                <div class="bottom-section">
+                    <div class="note-candidato" *ngIf="company.companyDescription">
+                        <div><b jhiTranslate="jobmatchApp.company.companyDescription">Company Description</b></div>
+                        <p>{{company.companyDescription}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card section shadow-sm" *ngIf="!company.sponsoringInstitutionId">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-11 col-10">
+                            <h3 jhiTranslate="jobmatchApp.candidate.skill">Competenze</h3>
+                        </div>
+                        <div class="col-md-1 col-2" *ngIf="company.editAvailable">
+                            <a class="btn btn-outline-primary" (click)="onUpdateSkill(null)">
+                                <fa-icon [icon]="'plus'"></fa-icon>
+                            </a>
+                        </div>
+                    </div>
+                    <hr />
+                    <ng-container *ngIf="otherSkills && otherSkills.length > 0">
+                        <div *ngFor="let skill of otherSkills" class="badge badge-pill badge-primary skill-tag">
+                            <a  *ngIf="company.editAvailable" (click)="onUpdateSkill(skill)" 
+                                class="btn" style="font-weight: 500; color: white;">{{ skill.skillTagName }}
+                            </a>
+                            <a *ngIf="!company.editAvailable" class="btn" style="font-weight: 500; color: white;">{{ skill.skillTagName }}
+	                        </a>
+                            
+                            <a class="btn btn-outline-primary btn-skill-tag-del" *ngIf="company.editAvailable" (click)="onDeleteSkill(skill)">
+                                <fa-icon [icon]="'times-circle'"></fa-icon>
+                            </a>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="!otherSkills || otherSkills.length == 0">
+                        <i jhiTranslate="jobmatchApp.company.noSkillsListed">Nessuna Competenza</i>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="no-padding-l-md col-md-3 col-12">
+        <div class="card section shadow-sm">
+            <span class="text-center" style="font-size: 1.5rem; font-weight: 350; color: gray;"
+                jhiTranslate="jobmatchApp.jobOffer.home.title">Job Offers</span>
+            <ng-container *ngIf="! jobOffers || jobOffers.length == 0">
+                <i jhiTranslate="jobmatchApp.company.noJobOffersListed">Nessuna offerta di lavoro</i>
+            </ng-container>
+            <ng-container *ngIf="jobOffers && jobOffers.length > 0">
+                <div class="card border-light rounded shadow-sm mb-2"
+                    *ngFor="let jobOffer of jobOffers;trackBy: trackById">
+                    <div class="card-body">
+                        <h5 class="card-title">{{jobOffer.jobTitle}}</h5>
+                        <p class="card-text">{{jobOffer.jobShortDescription}}</p>
+                        <div class="row">
+                            <div class="col card-text text-muted">
+                                <p *ngIf="jobOffer.jobCity || jobOffer.jobCountry">
+                                    {{jobOffer.jobCity}} {{('jobmatchApp.Country.' + jobOffer.jobCountry) | translate}}
+                                </p>
+                                <fa-icon [icon]="'clock'"></fa-icon>
+                                {{jobOffer.timePassed}}
+                            </div>
+                            <div class="col card-text text-right align-text-bottom">
+                                <button type="submit" [routerLink]="['/job-offer', jobOffer.id, 'view' ]"
+                                    class="btn btn-outline-primary ">
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<div class="col">
+    <button *ngIf="showBackBtn" type="button" (click)="previousState()" class="btn btn-info">
+        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+</div>

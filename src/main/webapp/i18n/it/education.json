@@ -1,0 +1,49 @@
+{
+    "jobmatchApp": {
+        "education": {
+            "home": {
+                "title": "Educations",
+                "createLabel": "Genera un nuovo Education",
+                "createOrEditLabel": "Genera o modifica un Education"
+            },
+            "created": "&Egrave; stato generato un nuovo Education con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Education identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Education con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare l'istruzione {{ id }}?"
+            },
+            "detail": {
+                "title": "Education"
+            },
+            "createdBy": "Created By",
+            "lastModifiedBy": "Last Modified By",
+            "createdDate": "Created Date",
+            "lastModifiedDate": "Last Modified Date",
+            "schoolName": "Scuola o Universita'",
+            "schoolNamePlaceholder": "Es: Universita' degli Studi di Pavia",
+            "type": "Tipologia",
+            "fieldOfStudy": "Titolo di Studio",
+            "fieldOfStudyPlaceholder": "Es: Laurea",
+            "description": "Descrizione",
+            "startDate": "Data Inizio",
+            "endDate": "Data Fine",
+            "graduaded": "Graduaded",
+            "current": "Attualmente in corso ",
+            "candidate": "Candidate",
+            "expires": "Questa certificazione e' soggetta a scadenza",
+            "educationType": "Tipo",
+            "education": {
+                "schoolName": "Scuola o Universita'",
+                "schoolNamePlaceholder": "Es: Universita' degli Studi di Pavia",
+                "fieldOfStudy": "Titolo di Studio",
+                "fieldOfStudyPlaceholder": "Es: Laurea"
+            },
+            "certification": {
+                "schoolName": "Organizzazione emittente",
+                "schoolNamePlaceholder": "Es: Cisco",
+                "fieldOfStudy": "Nome",
+                "fieldOfStudyPlaceholder": "Es: Certificazione Cisco CCNA Security"
+            }
+        }
+    }
+}

@@ -1,0 +1,57 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="appliedJobIteration">
+            <h2><span jhiTranslate="jobmatchApp.appliedJobIteration.detail.title">Applied Job Iteration</span> {{appliedJobIteration.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jobmatchApp.appliedJobIteration.createdBy">Created By</span></dt>
+                <dd>
+                    <span>{{appliedJobIteration.createdBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.appliedJobIteration.lastModifiedBy">Last Modified By</span></dt>
+                <dd>
+                    <span>{{appliedJobIteration.lastModifiedBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.appliedJobIteration.createdDate">Created Date</span></dt>
+                <dd>
+                    <span>{{appliedJobIteration.createdDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.appliedJobIteration.lastModifiedDate">Last Modified Date</span></dt>
+                <dd>
+                    <span>{{appliedJobIteration.lastModifiedDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.appliedJobIteration.iterationDate">Iteration Date</span></dt>
+                <dd>
+                    <span>{{appliedJobIteration.iterationDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.appliedJobIteration.iterationType">Iteration Type</span></dt>
+                <dd>
+                    <span>{{appliedJobIteration.iterationType}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.appliedJobIteration.iterationNote">Iteration Note</span></dt>
+                <dd>
+                    <span>{{appliedJobIteration.iterationNote}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.appliedJobIteration.appliedJob">Applied Job</span></dt>
+                <dd>
+                    <div *ngIf="appliedJobIteration.appliedJobId">
+                        <a [routerLink]="['/applied-job', appliedJobIteration.appliedJobId, 'view']">{{appliedJobIteration.appliedJobId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/applied-job-iteration', appliedJobIteration.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="companySector">
+            <h2><span jhiTranslate="jobmatchApp.companySector.detail.title">Company Sector</span> {{companySector.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jobmatchApp.companySector.createdBy">Created By</span></dt>
+                <dd>
+                    <span>{{companySector.createdBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.companySector.lastModifiedBy">Last Modified By</span></dt>
+                <dd>
+                    <span>{{companySector.lastModifiedBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.companySector.createdDate">Created Date</span></dt>
+                <dd>
+                    <span>{{companySector.createdDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.companySector.lastModifiedDate">Last Modified Date</span></dt>
+                <dd>
+                    <span>{{companySector.lastModifiedDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.companySector.code">Code</span></dt>
+                <dd>
+                    <span>{{companySector.code}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.companySector.descriptionEN">Description EN</span></dt>
+                <dd>
+                    <span>{{companySector.descriptionEN}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.companySector.descriptionIT">Description IT</span></dt>
+                <dd>
+                    <span>{{companySector.descriptionIT}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/company-sector', companySector.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

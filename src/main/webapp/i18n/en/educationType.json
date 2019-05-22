@@ -1,0 +1,9 @@
+{
+    "jobmatchApp": {
+        "EducationType": {
+            "null": "",
+            "EDUCATION": "Education",
+            "CERTIFICATION": "Certification"
+        }
+    }
+}

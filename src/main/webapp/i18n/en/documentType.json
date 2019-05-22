@@ -1,0 +1,9 @@
+{
+    "jobmatchApp": {
+        "DocumentType": {
+            "null": "",
+            "CV": "CV",
+            "OTHER": "OTHER"
+        }
+    }
+}

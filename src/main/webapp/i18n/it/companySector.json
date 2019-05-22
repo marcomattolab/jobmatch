@@ -1,0 +1,28 @@
+{
+    "jobmatchApp": {
+        "companySector": {
+            "home": {
+                "title": "Secttori Aziende",
+                "createLabel": "Nuovo Settore",
+                "createOrEditLabel": "Genera o modifica un Settore"
+            },
+            "created": "&Egrave; stato generato un nuovo Company Sector con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Company Sector identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Company Sector con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare Company Sector {{ id }}?"
+            },
+            "detail": {
+                "title": "Company Sector"
+            },
+            "createdBy": "Created By",
+            "lastModifiedBy": "Last Modified By",
+            "createdDate": "Created Date",
+            "lastModifiedDate": "Last Modified Date",
+            "code": "Codice",
+            "description": "Descrizione",
+            "descriptionEN": "Descrizione (Inglese)",
+            "descriptionIT": "Descrizione (Italiano)" 
+        }
+    }
+}

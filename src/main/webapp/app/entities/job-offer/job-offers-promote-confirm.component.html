@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <h4 class="modal-title">Conferma Promozione</h4>
+    <button type="button" class="close" aria-hidden="true" (click)="clear()">&times;</button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <ngb-tabset>
+                <ngb-tab *ngFor="let customMessage of customMessages;">
+                    <ng-template ngbTabTitle><b>{{ customMessage.langKey }}</b></ng-template>
+                    <ng-template ngbTabContent><textarea [(ngModel)]="customMessage.customMessage" required style="width: 100%; min-height: 30vh"></textarea></ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="clear()">
+        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;
+        <span jhiTranslate="entity.action.cancel">Cancel</span>
+    </button>
+    <button type="button" class="btn btn-primary" (click)="confirm()">
+        <fa-icon [icon]="'save'"></fa-icon>&nbsp;
+        <span jhiTranslate="entity.action.confirm">Conferma</span>
+    </button>
+</div>

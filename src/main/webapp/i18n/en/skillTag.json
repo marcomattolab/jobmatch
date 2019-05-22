@@ -1,0 +1,26 @@
+{
+    "jobmatchApp": {
+        "skillTag": {
+            "home": {
+                "title": "Skill Tags",
+                "createLabel": "Create a new Skill Tag",
+                "createOrEditLabel": "Create or edit a Skill Tag"
+            },
+            "created": "A new Skill Tag is created with identifier {{ param }}",
+            "updated": "A Skill Tag is updated with identifier {{ param }}",
+            "deleted": "A Skill Tag is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Skill Tag {{ id }}?"
+            },
+            "detail": {
+                "title": "Skill Tag"
+            },
+            "createdBy": "Created By",
+            "lastModifiedBy": "Last Modified By",
+            "createdDate": "Created Date",
+            "lastModifiedDate": "Last Modified Date",
+            "name": "Name",
+            "type": "Type"
+        }
+    }
+}

@@ -1,0 +1,196 @@
+<form name="editForm" role="form" novalidate #editForm="ngForm" (ngSubmit)="confirmUpdate()">
+    <div class="modal-header">
+        <h4 class="modal-title" jhiTranslate="jobmatchApp.candidate.anagrafica.title">Edit Personal Info</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="jobmatchApp.candidate.firstName" for="field_firstName">First Name</label>
+                        <input type="text" class="form-control" name="firstName" id="field_firstName"
+                            [(ngModel)]="candidate.firstName" maxlength="50" disabled/>
+                        <!-- <div [hidden]="!(editForm.controls.firstName?.dirty && editForm.controls.firstName?.invalid)">
+                            <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.firstName?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.firstName?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
+                            This field cannot be longer than 50 characters.
+                            </small>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="jobmatchApp.candidate.lastName" for="field_lastName">Last Name</label>
+                        <input type="text" class="form-control" name="lastName" id="field_lastName"
+                            [(ngModel)]="candidate.lastName" maxlength="50" disabled/>
+                        <!-- <div [hidden]="!(editForm.controls.lastName?.dirty && editForm.controls.lastName?.invalid)">
+                            <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.lastName?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.lastName?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
+                            This field cannot be longer than 50 characters.
+                            </small>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="jobmatchApp.candidate.birthday" for="field_birthday">Birthday</label>
+                        <div class="input-group">
+                            <input id="field_birthday" type="text" class="form-control" name="birthday" ngbDatepicker  #birthdayDp="ngbDatepicker" [(ngModel)]="candidate.birthday"
+                            />
+                            <span class="input-group-append">
+                                <button type="button" class="btn btn-secondary" (click)="birthdayDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="jobmatchApp.candidate.gender" for="field_gender">Gender</label>
+                        <select class="form-control" name="gender" [(ngModel)]="candidate.gender" id="field_gender" >
+                            <option value="MALE">{{'jobmatchApp.GenderType.MALE' | translate}}</option>
+                            <option value="FEMALE">{{'jobmatchApp.GenderType.FEMALE' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="jobmatchApp.candidate.phone" for="field_phone">Phone</label>
+                        <input type="text" class="form-control" name="phone" id="field_phone"
+                            [(ngModel)]="candidate.phone" pattern="^[0-9+ ]{8,15}$"/>
+                        <div [hidden]="!(editForm.controls.phone?.dirty && editForm.controls.phone?.invalid)">
+		                    <small class="form-text text-danger"
+		                    [hidden]="!editForm.controls.phone?.errors?.required" jhiTranslate="entity.validation.required">
+		                    This field is required.
+		                    </small>
+		                    <small class="form-text text-danger"
+		                        [hidden]="!editForm.controls.phone?.errors?.pattern" jhiTranslate="entity.validation.phonePattern">
+		                        This field should follow pattern for "Phone".
+		                    </small>
+		                </div>
+                    </div>
+                    
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="jobmatchApp.candidate.mobilePhone" for="field_mobilePhone">Mobile Phone</label>
+                        <input type="text" class="form-control" name="mobilePhone" id="field_mobilePhone"
+                            [(ngModel)]="candidate.mobilePhone" pattern="^[0-9+ ]{8,15}$"/>
+                        <div [hidden]="!(editForm.controls.mobilePhone?.dirty && editForm.controls.mobilePhone?.invalid)">
+		                    <small class="form-text text-danger"
+		                    [hidden]="!editForm.controls.mobilePhone?.errors?.required" jhiTranslate="entity.validation.required">
+		                    This field is required.
+		                    </small>
+		                    <small class="form-text text-danger"
+		                        [hidden]="!editForm.controls.mobilePhone?.errors?.pattern" jhiTranslate="entity.validation.phonePattern">
+		                        This field should follow pattern for "Phone".
+		                    </small>
+		                </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="jobmatchApp.candidate.email" for="field_email">Email</label>
+                <input type="text" class="form-control" name="email" id="field_email"
+                    [(ngModel)]="candidate.email" disabled />
+                    <!-- required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"/>
+                <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
+                    <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.email?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                    </small>
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.email?.errors?.pattern" jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: 'Email' }">
+                        This field should follow pattern for "Email".
+                    </small>
+                </div> -->
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="jobmatchApp.candidate.country" for="field_country">Country</label>
+			            <select class="form-control" name="country" [(ngModel)]="candidate.country" id="field_country" >
+	                         <option *ngFor="let country of countries" [value]="country">{{('jobmatchApp.Country.' + country) | translate}}</option>
+	                    </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="jobmatchApp.candidate.region" for="field_region">Region</label>
+                        <input type="text" class="form-control" name="region" id="field_region"
+                            [(ngModel)]="candidate.region" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="jobmatchApp.candidate.province" for="field_province">Province</label>
+                        <input type="text" class="form-control" name="province" id="field_province"
+                            [(ngModel)]="candidate.province" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="jobmatchApp.candidate.city" for="field_city">City</label>
+                        <input type="text" class="form-control" name="city" id="field_city"
+                            [(ngModel)]="candidate.city" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="jobmatchApp.candidate.cap" for="field_cap">Cap</label>
+                        <input type="text" class="form-control" name="cap" id="field_cap"
+                            [(ngModel)]="candidate.cap" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="jobmatchApp.candidate.streetAddress" for="field_streetAddress">Street Address</label>
+                <input type="text" class="form-control" name="streetAddress" id="field_streetAddress"
+                    [(ngModel)]="candidate.streetAddress" />
+            </div>
+            
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="jobmatchApp.candidate.noteCandidate" for="field_note">Note</label>
+                <textarea class="form-control" name="note" id="field_note"
+                    [(ngModel)]="candidate.note" ></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="jobmatchApp.candidate.noteENCandidate" for="field_noteEN">Note</label>
+                <textarea class="form-control" name="noteEN" id="field_noteEN"
+                    [(ngModel)]="candidate.noteEN" ></textarea>
+            </div> 
+            
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="editForm.form.invalid || isSaving">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

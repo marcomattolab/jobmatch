@@ -1,0 +1,9 @@
+{
+    "jobmatchApp": {
+        "JobOfferType": {
+            "null": "",
+            "JOB": "Job",
+            "STAGE": "Stage"
+        }
+    }
+}

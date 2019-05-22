@@ -1,0 +1,11 @@
+{
+    "jobmatchApp": {
+        "AppiedJobStatus": {
+            "null": "",
+            "NEW": "New",
+            "EVALUATION_IN_PROGRESS": "Evaluation in Progress",
+            "APPROVED": "Approved",
+            "REJECTED": "Rejected"
+        }
+    }
+}

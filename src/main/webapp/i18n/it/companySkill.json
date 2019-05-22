@@ -1,0 +1,28 @@
+{
+    "jobmatchApp": {
+        "companySkill": {
+            "home": {
+                "title": "CompanySkills",
+                "createLabel": "Genera un nuovo Company Skill",
+                "createOrEditLabel": "Genera o modifica un Company Skill"
+            },
+            "created": "&Egrave; stato generato un nuovo Company Skill con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Company Skill identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Company Skill con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare Company Skill {{ id }}?"
+            },
+            "detail": {
+                "title": "Company Skill"
+            },
+            "createdBy": "Created By",
+            "lastModifiedBy": "Last Modified By",
+            "createdDate": "Created Date",
+            "lastModifiedDate": "Last Modified Date",
+            "level": "Level",
+            "proficNumberOfYear": "Profic Number Of Year",
+            "skillTag": "Skill Tag",
+            "company": "Company"
+        }
+    }
+}

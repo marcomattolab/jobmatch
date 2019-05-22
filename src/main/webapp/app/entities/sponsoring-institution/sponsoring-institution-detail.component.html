@@ -1,0 +1,111 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="sponsoringInstitution">
+            <h2><span jhiTranslate="jobmatchApp.sponsoringInstitution.detail.title">Sponsoring Institution</span> {{sponsoringInstitution.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.createdBy">Created By</span></dt>
+                <dd>
+                    <span>{{sponsoringInstitution.createdBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.lastModifiedBy">Last Modified By</span></dt>
+                <dd>
+                    <span>{{sponsoringInstitution.lastModifiedBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.createdDate">Created Date</span></dt>
+                <dd>
+                    <span>{{sponsoringInstitution.createdDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.lastModifiedDate">Last Modified Date</span></dt>
+                <dd>
+                    <span>{{sponsoringInstitution.lastModifiedDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.istituitionName">Istituition Name</span></dt>
+                <dd>
+                    <span>{{sponsoringInstitution.istituitionName}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.istituitionDescription">Istituition Description</span></dt>
+                <dd>
+                    <span>{{sponsoringInstitution.istituitionDescription}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.istituitionSector">Istituition Sector</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'jobmatchApp.IstituitionSectorType.' + sponsoringInstitution.istituitionSector}}">{{sponsoringInstitution.istituitionSector}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.istituitionType">Istituition Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'jobmatchApp.IstituitionType.' + sponsoringInstitution.istituitionType}}">{{sponsoringInstitution.istituitionType}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.streetAddress">Street Address</span></dt>
+                <dd>
+                    <span>{{sponsoringInstitution.streetAddress}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.foundationDate">Foundation Date</span></dt>
+                <dd>
+                    <span>{{sponsoringInstitution.foundationDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.vatNumber">Vat Number</span></dt>
+                <dd>
+                    <span>{{sponsoringInstitution.vatNumber}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.email">Email</span></dt>
+                <dd>
+                    <span>{{sponsoringInstitution.email}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.phone">Phone</span></dt>
+                <dd>
+                    <span>{{sponsoringInstitution.phone}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.mobilePhone">Mobile Phone</span></dt>
+                <dd>
+                    <span>{{sponsoringInstitution.mobilePhone}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.country">Country</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'jobmatchApp.Country.' + sponsoringInstitution.country}}">{{sponsoringInstitution.country}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.region">Region</span></dt>
+                <dd>
+                    <span>{{sponsoringInstitution.region}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.province">Province</span></dt>
+                <dd>
+                    <span>{{sponsoringInstitution.province}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.city">City</span></dt>
+                <dd>
+                    <span>{{sponsoringInstitution.city}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.cap">Cap</span></dt>
+                <dd>
+                    <span>{{sponsoringInstitution.cap}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.urlSite">Url Site</span></dt>
+                <dd>
+                    <span>{{sponsoringInstitution.urlSite}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.enabled">Enabled</span></dt>
+                <dd>
+                    <span>{{sponsoringInstitution.enabled}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.sponsoringInstitution.user">User</span></dt>
+                <dd>
+                    {{sponsoringInstitution.userId}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/sponsoring-institution', sponsoringInstitution.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

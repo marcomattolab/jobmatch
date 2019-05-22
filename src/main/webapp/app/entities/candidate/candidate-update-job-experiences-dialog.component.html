@@ -1,0 +1,131 @@
+<form name="editForm" role="form" novalidate #editForm="ngForm" (ngSubmit)="confirm()">
+    <div class="modal-header">
+        <h4 class="modal-title">
+            <span *ngIf="!currentJobExperience.id" jhiTranslate="jobmatchApp.candidate.jobExperienceDetail.newTitle">New
+                Job Experience</span>
+            <span *ngIf="currentJobExperience.id"
+                jhiTranslate="jobmatchApp.candidate.jobExperienceDetail.editTitle">Edit Job Experience</span>
+        </h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div>
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="jobmatchApp.jobExperience.jobTitle"
+                    for="field_jobTitle">Job Title</label>
+                <input type="text" class="form-control" name="jobTitle" id="field_jobTitle"
+                    [(ngModel)]="currentJobExperience.jobTitle" required
+                    placeholder="{{'jobmatchApp.jobExperience.jobTitlePlaceholder' | translate}}" />
+                <div [hidden]="!(editForm.controls.jobTitle?.dirty && editForm.controls.jobTitle?.invalid)">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.jobTitle?.errors?.required"
+                        jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="jobmatchApp.jobExperience.companyName"
+                    for="field_companyName">Company Name</label>
+                <input type="text" class="form-control" name="companyName" id="field_companyName"
+                    [(ngModel)]="currentJobExperience.companyName" required
+                    placeholder="{{'jobmatchApp.jobExperience.companyNamePlaceholder' | translate}}" />
+                <div [hidden]="!(editForm.controls.companyName?.dirty && editForm.controls.companyName?.invalid)">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.companyName?.errors?.required"
+                        jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="jobmatchApp.jobExperience.jobDescription"
+                    for="field_jobDescription">Job Description</label>
+                <textarea class="form-control" name="jobDescription" id="field_jobDescription"
+                    [(ngModel)]="currentJobExperience.jobDescription"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="jobmatchApp.jobExperience.city"
+                    for="field_city">City</label>
+                <input type="text" class="form-control" name="city" id="field_city"
+                    [(ngModel)]="currentJobExperience.city" required />
+                <div [hidden]="!(editForm.controls.city?.dirty && editForm.controls.city?.invalid)">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.city?.errors?.required"
+                        jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="jobmatchApp.jobExperience.country"
+                    for="field_country">Country</label>
+                <select class="form-control" name="country" [(ngModel)]="currentJobExperience.country"
+                    id="field_country" required>
+                    <option *ngFor="let country of countries" [value]="country">
+                        {{('jobmatchApp.Country.' + country) | translate}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="jobmatchApp.jobExperience.startDate"
+                    for="field_startDate">Start Date</label>
+                <div class="input-group">
+                    <input id="field_startDate" type="text" class="form-control" name="startDate" ngbDatepicker
+                        #startDateDp="ngbDatepicker" [(ngModel)]="currentJobExperience.startDate" required />
+                    <span class="input-group-append">
+                        <button type="button" class="btn btn-secondary" (click)="startDateDp.toggle()">
+                            <fa-icon [icon]="'calendar-alt'"></fa-icon>
+                        </button>
+                    </span>
+                </div>
+                <div [hidden]="!(editForm.controls.startDate?.dirty && editForm.controls.startDate?.invalid)">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.startDate?.errors?.required"
+                        jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="jobmatchApp.jobExperience.current"
+                    for="field_current">Current</label>
+                <input type="checkbox" style="height: 20px; width: 25px; vertical-align: sub;" name="current"
+                    id="field_current" click="onSelectCurrent($event)" [(ngModel)]="currentJobExperience.current" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="jobmatchApp.jobExperience.endDate"
+                    for="field_endDate">End Date</label>
+                <div class="input-group">
+                    <input id="field_endDate" type="text" class="form-control" name="endDate" ngbDatepicker
+                        #endDateDp="ngbDatepicker" [(ngModel)]="currentJobExperience.endDate"
+                        [disabled]="currentJobExperience.current" [required]="!currentJobExperience.current" />
+                    <span class="input-group-append">
+                        <button type="button" class="btn btn-secondary" (click)="endDateDp.toggle()">
+                            <fa-icon [icon]="'calendar-alt'"></fa-icon>
+                        </button>
+                    </span>
+                </div>
+                <div [hidden]="!(editForm.controls.endDate?.dirty && editForm.controls.endDate?.invalid)">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.endDate?.errors?.required"
+                        jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div [hidden]="!invalidDates">
+                    <small class="form-text text-danger">
+                        Le date non sono coerenti
+                    </small>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="editForm.form.invalid || isSaving">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

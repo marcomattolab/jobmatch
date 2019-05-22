@@ -1,0 +1,14 @@
+{
+    "jobmatchApp": {
+        "IstituitionSectorType": {
+            "null": "",
+            "ICT_IT": "ICT / IT",
+            "CHARITY": "Beneficienza",
+            "GOVERNAMENT": "Governativa",
+            "LAW": "Giustizia",
+            "PUBLIC": "Publica",
+            "PRIVATE": "Privata",
+            "OTHER": "Altro"
+        }
+    }
+}

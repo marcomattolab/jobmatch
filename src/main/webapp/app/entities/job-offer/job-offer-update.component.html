@@ -1,0 +1,442 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-job-offer-heading" jhiTranslate="jobmatchApp.jobOffer.home.createOrEditLabel">Create or edit a Job Offer</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!jobOffer.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="jobOffer.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.createdBy" for="field_createdBy">Created By</label>
+                    <input type="text" class="form-control" name="createdBy" id="field_createdBy"
+                        [(ngModel)]="jobOffer.createdBy" maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.createdBy?.dirty && editForm.controls.createdBy?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.createdBy?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.lastModifiedBy" for="field_lastModifiedBy">Last Modified By</label>
+                    <input type="text" class="form-control" name="lastModifiedBy" id="field_lastModifiedBy"
+                        [(ngModel)]="jobOffer.lastModifiedBy" maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.lastModifiedBy?.dirty && editForm.controls.lastModifiedBy?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.lastModifiedBy?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.createdDate" for="field_createdDate">Created Date</label>
+                    <div class="d-flex">
+                        <input id="field_createdDate" type="datetime-local" class="form-control" name="createdDate" [(ngModel)]="createdDate" placeholder="YYYY-MM-DD HH:mm"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.lastModifiedDate" for="field_lastModifiedDate">Last Modified Date</label>
+                    <div class="d-flex">
+                        <input id="field_lastModifiedDate" type="datetime-local" class="form-control" name="lastModifiedDate" [(ngModel)]="lastModifiedDate" placeholder="YYYY-MM-DD HH:mm"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.startDate" for="field_startDate">Start Date</label>
+                    <div class="input-group">
+                        <input id="field_startDate" type="text" class="form-control" name="startDate" ngbDatepicker  #startDateDp="ngbDatepicker" [(ngModel)]="jobOffer.startDate"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="startDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.startDate?.dirty && editForm.controls.startDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.startDate?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.jobTitle" for="field_jobTitle">Job Title</label>
+                    <input type="text" class="form-control" name="jobTitle" id="field_jobTitle"
+                        [(ngModel)]="jobOffer.jobTitle" required/>
+                    <div [hidden]="!(editForm.controls.jobTitle?.dirty && editForm.controls.jobTitle?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.jobTitle?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.jobShortDescription" for="field_jobShortDescription">Job Short Description</label>
+                    <input type="text" class="form-control" name="jobShortDescription" id="field_jobShortDescription"
+                        [(ngModel)]="jobOffer.jobShortDescription" required/>
+                    <div [hidden]="!(editForm.controls.jobShortDescription?.dirty && editForm.controls.jobShortDescription?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.jobShortDescription?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.jobDescription" for="field_jobDescription">Job Description</label>
+                    <textarea class="form-control" name="jobDescription" id="field_jobDescription"
+                        [(ngModel)]="jobOffer.jobDescription" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.jobOfferType" for="field_jobOfferType">Job Offer Type</label>
+                    <select class="form-control" name="jobOfferType" [(ngModel)]="jobOffer.jobOfferType" id="field_jobOfferType" >
+                        <option value="JOB">{{'jobmatchApp.JobOfferType.JOB' | translate}}</option>
+                        <option value="STAGE">{{'jobmatchApp.JobOfferType.STAGE' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.responsibilitiesDescription" for="field_responsibilitiesDescription">Responsibilities Description</label>
+                    <textarea class="form-control" name="responsibilitiesDescription" id="field_responsibilitiesDescription"
+                        [(ngModel)]="jobOffer.responsibilitiesDescription" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.experiencesDescription" for="field_experiencesDescription">Experiences Description</label>
+                    <textarea class="form-control" name="experiencesDescription" id="field_experiencesDescription"
+                        [(ngModel)]="jobOffer.experiencesDescription" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.attributesDescription" for="field_attributesDescription">Attributes Description</label>
+                    <textarea class="form-control" name="attributesDescription" id="field_attributesDescription"
+                        [(ngModel)]="jobOffer.attributesDescription" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.jobFunctions" for="field_jobFunctions">Job Functions</label>
+                    <input type="text" class="form-control" name="jobFunctions" id="field_jobFunctions"
+                        [(ngModel)]="jobOffer.jobFunctions" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.jobCity" for="field_jobCity">Job City</label>
+                    <input type="text" class="form-control" name="jobCity" id="field_jobCity"
+                        [(ngModel)]="jobOffer.jobCity" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.jobCountry" for="field_jobCountry">Job Country</label>
+                    <select class="form-control" name="jobCountry" [(ngModel)]="jobOffer.jobCountry" id="field_jobCountry" >
+                        <option value="IT">{{'jobmatchApp.Country.IT' | translate}}</option>
+                        <option value="AF">{{'jobmatchApp.Country.AF' | translate}}</option>
+                        <option value="AL">{{'jobmatchApp.Country.AL' | translate}}</option>
+                        <option value="DZ">{{'jobmatchApp.Country.DZ' | translate}}</option>
+                        <option value="AD">{{'jobmatchApp.Country.AD' | translate}}</option>
+                        <option value="AO">{{'jobmatchApp.Country.AO' | translate}}</option>
+                        <option value="AI">{{'jobmatchApp.Country.AI' | translate}}</option>
+                        <option value="AQ">{{'jobmatchApp.Country.AQ' | translate}}</option>
+                        <option value="AG">{{'jobmatchApp.Country.AG' | translate}}</option>
+                        <option value="AN">{{'jobmatchApp.Country.AN' | translate}}</option>
+                        <option value="SA">{{'jobmatchApp.Country.SA' | translate}}</option>
+                        <option value="AR">{{'jobmatchApp.Country.AR' | translate}}</option>
+                        <option value="AM">{{'jobmatchApp.Country.AM' | translate}}</option>
+                        <option value="AW">{{'jobmatchApp.Country.AW' | translate}}</option>
+                        <option value="AU">{{'jobmatchApp.Country.AU' | translate}}</option>
+                        <option value="AT">{{'jobmatchApp.Country.AT' | translate}}</option>
+                        <option value="AZ">{{'jobmatchApp.Country.AZ' | translate}}</option>
+                        <option value="BS">{{'jobmatchApp.Country.BS' | translate}}</option>
+                        <option value="BH">{{'jobmatchApp.Country.BH' | translate}}</option>
+                        <option value="BD">{{'jobmatchApp.Country.BD' | translate}}</option>
+                        <option value="BB">{{'jobmatchApp.Country.BB' | translate}}</option>
+                        <option value="BE">{{'jobmatchApp.Country.BE' | translate}}</option>
+                        <option value="BZ">{{'jobmatchApp.Country.BZ' | translate}}</option>
+                        <option value="BJ">{{'jobmatchApp.Country.BJ' | translate}}</option>
+                        <option value="BM">{{'jobmatchApp.Country.BM' | translate}}</option>
+                        <option value="BT">{{'jobmatchApp.Country.BT' | translate}}</option>
+                        <option value="BY">{{'jobmatchApp.Country.BY' | translate}}</option>
+                        <option value="BO">{{'jobmatchApp.Country.BO' | translate}}</option>
+                        <option value="BA">{{'jobmatchApp.Country.BA' | translate}}</option>
+                        <option value="BW">{{'jobmatchApp.Country.BW' | translate}}</option>
+                        <option value="BR">{{'jobmatchApp.Country.BR' | translate}}</option>
+                        <option value="BN">{{'jobmatchApp.Country.BN' | translate}}</option>
+                        <option value="BG">{{'jobmatchApp.Country.BG' | translate}}</option>
+                        <option value="BF">{{'jobmatchApp.Country.BF' | translate}}</option>
+                        <option value="BI">{{'jobmatchApp.Country.BI' | translate}}</option>
+                        <option value="KH">{{'jobmatchApp.Country.KH' | translate}}</option>
+                        <option value="CM">{{'jobmatchApp.Country.CM' | translate}}</option>
+                        <option value="CA">{{'jobmatchApp.Country.CA' | translate}}</option>
+                        <option value="CV">{{'jobmatchApp.Country.CV' | translate}}</option>
+                        <option value="TD">{{'jobmatchApp.Country.TD' | translate}}</option>
+                        <option value="CL">{{'jobmatchApp.Country.CL' | translate}}</option>
+                        <option value="CN">{{'jobmatchApp.Country.CN' | translate}}</option>
+                        <option value="CY">{{'jobmatchApp.Country.CY' | translate}}</option>
+                        <option value="CO">{{'jobmatchApp.Country.CO' | translate}}</option>
+                        <option value="CG">{{'jobmatchApp.Country.CG' | translate}}</option>
+                        <option value="KR">{{'jobmatchApp.Country.KR' | translate}}</option>
+                        <option value="KP">{{'jobmatchApp.Country.KP' | translate}}</option>
+                        <option value="CR">{{'jobmatchApp.Country.CR' | translate}}</option>
+                        <option value="CI">{{'jobmatchApp.Country.CI' | translate}}</option>
+                        <option value="HR">{{'jobmatchApp.Country.HR' | translate}}</option>
+                        <option value="CU">{{'jobmatchApp.Country.CU' | translate}}</option>
+                        <option value="DK">{{'jobmatchApp.Country.DK' | translate}}</option>
+                        <option value="DM">{{'jobmatchApp.Country.DM' | translate}}</option>
+                        <option value="EC">{{'jobmatchApp.Country.EC' | translate}}</option>
+                        <option value="EG">{{'jobmatchApp.Country.EG' | translate}}</option>
+                        <option value="SV">{{'jobmatchApp.Country.SV' | translate}}</option>
+                        <option value="AE">{{'jobmatchApp.Country.AE' | translate}}</option>
+                        <option value="ER">{{'jobmatchApp.Country.ER' | translate}}</option>
+                        <option value="EE">{{'jobmatchApp.Country.EE' | translate}}</option>
+                        <option value="ET">{{'jobmatchApp.Country.ET' | translate}}</option>
+                        <option value="RU">{{'jobmatchApp.Country.RU' | translate}}</option>
+                        <option value="FJ">{{'jobmatchApp.Country.FJ' | translate}}</option>
+                        <option value="PH">{{'jobmatchApp.Country.PH' | translate}}</option>
+                        <option value="FI">{{'jobmatchApp.Country.FI' | translate}}</option>
+                        <option value="FR">{{'jobmatchApp.Country.FR' | translate}}</option>
+                        <option value="GA">{{'jobmatchApp.Country.GA' | translate}}</option>
+                        <option value="GM">{{'jobmatchApp.Country.GM' | translate}}</option>
+                        <option value="GE">{{'jobmatchApp.Country.GE' | translate}}</option>
+                        <option value="GS">{{'jobmatchApp.Country.GS' | translate}}</option>
+                        <option value="DE">{{'jobmatchApp.Country.DE' | translate}}</option>
+                        <option value="GH">{{'jobmatchApp.Country.GH' | translate}}</option>
+                        <option value="JM">{{'jobmatchApp.Country.JM' | translate}}</option>
+                        <option value="JP">{{'jobmatchApp.Country.JP' | translate}}</option>
+                        <option value="GI">{{'jobmatchApp.Country.GI' | translate}}</option>
+                        <option value="DJ">{{'jobmatchApp.Country.DJ' | translate}}</option>
+                        <option value="JO">{{'jobmatchApp.Country.JO' | translate}}</option>
+                        <option value="GR">{{'jobmatchApp.Country.GR' | translate}}</option>
+                        <option value="GD">{{'jobmatchApp.Country.GD' | translate}}</option>
+                        <option value="GL">{{'jobmatchApp.Country.GL' | translate}}</option>
+                        <option value="GP">{{'jobmatchApp.Country.GP' | translate}}</option>
+                        <option value="GU">{{'jobmatchApp.Country.GU' | translate}}</option>
+                        <option value="GT">{{'jobmatchApp.Country.GT' | translate}}</option>
+                        <option value="GG">{{'jobmatchApp.Country.GG' | translate}}</option>
+                        <option value="GN">{{'jobmatchApp.Country.GN' | translate}}</option>
+                        <option value="GQ">{{'jobmatchApp.Country.GQ' | translate}}</option>
+                        <option value="GW">{{'jobmatchApp.Country.GW' | translate}}</option>
+                        <option value="GY">{{'jobmatchApp.Country.GY' | translate}}</option>
+                        <option value="GF">{{'jobmatchApp.Country.GF' | translate}}</option>
+                        <option value="HT">{{'jobmatchApp.Country.HT' | translate}}</option>
+                        <option value="HM">{{'jobmatchApp.Country.HM' | translate}}</option>
+                        <option value="HN">{{'jobmatchApp.Country.HN' | translate}}</option>
+                        <option value="HK">{{'jobmatchApp.Country.HK' | translate}}</option>
+                        <option value="IN">{{'jobmatchApp.Country.IN' | translate}}</option>
+                        <option value="ID">{{'jobmatchApp.Country.ID' | translate}}</option>
+                        <option value="IR">{{'jobmatchApp.Country.IR' | translate}}</option>
+                        <option value="IQ">{{'jobmatchApp.Country.IQ' | translate}}</option>
+                        <option value="IE">{{'jobmatchApp.Country.IE' | translate}}</option>
+                        <option value="IS">{{'jobmatchApp.Country.IS' | translate}}</option>
+                        <option value="BV">{{'jobmatchApp.Country.BV' | translate}}</option>
+                        <option value="CX">{{'jobmatchApp.Country.CX' | translate}}</option>
+                        <option value="NF">{{'jobmatchApp.Country.NF' | translate}}</option>
+                        <option value="IM">{{'jobmatchApp.Country.IM' | translate}}</option>
+                        <option value="AX">{{'jobmatchApp.Country.AX' | translate}}</option>
+                        <option value="KY">{{'jobmatchApp.Country.KY' | translate}}</option>
+                        <option value="CC">{{'jobmatchApp.Country.CC' | translate}}</option>
+                        <option value="KM">{{'jobmatchApp.Country.KM' | translate}}</option>
+                        <option value="CK">{{'jobmatchApp.Country.CK' | translate}}</option>
+                        <option value="FK">{{'jobmatchApp.Country.FK' | translate}}</option>
+                        <option value="FO">{{'jobmatchApp.Country.FO' | translate}}</option>
+                        <option value="PN">{{'jobmatchApp.Country.PN' | translate}}</option>
+                        <option value="SB">{{'jobmatchApp.Country.SB' | translate}}</option>
+                        <option value="TC">{{'jobmatchApp.Country.TC' | translate}}</option>
+                        <option value="VI">{{'jobmatchApp.Country.VI' | translate}}</option>
+                        <option value="VG">{{'jobmatchApp.Country.VG' | translate}}</option>
+                        <option value="IL">{{'jobmatchApp.Country.IL' | translate}}</option>
+                        <option value="JE">{{'jobmatchApp.Country.JE' | translate}}</option>
+                        <option value="KZ">{{'jobmatchApp.Country.KZ' | translate}}</option>
+                        <option value="KE">{{'jobmatchApp.Country.KE' | translate}}</option>
+                        <option value="KG">{{'jobmatchApp.Country.KG' | translate}}</option>
+                        <option value="KI">{{'jobmatchApp.Country.KI' | translate}}</option>
+                        <option value="KO">{{'jobmatchApp.Country.KO' | translate}}</option>
+                        <option value="KW">{{'jobmatchApp.Country.KW' | translate}}</option>
+                        <option value="LA">{{'jobmatchApp.Country.LA' | translate}}</option>
+                        <option value="LS">{{'jobmatchApp.Country.LS' | translate}}</option>
+                        <option value="LV">{{'jobmatchApp.Country.LV' | translate}}</option>
+                        <option value="LB">{{'jobmatchApp.Country.LB' | translate}}</option>
+                        <option value="LR">{{'jobmatchApp.Country.LR' | translate}}</option>
+                        <option value="LY">{{'jobmatchApp.Country.LY' | translate}}</option>
+                        <option value="LI">{{'jobmatchApp.Country.LI' | translate}}</option>
+                        <option value="LT">{{'jobmatchApp.Country.LT' | translate}}</option>
+                        <option value="LU">{{'jobmatchApp.Country.LU' | translate}}</option>
+                        <option value="MO">{{'jobmatchApp.Country.MO' | translate}}</option>
+                        <option value="MK">{{'jobmatchApp.Country.MK' | translate}}</option>
+                        <option value="MG">{{'jobmatchApp.Country.MG' | translate}}</option>
+                        <option value="MW">{{'jobmatchApp.Country.MW' | translate}}</option>
+                        <option value="MY">{{'jobmatchApp.Country.MY' | translate}}</option>
+                        <option value="MV">{{'jobmatchApp.Country.MV' | translate}}</option>
+                        <option value="ML">{{'jobmatchApp.Country.ML' | translate}}</option>
+                        <option value="MT">{{'jobmatchApp.Country.MT' | translate}}</option>
+                        <option value="MP">{{'jobmatchApp.Country.MP' | translate}}</option>
+                        <option value="MA">{{'jobmatchApp.Country.MA' | translate}}</option>
+                        <option value="MH">{{'jobmatchApp.Country.MH' | translate}}</option>
+                        <option value="MQ">{{'jobmatchApp.Country.MQ' | translate}}</option>
+                        <option value="MR">{{'jobmatchApp.Country.MR' | translate}}</option>
+                        <option value="MU">{{'jobmatchApp.Country.MU' | translate}}</option>
+                        <option value="YT">{{'jobmatchApp.Country.YT' | translate}}</option>
+                        <option value="MX">{{'jobmatchApp.Country.MX' | translate}}</option>
+                        <option value="MD">{{'jobmatchApp.Country.MD' | translate}}</option>
+                        <option value="MC">{{'jobmatchApp.Country.MC' | translate}}</option>
+                        <option value="MN">{{'jobmatchApp.Country.MN' | translate}}</option>
+                        <option value="ME">{{'jobmatchApp.Country.ME' | translate}}</option>
+                        <option value="MS">{{'jobmatchApp.Country.MS' | translate}}</option>
+                        <option value="MZ">{{'jobmatchApp.Country.MZ' | translate}}</option>
+                        <option value="MM">{{'jobmatchApp.Country.MM' | translate}}</option>
+                        <option value="NA">{{'jobmatchApp.Country.NA' | translate}}</option>
+                        <option value="NR">{{'jobmatchApp.Country.NR' | translate}}</option>
+                        <option value="NP">{{'jobmatchApp.Country.NP' | translate}}</option>
+                        <option value="NI">{{'jobmatchApp.Country.NI' | translate}}</option>
+                        <option value="NE">{{'jobmatchApp.Country.NE' | translate}}</option>
+                        <option value="NG">{{'jobmatchApp.Country.NG' | translate}}</option>
+                        <option value="NU">{{'jobmatchApp.Country.NU' | translate}}</option>
+                        <option value="NO">{{'jobmatchApp.Country.NO' | translate}}</option>
+                        <option value="NC">{{'jobmatchApp.Country.NC' | translate}}</option>
+                        <option value="NZ">{{'jobmatchApp.Country.NZ' | translate}}</option>
+                        <option value="OM">{{'jobmatchApp.Country.OM' | translate}}</option>
+                        <option value="NL">{{'jobmatchApp.Country.NL' | translate}}</option>
+                        <option value="CB">{{'jobmatchApp.Country.CB' | translate}}</option>
+                        <option value="PK">{{'jobmatchApp.Country.PK' | translate}}</option>
+                        <option value="PW">{{'jobmatchApp.Country.PW' | translate}}</option>
+                        <option value="PA">{{'jobmatchApp.Country.PA' | translate}}</option>
+                        <option value="PG">{{'jobmatchApp.Country.PG' | translate}}</option>
+                        <option value="PY">{{'jobmatchApp.Country.PY' | translate}}</option>
+                        <option value="PE">{{'jobmatchApp.Country.PE' | translate}}</option>
+                        <option value="PF">{{'jobmatchApp.Country.PF' | translate}}</option>
+                        <option value="PL">{{'jobmatchApp.Country.PL' | translate}}</option>
+                        <option value="PT">{{'jobmatchApp.Country.PT' | translate}}</option>
+                        <option value="PR">{{'jobmatchApp.Country.PR' | translate}}</option>
+                        <option value="QA">{{'jobmatchApp.Country.QA' | translate}}</option>
+                        <option value="GB">{{'jobmatchApp.Country.GB' | translate}}</option>
+                        <option value="CZ">{{'jobmatchApp.Country.CZ' | translate}}</option>
+                        <option value="CF">{{'jobmatchApp.Country.CF' | translate}}</option>
+                        <option value="DO">{{'jobmatchApp.Country.DO' | translate}}</option>
+                        <option value="CD">{{'jobmatchApp.Country.CD' | translate}}</option>
+                        <option value="SK">{{'jobmatchApp.Country.SK' | translate}}</option>
+                        <option value="RE">{{'jobmatchApp.Country.RE' | translate}}</option>
+                        <option value="RO">{{'jobmatchApp.Country.RO' | translate}}</option>
+                        <option value="RW">{{'jobmatchApp.Country.RW' | translate}}</option>
+                        <option value="EH">{{'jobmatchApp.Country.EH' | translate}}</option>
+                        <option value="KN">{{'jobmatchApp.Country.KN' | translate}}</option>
+                        <option value="LC">{{'jobmatchApp.Country.LC' | translate}}</option>
+                        <option value="PM">{{'jobmatchApp.Country.PM' | translate}}</option>
+                        <option value="VC">{{'jobmatchApp.Country.VC' | translate}}</option>
+                        <option value="WS">{{'jobmatchApp.Country.WS' | translate}}</option>
+                        <option value="AS">{{'jobmatchApp.Country.AS' | translate}}</option>
+                        <option value="SM">{{'jobmatchApp.Country.SM' | translate}}</option>
+                        <option value="SH">{{'jobmatchApp.Country.SH' | translate}}</option>
+                        <option value="SN">{{'jobmatchApp.Country.SN' | translate}}</option>
+                        <option value="RS">{{'jobmatchApp.Country.RS' | translate}}</option>
+                        <option value="CS">{{'jobmatchApp.Country.CS' | translate}}</option>
+                        <option value="SC">{{'jobmatchApp.Country.SC' | translate}}</option>
+                        <option value="SL">{{'jobmatchApp.Country.SL' | translate}}</option>
+                        <option value="SG">{{'jobmatchApp.Country.SG' | translate}}</option>
+                        <option value="SY">{{'jobmatchApp.Country.SY' | translate}}</option>
+                        <option value="SI">{{'jobmatchApp.Country.SI' | translate}}</option>
+                        <option value="SO">{{'jobmatchApp.Country.SO' | translate}}</option>
+                        <option value="ES">{{'jobmatchApp.Country.ES' | translate}}</option>
+                        <option value="LK">{{'jobmatchApp.Country.LK' | translate}}</option>
+                        <option value="US">{{'jobmatchApp.Country.US' | translate}}</option>
+                        <option value="FM">{{'jobmatchApp.Country.FM' | translate}}</option>
+                        <option value="VA">{{'jobmatchApp.Country.VA' | translate}}</option>
+                        <option value="ZA">{{'jobmatchApp.Country.ZA' | translate}}</option>
+                        <option value="SD">{{'jobmatchApp.Country.SD' | translate}}</option>
+                        <option value="SS">{{'jobmatchApp.Country.SS' | translate}}</option>
+                        <option value="SR">{{'jobmatchApp.Country.SR' | translate}}</option>
+                        <option value="SJ">{{'jobmatchApp.Country.SJ' | translate}}</option>
+                        <option value="SE">{{'jobmatchApp.Country.SE' | translate}}</option>
+                        <option value="CH">{{'jobmatchApp.Country.CH' | translate}}</option>
+                        <option value="SZ">{{'jobmatchApp.Country.SZ' | translate}}</option>
+                        <option value="ST">{{'jobmatchApp.Country.ST' | translate}}</option>
+                        <option value="TJ">{{'jobmatchApp.Country.TJ' | translate}}</option>
+                        <option value="TW">{{'jobmatchApp.Country.TW' | translate}}</option>
+                        <option value="TZ">{{'jobmatchApp.Country.TZ' | translate}}</option>
+                        <option value="TF">{{'jobmatchApp.Country.TF' | translate}}</option>
+                        <option value="IO">{{'jobmatchApp.Country.IO' | translate}}</option>
+                        <option value="PS">{{'jobmatchApp.Country.PS' | translate}}</option>
+                        <option value="TH">{{'jobmatchApp.Country.TH' | translate}}</option>
+                        <option value="TL">{{'jobmatchApp.Country.TL' | translate}}</option>
+                        <option value="TG">{{'jobmatchApp.Country.TG' | translate}}</option>
+                        <option value="TK">{{'jobmatchApp.Country.TK' | translate}}</option>
+                        <option value="TO">{{'jobmatchApp.Country.TO' | translate}}</option>
+                        <option value="TT">{{'jobmatchApp.Country.TT' | translate}}</option>
+                        <option value="TN">{{'jobmatchApp.Country.TN' | translate}}</option>
+                        <option value="TR">{{'jobmatchApp.Country.TR' | translate}}</option>
+                        <option value="TM">{{'jobmatchApp.Country.TM' | translate}}</option>
+                        <option value="TV">{{'jobmatchApp.Country.TV' | translate}}</option>
+                        <option value="UA">{{'jobmatchApp.Country.UA' | translate}}</option>
+                        <option value="UG">{{'jobmatchApp.Country.UG' | translate}}</option>
+                        <option value="HU">{{'jobmatchApp.Country.HU' | translate}}</option>
+                        <option value="UY">{{'jobmatchApp.Country.UY' | translate}}</option>
+                        <option value="UZ">{{'jobmatchApp.Country.UZ' | translate}}</option>
+                        <option value="VU">{{'jobmatchApp.Country.VU' | translate}}</option>
+                        <option value="VE">{{'jobmatchApp.Country.VE' | translate}}</option>
+                        <option value="VN">{{'jobmatchApp.Country.VN' | translate}}</option>
+                        <option value="WF">{{'jobmatchApp.Country.WF' | translate}}</option>
+                        <option value="YE">{{'jobmatchApp.Country.YE' | translate}}</option>
+                        <option value="ZM">{{'jobmatchApp.Country.ZM' | translate}}</option>
+                        <option value="ZW">{{'jobmatchApp.Country.ZW' | translate}}</option>
+                        <option value="OO">{{'jobmatchApp.Country.OO' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.employmentType" for="field_employmentType">Employment Type</label>
+                    <select class="form-control" name="employmentType" [(ngModel)]="jobOffer.employmentType" id="field_employmentType" >
+                        <option value="FULL_TIME">{{'jobmatchApp.EmploymentType.FULL_TIME' | translate}}</option>
+                        <option value="PART_TIME">{{'jobmatchApp.EmploymentType.PART_TIME' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.seniorityLevel" for="field_seniorityLevel">Seniority Level</label>
+                    <select class="form-control" name="seniorityLevel" [(ngModel)]="jobOffer.seniorityLevel" id="field_seniorityLevel" >
+                        <option value="BEGINNER">{{'jobmatchApp.SeniorityLevel.BEGINNER' | translate}}</option>
+                        <option value="MEDIUM">{{'jobmatchApp.SeniorityLevel.MEDIUM' | translate}}</option>
+                        <option value="EXPERT">{{'jobmatchApp.SeniorityLevel.EXPERT' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.salaryOffered" for="field_salaryOffered">Salary Offered</label>
+                    <input type="text" class="form-control" name="salaryOffered" id="field_salaryOffered"
+                        [(ngModel)]="jobOffer.salaryOffered" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.status" for="field_status">Status</label>
+                    <select class="form-control" name="status" [(ngModel)]="jobOffer.status" id="field_status" >
+                        <option value="DRAFT">{{'jobmatchApp.JobOfferStatus.DRAFT' | translate}}</option>
+                        <option value="ACTIVE">{{'jobmatchApp.JobOfferStatus.ACTIVE' | translate}}</option>
+                        <option value="ENDED">{{'jobmatchApp.JobOfferStatus.ENDED' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.enabled" for="field_enabled">Enabled</label>
+                    <input type="checkbox" class="form-control" name="enabled" id="field_enabled"
+                        [(ngModel)]="jobOffer.enabled" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.company" for="field_company">Company</label>
+                    <select class="form-control" id="field_company" name="company" [(ngModel)]="jobOffer.companyId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.sector" for="field_sector">Sector</label>
+                    <select class="form-control" id="field_sector" name="sector" [(ngModel)]="jobOffer.sectorId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="companySectorOption.id" *ngFor="let companySectorOption of companysectors; trackBy: trackCompanySectorById">{{companySectorOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.project" for="field_project">Project</label>
+                    <select class="form-control" id="field_project" name="project" [(ngModel)]="jobOffer.projectId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="projectOption.id" *ngFor="let projectOption of projects; trackBy: trackProjectById">{{projectOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,157 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+	<div class="modal-header">
+			<h4 id="jhi-job-offer-heading" jhiTranslate="jobmatchApp.jobOffer.home.createOrEditLabel">Create or edit a Job Offer</h4>
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+							(click)="clear()">&times;</button>
+	</div>
+	<div class="modal-body">
+		<jhi-alert-error></jhi-alert-error>
+		<div class="form-group">
+			<label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.jobTitle" for="field_jobTitle">Job Title</label>
+			<input type="text" class="form-control" name="jobTitle" id="field_jobTitle"
+				[(ngModel)]="jobOffer.jobTitle" required/>
+			<div [hidden]="!(editForm.controls.jobTitle?.dirty && editForm.controls.jobTitle?.invalid)">
+				<small class="form-text text-danger"
+				[hidden]="!editForm.controls.jobTitle?.errors?.required" jhiTranslate="entity.validation.required">
+				This field is required.
+				</small>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="form-control-label" for="field_jobOfferType">Job Type</label>
+			<select class="form-control" name="jobOfferType" [(ngModel)]="jobOffer.jobOfferType"
+				id="field_jobOfferType" [required]="!jobOffer.id" [disabled]="jobOffer.id">
+				<option *ngFor="let jobOfferType of jobOfferTypes" [value]="jobOfferType">{{('jobmatchApp.JobOfferType.' + jobOfferType) | translate}}</option>
+			</select>
+			<div [hidden]="!(editForm.controls.jobOfferType?.dirty && editForm.controls.jobOfferType?.invalid)">
+				<small class="form-text text-danger"
+					[hidden]="!editForm.controls.jobOfferType?.errors?.required"
+					jhiTranslate="entity.validation.required">
+					This field is required.
+				</small>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.jobShortDescription" for="field_jobShortDescription">Job Short Description</label>
+			<input type="text" class="form-control" name="jobShortDescription" id="field_jobShortDescription"
+				[(ngModel)]="jobOffer.jobShortDescription" required/>
+			<div [hidden]="!(editForm.controls.jobShortDescription?.dirty && editForm.controls.jobShortDescription?.invalid)">
+				<small class="form-text text-danger"
+				[hidden]="!editForm.controls.jobShortDescription?.errors?.required" jhiTranslate="entity.validation.required">
+				This field is required.
+				</small>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.jobDescription" for="field_jobDescription">Job Description</label>
+			<textarea class="form-control" name="jobDescription" id="field_jobDescription"
+				[(ngModel)]="jobOffer.jobDescription" ></textarea>
+		</div>
+		<div class="form-group" *ngIf="jobOffer.jobOfferType === 'JOB'">
+			<label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.responsibilitiesDescription" for="field_responsibilitiesDescription">Responsibilities Description</label>
+			<textarea class="form-control" name="responsibilitiesDescription" id="field_responsibilitiesDescription"
+				[(ngModel)]="jobOffer.responsibilitiesDescription" ></textarea>
+		</div>
+		<div class="form-group" *ngIf="jobOffer.jobOfferType === 'JOB'">
+			<label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.experiencesDescription" for="field_experiencesDescription">Experiences Description</label>
+			<textarea class="form-control" name="experiencesDescription" id="field_experiencesDescription"
+				[(ngModel)]="jobOffer.experiencesDescription" ></textarea>
+		</div>
+		<div class="form-group" *ngIf="jobOffer.jobOfferType === 'JOB'">
+			<label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.attributesDescription" for="field_attributesDescription">Attributes Description</label>
+			<textarea class="form-control" name="attributesDescription" id="field_attributesDescription"
+				[(ngModel)]="jobOffer.attributesDescription" ></textarea>
+		</div>
+		<div class="form-group" *ngIf="jobOffer.jobOfferType === 'JOB'">
+			<label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.jobFunctions"
+				for="field_jobFunctions">Job Functions</label>
+			<input type="text" class="form-control" name="jobFunctions" id="field_jobFunctions"
+				[(ngModel)]="jobOffer.jobFunctions" />
+		</div>
+		<div class="card" style="margin-bottom: 5px">
+			<div class="card-header">
+				<input id="skillTags" name="skillTags" type="text" class="form-control"
+					[(ngModel)]="skillTagTemp"
+					placeholder="Skill required: Java..C#..etc"
+					[ngbTypeahead]="searchSkills" #skillInput
+					(selectItem)="onSelectSkillTag($event)" #skillTags="ngbTypeahead"
+					(keydown)="onSubmitTextSkillTag($event)">
+			</div>
+			<div class="card-body">
+				<div *ngFor="let skill of jobOffer.skills" class="badge badge-pill badge-primary skill-tag" >
+					<a replaceUrl="true" class="btn" style="font-weight: 500; color: white;">{{ skill.skillTagName }}</a>
+					<a class="btn btn-outline-primary btn-skill-tag-del" (click)="deleteSkill(skill)">
+						<fa-icon [icon]="'times-circle'"></fa-icon>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.jobCity" for="field_jobCity">Job City</label>
+			<input type="text" class="form-control" name="jobCity" id="field_jobCity"
+				[(ngModel)]="jobOffer.jobCity" />
+		</div>
+		<div class="form-group">
+			<label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.jobCountry" for="field_jobCountry">Job Country</label>
+			<select class="form-control" name="jobCountry" [(ngModel)]="jobOffer.jobCountry" id="field_jobCountry" >
+				<option *ngFor="let country of countries" [value]="country">{{('jobmatchApp.Country.' + country) | translate}}</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.employmentType" for="field_employmentType">Employment Type</label>
+			<select class="form-control" name="employmentType" [(ngModel)]="jobOffer.employmentType" id="field_employmentType" >
+				<option value="FULL_TIME">{{'jobmatchApp.EmploymentType.FULL_TIME' | translate}}</option>
+				<option value="PART_TIME">{{'jobmatchApp.EmploymentType.PART_TIME' | translate}}</option>
+			</select>
+		</div>
+		<div class="form-group" *ngIf="jobOffer.jobOfferType === 'JOB'">
+			<label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.seniorityLevel" for="field_seniorityLevel">Seniority Level</label>
+			<select class="form-control" name="seniorityLevel" [(ngModel)]="jobOffer.seniorityLevel" id="field_seniorityLevel" >
+				<option value="BEGINNER">{{'jobmatchApp.SeniorityLevel.BEGINNER' | translate}}</option>
+				<option value="MEDIUM">{{'jobmatchApp.SeniorityLevel.MEDIUM' | translate}}</option>
+				<option value="EXPERT">{{'jobmatchApp.SeniorityLevel.EXPERT' | translate}}</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.salaryOffered" for="field_salaryOffered">Salary Offered</label>
+			<input type="text" class="form-control" name="salaryOffered" id="field_salaryOffered"
+				[(ngModel)]="jobOffer.salaryOffered" />
+		</div>
+		<!-- <div class="form-group">
+			<label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.status" for="field_status">Status</label>
+			<select class="form-control" name="status" [(ngModel)]="jobOffer.status" id="field_status" >
+				<option value="DRAFT">{{'jobmatchApp.JobOfferStatus.DRAFT' | translate}}</option>
+				<option value="ACTIVE">{{'jobmatchApp.JobOfferStatus.ACTIVE' | translate}}</option>
+				<option value="ENDED">{{'jobmatchApp.JobOfferStatus.ENDED' | translate}}</option>
+			</select>
+		</div> -->
+		<div class="form-group component-autocomplete">
+    		<label jhiTranslate="jobmatchApp.jobOffer.sector" for="field_sector">Sector</label>
+            <input id="jobOfferSector" name="jobOfferSector" type="text" class="form-control"
+            	[ngbTypeahead]="searchJobOfferSector"
+            	(selectItem)="onSelectJobOfferSector($event)" #jobOfferSectorTypeahead="ngbTypeahead"
+            	(focus)="jobOfferSectorFocus$.next($event.target.value)" (click)="jobOfferSectorClick$.next($event.target.value)" [ngClass]="jobOffer.sectorId ? 'ng-valid' : 'ng-invalid'" required>
+   			<div [hidden]="!jobOfferSectorFieldTouched || jobOffer.sectorId">
+                 <small class="form-text text-danger" jhiTranslate="entity.validation.required">
+                     This field is required.
+                 </small>
+            </div>
+
+		</div>
+		<div class="form-group">
+			<label class="form-control-label" jhiTranslate="jobmatchApp.jobOffer.project" for="field_project">Project</label>
+			<select class="form-control" id="field_project" name="project" [(ngModel)]="jobOffer.projectId" >
+				<option [ngValue]="null"></option>
+				<option [ngValue]="projectOption.id" *ngFor="let projectOption of projects; trackBy: trackProjectById">{{projectOption.title}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" id="cancel-save" class="btn btn-secondary"  (click)="clear()">
+			<fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+		</button>
+		<button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+			<fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+		</button>
+	</div>
+</form>

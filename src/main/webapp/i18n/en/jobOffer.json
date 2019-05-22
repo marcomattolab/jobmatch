@@ -1,0 +1,69 @@
+{
+	"jobmatchApp": {
+		"jobOffer": {
+			"home": {
+				"title": "Job Offers",
+				"searchJobOffersTitle": "Search Job Offers",
+				"myJobOffersTitle": "My Job Offers",
+				"createLabel": "New Job Offer",
+				"createOrEditLabel": "Create or edit a Job Offer"
+			},
+			"created": "A new Job Offer is created with identifier {{ param }}",
+			"updated": "A Job Offer is updated with identifier {{ param }}",
+			"deleted": "A Job Offer is deleted with identifier {{ param }}",
+			"delete": {
+				"question": "Are you sure you want to delete Job Offer {{ id }}?"
+			},
+			"changeStatus": {
+				"question": "Are you sure you want to set {{ status }} Job Offer {{ id }}?"
+			},
+			"detail": {
+				"title": "Job Offer"
+			},
+			"createdBy": "Created By",
+			"lastModifiedBy": "Last Modified By",
+			"createdDate": "Created Date",
+			"lastModifiedDate": "Last Modified Date",
+			"startDate": "Start Date",
+			"jobTitle": "Job Title",
+			"jobShortDescription": "Job Short Description",
+			"jobDescription": "Job Description",
+			"responsibilitiesDescription": "Responsibilities",
+			"experiencesDescription": "Experiences",
+			"attributesDescription": "Attributes",
+			"jobFunctions": "Job Functions",
+			"jobCity": "Job City",
+			"jobCountry": "Job Country",
+			"employmentType": "Employment Type",
+			"seniorityLevel": "Seniority Level",
+			"salaryOffered": "Salary Offered",
+			"candidateCompanyLabel": "Candidates",
+			"applicationsCount": "Applications",
+			"modifyLabel": "Modify",
+			"deleteLabel": "Delete",
+			"status": "Status",
+			"enabled": "Enabled",
+			"skill": "Skill",
+			"company": "Company",
+			"sector": "Sector",
+			"project": "Project",
+			"candidateOffers": "My Job Applyments",
+			"applyedCandidates": "Applicants",
+			"apply": "Apply",
+			"applyed": "Applied",
+			"details": "Job Offer Details",
+			"publishLabel": "Publish",
+			"endLabel": "End",
+			"publicationDate": "Publication date",
+			"correspondingSkills": "Skills match",
+			"commonSkillInfo": "How you match",
+			"commonSkillInfoTooltip": "See how your profile matches the job poster's preferences.",
+			"commonSkillSubInfo": "Criteria provided by job poster",
+			"suggestedJobOffers": "job offers",
+			"suggestedJobOffersDescription": "suggested based on your profile",
+			"noSuggestedOffers": "Add skills to your profile to view suggestions for job offers that suit you",
+			"searchForMoreJobs": "Search for more jobs",
+			"jobOfferType": "Job Offer Type"
+		}
+	}
+}

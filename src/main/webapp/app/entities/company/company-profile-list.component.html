@@ -1,0 +1,199 @@
+<div>
+    <jhi-alert></jhi-alert>
+    
+    <div class="card shadow-sm">
+   		 <form role="form" novalidate (ngSubmit)="search()" #searchForm="ngForm">
+			 <ngb-accordion #acc="ngbAccordion" activeIds="searchFiltersPanel" >
+				  <ngb-panel id="searchFiltersPanel">
+					   <ng-template ngbPanelTitle>
+						   <h3 id="page-heading">
+						       <span jhiTranslate="jobmatchApp.company.home.searchCompanyTitle">Search Companies</span>
+						    </h3>
+			    	   </ng-template>
+					   <ng-template ngbPanelContent>
+				    		 <div class="row">
+				    			  <div class="col-md-6 form-group">
+				                             <label jhiTranslate="jobmatchApp.company.companyName" for="companyName">companyName</label>
+				                             <input type="text" class="form-control" [(ngModel)]="filters.companyName" name="companyName" id="field_companyName" maxlength="150"/>
+				                     </div>
+				                     <div class="col-md-6 form-group component-autocomplete">
+				                             <label jhiTranslate="jobmatchApp.company.sector" for="sector">Sector</label>
+				                             <input id="companySector" name="companySector" type="text" class="form-control"
+				                   				[ngbTypeahead]="searchCompanySector"
+				                   				(selectItem)="onSelectCompanySector($event)" #companySectorTypeahead="ngbTypeahead"
+				                   				(focus)="companySectorFocus$.next($event.target.value)" (click)="companySectorClick$.next($event.target.value)">
+				                     </div>
+				                  </div>
+				               
+				                <div class="row">
+					                 <div class="col-md-6 form-group">
+					                         <label class="form-control-label" jhiTranslate="jobmatchApp.company.city" for="field_city">City</label>
+					                         <input type="text" class="form-control" name="city" [(ngModel)]="filters.city" id="field_city" maxlength="50"/>
+						               	</div>
+				                    <div class="col-md-6 form-group">
+					                        <label class="form-control-label" jhiTranslate="jobmatchApp.company.country" for="field_country">Country</label>
+								            <select class="form-control" name="country" [(ngModel)]="filters.country" id="field_country" >
+								            	 <option value="" label=""></option>
+						                         <option *ngFor="let country of countries" [value]="country">{{('jobmatchApp.Country.' + country) | translate}}</option>
+						                    </select>
+					                </div>
+				                </div>
+				                
+				                 <div class="form-group float-right">
+				                      <button class="btn btn-link" type="button" (click)="resetFilters()">
+				                          <span jhiTranslate="global.menu.search.clearfiltersLabel">Pulisci Filtri</span>
+				                      </button>
+				                      <button class="btn btn-primary" type="submit">
+				                          <fa-icon [icon]="'search'"></fa-icon>
+				                          <span jhiTranslate="global.menu.search.buttonLabel">Cerca</span>
+				                      </button>
+				                 </div>
+				                 
+				                 <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="showTable">
+									  <label ngbButtonLabel class="btn btn-outline-secondary">
+									  
+									    <input ngbButton type="radio" [value]="false"> <fa-icon [icon]="'address-card'"></fa-icon>
+									  </label>
+									  <label ngbButtonLabel class="btn btn-outline-secondary">
+									    <input ngbButton type="radio" [value]="true"> <fa-icon [icon]="'list'"></fa-icon>
+									  </label>
+								</div>
+					   </ng-template>
+				  </ngb-panel>
+			  </ngb-accordion>
+		  </form> 
+	</div>
+
+	<br>
+
+    <div class="card-columns" *ngIf="!showTable && companies">
+		  <div class="card section shadow-sm hand-pointer" *ngFor="let company of companies ;trackBy: trackId" [routerLink]="company.sponsoringInstitutionId ? ['/sponsoring-institution', company.sponsoringInstitutionId] :  ['/company', company.id]" >
+		  	<div class="row no-gutters">
+		  		<div class="col-md-3">
+		  			<img [src]="company.imageUrl | imageProfile: {role: 'ROLE_COMPANY'}" class="image-company-jobs-item img-thumbnail">
+    			</div>
+	    		<div class="col-md-9">
+				    <div class="card-body" style="padding-top: 0;">
+				      <h5 class="card-title">{{company.companyName}}</h5>
+				        <div class="card-subtitle mb-2 text-muted">
+				          <div class="row">
+					          <div class="col-md-12">
+					          		<span *ngIf="company.sponsoringInstitutionId" class="badge badge-success" jhiTranslate="jobmatchApp.sponsoringInstitution.detail.title">Sponsoring Instituition</span>
+									<span>{{ company.sectorDescription }}</span>
+			                  	 	<span *ngIf="company.city">&middot; {{ company.city }}</span>
+			                        <span *ngIf="company.country">&middot; {{('jobmatchApp.Country.' + company.country) | translate}}</span>
+			                  </div>
+  	                 	   </div>
+			             </div>
+			             <div class="row no-gutters" >
+							<div class="col-md-12 mt-2">	                  
+							      <div class="card-text">
+								    	<dl class="row-md jh-entity-details" style="column-count: 2">
+								       		 <dd *ngIf="company.companyType">
+					                            <fa-icon [icon]="'building'"></fa-icon>
+					                            <span
+					                                jhiTranslate="{{'jobmatchApp.CompanyType.' + company.companyType}}">{{company.companyType}}</span>
+					                        </dd>
+					                        <dd *ngIf="company.companySize">
+					                            <fa-icon [icon]="'sitemap'"></fa-icon>
+					                            <span
+					                                jhiTranslate="{{'jobmatchApp.CompanySizeType.' + company.companySize}}">{{company.companySize}}</span>
+					                        </dd>
+					                        <dd *ngIf="company.numberOfEmployee">
+					                            <fa-icon [icon]="'users'"></fa-icon>
+					                            <span
+					                                jhiTranslate="{{'jobmatchApp.NumberOfEmployees.' + company.numberOfEmployee}}">{{company.numberOfEmployee}}</span>
+					                        </dd>
+					                        <dd *ngIf="company.foundationDate">
+					                            <fa-icon [icon]="'calendar'"></fa-icon>
+					                            <span>{{company.foundationDate | date: 'dd/MM/yyyy'}}</span>
+					                        </dd>
+					                        <dd *ngIf="company.vatNumber">
+					                            <fa-icon [icon]="'credit-card'"></fa-icon>
+					                            <span>{{company.vatNumber}}</span>
+					                        </dd>
+					                       <!--  <dd *ngIf="company.email">
+					                            <fa-icon [icon]="'envelope'"></fa-icon>
+					                            <span>{{company.email}}</span>
+					                        </dd>
+					                        <dd *ngIf="company.phone">
+					                            <fa-icon [icon]="'phone'"></fa-icon>
+					                            <span>{{company.phone}}</span>
+					                        </dd>
+					                        <dd *ngIf="company.mobilePhone">
+					                            <fa-icon [icon]="'mobile'"></fa-icon>
+					                            <span>{{company.mobilePhone}}</span>
+					                        </dd> -->
+						                </dl>
+							      </div>
+						    </div>
+		  				</div>  
+		             </div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+	<div class="table-responsive" *ngIf="showTable && companies">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th></th>
+            <th jhiSortBy="companyName"><span jhiTranslate="jobmatchApp.company.companyName">Company Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="sector"><span jhiTranslate="jobmatchApp.company.sector">Sector</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="foundationDate"><span jhiTranslate="jobmatchApp.company.foundationDate">Foundation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="companyType"><span jhiTranslate="jobmatchApp.company.companyType">Company Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="companySize"><span jhiTranslate="jobmatchApp.company.companySize">Company Syze</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="streetAddress"><span jhiTranslate="jobmatchApp.company.address">Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="country"><span jhiTranslate="jobmatchApp.company.country">Country</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="vatNumber"><span jhiTranslate="jobmatchApp.company.vatNumber">Vat Number</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="email"><span jhiTranslate="jobmatchApp.company.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="phone"><span jhiTranslate="jobmatchApp.company.phone">Phone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let company of companies ;trackBy: trackId" >
+            	<td> 
+<!--             	<img *ngIf="company.imageUrl" [src]="company.imageUrl" class="img-fluid img-thumbnail rounded" style="max-height: 100px" alt="Avatar"> -->
+            		<img [src]="company.imageUrl | imageProfile: {role: 'ROLE_COMPANY'}" class="image-company-jobs-item-list img-thumbnail" style="max-height: 80px">
+            	</td>
+                <td>{{company.companyName}}</td>
+                <td>{{company.sectorDescription}}</td>
+                <td>{{company.foundationDate | date:'dd/MM/yyyy'}}</td>
+                <td jhiTranslate="{{'jobmatchApp.CompanyType.' + company.companyType}}">{{company.companyType}}</td>
+                <td> 
+                	<span jhiTranslate="{{'jobmatchApp.CompanySizeType.' + company.companySize}}">{{company.companySize}}</span> 
+                	(<span jhiTranslate="{{'jobmatchApp.NumberOfEmployees.' + company.numberOfEmployee}}">{{company.numberOfEmployee}}</span>)
+                </td>
+                
+                <td>{{company.streetAddress}} {{company.cap}} {{company.city}} <span *ngIf="company.province">({{company.province}})</span></td>
+                <td jhiTranslate="{{'jobmatchApp.Country.' + company.country}}">{{company.country}}</td>
+                <td>{{company.vatNumber}}</td>
+                <td>{{company.email}}</td>
+                <td>{{company.phone}} <br>{{company.mobilePhone}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/company', company.id ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+	<hr/>
+    <div *ngIf="companies && companies.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

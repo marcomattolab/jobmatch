@@ -1,0 +1,81 @@
+<form name="editForm" role="form" novalidate #editForm="ngForm" (ngSubmit)="confirm()">
+    <div class="modal-header">
+    	<h4 class="modal-title">
+         	<span  *ngIf="!currentDocument.id" jhiTranslate="jobmatchApp.candidate.cvDetail.newTitle">New Skill</span>
+        	<span  *ngIf="currentDocument.id" jhiTranslate="jobmatchApp.candidate.cvDetail.editTitle">Edit Skill</span>
+        </h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div>
+        	 <!-- <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.document.documentType" for="field_documentType">Document Type</label>
+                    <select class="form-control" name="documentType" [(ngModel)]="document.documentType" id="field_documentType" >
+                        <option value="CV">{{'jobmatchApp.DocumentType.CV' | translate}}</option>
+                        <option value="OTHER">{{'jobmatchApp.DocumentType.OTHER' | translate}}</option>
+                    </select>
+                </div> -->
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.document.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                        [(ngModel)]="currentDocument.name" required maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.name?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.document.content" for="field_content">Content</label>
+                    <div>
+                        <input #imageInput type="file" id="file_content" (change)="processFile(imageInput)" accept=".pdf,.docx, .doc" jhiTranslate="entity.action.addblob"/>
+                        <div [hidden]="!wrongExtension">
+                            <small class="form-text text-danger">
+                                Extension not supported, please upload a pdf/doc/docx
+                            </small>
+                        </div>
+                        <div [hidden]="!sizeExceeded">
+                            <small class="form-text text-danger">
+                                File Exceeded the limit size, the file cannot be more than 3MB
+                            </small>
+                        </div>
+                    </div>
+                    <input type="hidden" class="form-control" name="content" id="field_content"
+                        [(ngModel)]="currentDocument.content" required/>
+                    <input type="hidden" class="form-control" name="contentContentType" id="field_contentContentType"
+                        [(ngModel)]="currentDocument.contentContentType" />
+                    <div [hidden]="!(editForm.controls.content?.dirty && editForm.controls.content?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.content?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jobmatchApp.document.description" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                        [(ngModel)]="currentDocument.description" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.description?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 255 }">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="editForm.form.invalid || isSaving">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

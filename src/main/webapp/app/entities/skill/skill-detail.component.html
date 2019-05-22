@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="skill">
+            <h2><span jhiTranslate="jobmatchApp.skill.detail.title">Skill</span> {{skill.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jobmatchApp.skill.createdBy">Created By</span></dt>
+                <dd>
+                    <span>{{skill.createdBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.skill.lastModifiedBy">Last Modified By</span></dt>
+                <dd>
+                    <span>{{skill.lastModifiedBy}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.skill.createdDate">Created Date</span></dt>
+                <dd>
+                    <span>{{skill.createdDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.skill.lastModifiedDate">Last Modified Date</span></dt>
+                <dd>
+                    <span>{{skill.lastModifiedDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.skill.level">Level</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'jobmatchApp.SkillLevelType.' + skill.level}}">{{skill.level}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.skill.proficNumberOfYear">Profic Number Of Year</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'jobmatchApp.ProficNumberOfYear.' + skill.proficNumberOfYear}}">{{skill.proficNumberOfYear}}</span>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.skill.skillTag">Skill Tag</span></dt>
+                <dd>
+                    <div *ngIf="skill.skillTagId">
+                        <a [routerLink]="['/skill-tag', skill.skillTagId, 'view']">{{skill.skillTagId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="jobmatchApp.skill.candidate">Candidate</span></dt>
+                <dd>
+                    <div *ngIf="skill.candidateId">
+                        <a [routerLink]="['/candidate', skill.candidateId, 'view']">{{skill.candidateId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/skill', skill.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

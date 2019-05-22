@@ -1,0 +1,729 @@
+<div class="row">
+	<div [ngClass]="{'col-md-9': !isUserAnonymous(), 'col-md-12': isUserAnonymous()}" class="col-12">
+		<!--         <h1 class="display-4" jhiTranslate="home.title">Welcome</h1> -->
+		<!-- <p class="lead" jhiTranslate="home.subtitle">This is your homepage</p> -->
+
+		<div [ngSwitch]="isAuthenticated()">
+			<!-- <div class="alert alert-success" *ngSwitchCase="true">
+                <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message"
+                    [translateValues]="{username: account.login}"> You are logged in as user "{{account.login}}". </span>
+            </div> -->
+			<!-- AUTHENTICATED USERS-->
+			<div *ngSwitchCase="true">
+				<ng-container *jhiHasAnyAuthority="'ROLE_CANDIDATE'">
+					<!-- Statistiche -->
+					<div class="card section shadow">
+						<div class="text-center">
+							<h2 class="font-weight-bold" jhiTranslate="global.homePage.dashboard">DashBoard</h2>
+						</div>
+						<div class="card-columns mt-3">
+							<div class="joboffer-card card section shadow-sm hand-pointer" [routerLink]="['job-offer', 'search']">
+								<div class="card-body">
+									<p class="card-subtitle mb-2 text-muted card-title font-weight-bold-400">
+										<span jhiTranslate="global.homePage.candidate.JobOffersActiveCount">Active job offers</span>
+									</p>
+									<div class="row no-gutters">
+										<div class="col-4">
+											<h1 class="card-title font-weight-bold" *ngIf="allActiveJobOffersCount != null">
+												{{allActiveJobOffersCount}}</h1>
+											<div class="spinner-border text-secondary" role="status" *ngIf="allActiveJobOffersCount == null">
+												<span class="sr-only">Loading...</span>
+											</div>
+										</div>
+										<div class="col-8 text-right">
+											<img [src]="'content/images/icons/jobs.png'" class="card-img-top"
+												class="card-img profile-image-list rounded-circle max-width-70-perc">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="joboffer-card card section shadow-sm hand-pointer"
+								[routerLink]="lastWeekActiveJobOffersCount ? ['job-offer', 'search'] : []"
+								(click)="lastWeekActiveJobOffersCount && setRecentlyJobOffersParams('search')">
+								<div class="card-body">
+									<p class="card-subtitle mb-2 text-muted font-weight-bold-400">
+										<span jhiTranslate="global.homePage.candidate.newJobOffersCount">Recently created job offers</span>
+										<span style="font-size:12px">({{'global.homePage.recentPeriod' | translate}})</span>
+									</p>
+									<div class="row no-gutters">
+										<div class="col-4">
+											<h1 class="card-title font-weight-bold" *ngIf="lastWeekActiveJobOffersCount != null">
+												{{lastWeekActiveJobOffersCount}}</h1>
+											<div class="spinner-border text-secondary" role="status"
+												*ngIf="lastWeekActiveJobOffersCount == null">
+												<span class="sr-only">Loading...</span>
+											</div>
+										</div>
+										<div class="col-8 text-right">
+											<img [src]="'content/images/icons/jobs2.png'" class="card-img-top"
+												class="card-img profile-image-list rounded-circle max-width-70-perc">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="joboffer-card card section shadow-sm hand-pointer"
+								[routerLink]="myApplymentsCount ? ['applied-job'] : []">
+								<div class="card-body">
+									<p class="card-subtitle mb-2 text-muted font-weight-bold-400">
+										<span jhiTranslate="global.homePage.candidate.myApplications">My Applyments</span>
+									</p>
+									<div class="row no-gutters">
+										<div class="col-4">
+											<h1 class="card-title font-weight-bold" *ngIf="myApplymentsCount != null">{{myApplymentsCount}}
+											</h1>
+											<div class="spinner-border text-secondary" role="status" *ngIf="myApplymentsCount == null">
+												<span class="sr-only">Loading...</span>
+											</div>
+										</div>
+										<div class="col-8 text-right">
+											<img [src]="'content/images/icons/candidates.png'" class="card-img-top"
+												class="card-img profile-image-list rounded-circle max-width-70-perc">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Suggested Job Offers -->
+					<div class="card section shadow" style="padding:10px">
+						<div class="text-center">
+							<h3 class="card-title font-weight-bold" jhiTranslate="jobmatchApp.jobOffer.suggestedJobOffers">Suggested
+								Job Offers</h3>
+							<span jhiTranslate="jobmatchApp.jobOffer.suggestedJobOffersDescription"
+								class="card-title text-muted font-weight-bold-400">based on your profile</span>
+							<ng-container *ngIf="!suggestedJobOffers">
+								<div class="float-center mt-4">
+									<div class="spinner-border text-secondary" style="width: 5rem; height: 5rem;" role="status">
+										<span class="sr-only">Loading...</span>
+									</div>
+								</div>
+							</ng-container>
+							<div *ngIf="suggestedJobOffers && suggestedJobOffers.length == 0">
+								<span jhiTranslate="jobmatchApp.jobOffer.noSuggestedOffers"
+									class="card-title text-muted font-weight-bold-400 mt-4">Aggiungi competenze al tuo profilo per
+									visualizzare offerte di lavoro</span>
+							</div>
+						</div>
+
+						<ng-container *ngIf="suggestedJobOffers && suggestedJobOffers.length > 0">
+							<div class="card-columns mt-4">
+								<div class="joboffer-card card section shadow-sm hand-pointer"
+									*ngFor="let jobOffer of suggestedJobOffers; trackBy: trackId;"
+									[routerLink]="['/job-offer', jobOffer.id, 'view' ]">
+									<div class="row no-gutters">
+										<div class="col-2">
+											<img [src]="jobOffer.imageUrl | imageProfile: {role: 'ROLE_COMPANY'}"
+												class="image-job-offer-item img-thumbnail">
+										</div>
+										<div class="col-10">
+											<div class="card-body" style="padding-top: 0;">
+												<h6 class="card-title">{{jobOffer.jobTitle}}</h6>
+
+												<div class="card-subtitle text-muted">
+													<div class="row">
+														<div class="col-md-12">
+															<span *ngIf="jobOffer.jobCity">{{ jobOffer.jobCity }}</span>
+															<span *ngIf="jobOffer.jobCountry">&middot;
+																{{('jobmatchApp.Country.' + jobOffer.jobCountry) | translate}}</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row no-gutters">
+										<div class="col-12 mt-2">
+											<div>
+												<span class="card-text" style="font-size: 12px">
+													{{ (jobOffer.jobShortDescription.length > 80) ? (jobOffer.jobShortDescription | slice:0:80) +'...':(jobOffer.jobShortDescription) }}</span>
+												<div *ngIf="jobOffer.timePassed" class="card-subtitle text-muted mt-2 text-right"
+													style="font-size: 13px">
+													<fa-icon [icon]="'clock'"></fa-icon>
+													<span>{{ jobOffer.timePassed }}</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</ng-container>
+						<hr>
+						<div class="text-center">
+							<button *ngIf="suggestedJobOffers && suggestedJobOffers.length == 0" type="button"
+								class="btn btn-outline-primary" [routerLink]="['/candidate', 'current']"
+								jhiTranslate="global.menu.entities.condidateProfile">Profile
+								Candidate</button>
+							<button type="button" class="btn btn-outline-primary" [routerLink]="['job-offer', 'search']"
+								jhiTranslate="jobmatchApp.jobOffer.searchForMoreJobs">Search
+								for more jobs</button>
+						</div>
+					</div>
+
+					<div class="card section shadow">
+						<div class="text-center">
+							<h3 class="card-title font-weight-bold" jhiTranslate="jobmatchApp.company.suggestedCompanies">Suggested
+								Companies</h3>
+							<span jhiTranslate="jobmatchApp.company.suggestedCompaniesDescription"
+								class="card-title text-muted font-weight-bold-400">based on your profile</span>
+							<ng-container *ngIf="!suggestedCompanies">
+								<div class="float-center mt-4">
+									<div class="spinner-border text-secondary" style="width: 5rem; height: 5rem;" role="status">
+										<span class="sr-only">Loading...</span>
+									</div>
+								</div>
+							</ng-container>
+							<div *ngIf="suggestedCompanies && suggestedCompanies.length == 0">
+								<span jhiTranslate="jobmatchApp.company.noSuggestedCompanies"
+									class="card-title text-muted font-weight-bold-400 mt-4">Aggiungi competenze al tuo profilo per
+									visualizzare Aziende suggerite</span>
+							</div>
+						</div>
+
+						<ng-container *ngIf="suggestedCompanies && suggestedCompanies.length > 0">
+							<div class="card-columns mt-4">
+								<div class="company-card card section shadow-sm hand-pointer"
+									*ngFor="let company of suggestedCompanies ;trackBy: trackId" [routerLink]="['/company', company.id ]">
+									<div class="row no-gutters">
+										<div class="col-2">
+											<img [src]="company.imageUrl | imageProfile: {role: 'ROLE_COMPANY'}"
+												class="image-job-offer-item img-thumbnail">
+										</div>
+										<div class="col-10">
+											<div class="card-body" style="padding-top: 0;">
+												<h6 class="card-title">{{company.companyName}}</h6>
+												<div class="card-subtitle mb-2 text-muted">
+													<div class="row">
+														<div class="col-md-12">
+															<span *ngIf="company.city">{{ company.city }}</span>
+															<span *ngIf="company.country">&middot;
+																{{('jobmatchApp.Country.' + company.country) | translate}}</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row no-gutters">
+										<div class="col-md-12 mt-2">
+											<div class="card-text">
+												<dl class="row-md jh-entity-details" style="column-count: 2 ; font-size: 12px">
+													<dd *ngIf="company.companyType">
+														<fa-icon [icon]="'building'"></fa-icon>
+														<span
+															jhiTranslate="{{'jobmatchApp.CompanyType.' + company.companyType}}">{{company.companyType}}</span>
+													</dd>
+													<dd *ngIf="company.companySize">
+														<fa-icon [icon]="'sitemap'"></fa-icon>
+														<span
+															jhiTranslate="{{'jobmatchApp.CompanySizeType.' + company.companySize}}">{{company.companySize}}</span>
+													</dd>
+													<dd *ngIf="company.numberOfEmployee">
+														<fa-icon [icon]="'users'"></fa-icon>
+														<span
+															jhiTranslate="{{'jobmatchApp.NumberOfEmployees.' + company.numberOfEmployee}}">{{company.numberOfEmployee}}</span>
+													</dd>
+													<dd *ngIf="company.foundationDate">
+														<fa-icon [icon]="'calendar'"></fa-icon>
+														<span>{{company.foundationDate | date: 'dd/MM/yyyy'}}</span>
+													</dd>
+													<dd *ngIf="company.vatNumber">
+														<fa-icon [icon]="'credit-card'"></fa-icon>
+														<span>{{company.vatNumber}}</span>
+													</dd>
+												</dl>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</ng-container>
+						<hr>
+						<div class="text-center">
+							<button *ngIf="suggestedCompanies && suggestedCompanies.length == 0" type="button"
+								class="btn btn-outline-primary" [routerLink]="['/candidate', 'current']"
+								jhiTranslate="global.menu.entities.condidateProfile">Profile
+								Candidate</button>
+							<button type="button" class="btn btn-outline-primary" routerLink="company"
+								jhiTranslate="jobmatchApp.company.searchForMoreCompanies">Search
+								for more companies</button>
+						</div>
+					</div>
+				</ng-container>
+				<ng-container *jhiHasAnyAuthority="'ROLE_COMPANY'">
+					<!-- Statistiche -->
+					<div class="card section shadow">
+						<div class="row p-0">
+							<div class="col-5" *ngIf="company">
+								<div class="row">
+									<div class="col-sm-3">
+										<img *ngIf="company.imageUrl" [src]="company.imageUrl | imageProfile: {role: 'ROLE_COMPANY'}"
+											class="img-thumbnail max-width-100-perc">
+									</div>
+									<div class="col-sm-9 text-left">
+										<h2><span *ngIf="company" class="font-weight-bold">{{company.companyName}}</span></h2>
+										<h6><span *ngIf="company.sectorDescription"
+												style="color: gray;">{{company.sectorDescription}}</span></h6>
+										<h6><span *ngIf="company.city" style="color: gray;">{{company.city}}</span>
+											<span *ngIf="company.country" style="color: gray;">&middot; {{('jobmatchApp.Country.' + company.country) |
+												translate}}</span></h6>
+									</div>
+								</div>
+							</div>
+							<div class="col-7 pt-4">
+								<h2 class="font-weight-bold" jhiTranslate="global.homePage.dashboard">DashBoard</h2>
+							</div>
+						</div>
+						<hr>
+
+						<div class="card-columns">
+							<div class="joboffer-card card section shadow-sm hand-pointer" [routerLink]="['job-offer', 'list']">
+								<div class="card-body">
+									<p class="card-subtitle mb-2 text-muted font-weight-bold-400">
+										<span jhiTranslate="global.homePage.company.JobOffersActiveCount">Active job offers</span>
+									</p>
+									<div class="row no-gutters">
+										<div class="col-4">
+											<h1 class="card-title font-weight-bold" *ngIf="activeJobOffersCount != null">
+												{{activeJobOffersCount}}</h1>
+											<div class="spinner-border text-secondary" role="status" *ngIf="activeJobOffersCount == null">
+												<span class="sr-only">Loading...</span>
+											</div>
+										</div>
+										<div class="col-8 text-right">
+											<img [src]="'content/images/icons/jobs.png'" class="card-img-top"
+												class="card-img profile-image-list rounded-circle max-width-70-perc">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="joboffer-card card section shadow-sm hand-pointer"
+								[routerLink]="newJobOffersCount ? ['job-offer', 'list'] : []"
+								ng-click="newJobOffersCount && setRecentlyJobOffersParams('list')">
+								<div class="card-body">
+									<p class="card-subtitle mb-2 text-muted font-weight-bold-400">
+										<span jhiTranslate="global.homePage.company.newJobOffersCount">Recently created job offers</span>
+										<span style="font-size:12px">({{'global.homePage.recentPeriod' | translate}})</span>
+									</p>
+									<div class="row no-gutters">
+										<div class="col-4">
+											<h1 class="card-title font-weight-bold" *ngIf="newJobOffersCount != null">{{newJobOffersCount}}
+											</h1>
+											<div class="spinner-border text-secondary" role="status" *ngIf="newJobOffersCount == null">
+												<span class="sr-only">Loading...</span>
+											</div>
+										</div>
+										<div class="col-8 text-right">
+											<img [src]="'content/images/icons/jobs2.png'" class="card-img-top"
+												class="card-img profile-image-list rounded-circle max-width-70-perc">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="joboffer-card card section shadow-sm hand-pointer" [routerLink]="['applied-job']">
+								<div class="card-body">
+									<p class="card-subtitle mb-2 text-muted font-weight-bold-400">
+										<span jhiTranslate="global.homePage.company.newApplicationsCount">Recently received
+											applications</span>
+										<span style="font-size:12px">({{'global.homePage.recentPeriod' | translate}})</span>
+									</p>
+
+									<div class="row no-gutters">
+										<div class="col-4">
+											<h1 class="card-title font-weight-bold" *ngIf="newApplicationsCount != null">
+												{{newApplicationsCount}}</h1>
+											<div class="spinner-border text-secondary" role="status" *ngIf="newApplicationsCount == null">
+												<span class="sr-only">Loading...</span>
+											</div>
+										</div>
+										<div class="col-8 text-right">
+											<img [src]="'content/images/icons/candidates.png'" class="card-img-top"
+												class="card-img profile-image-list rounded-circle max-width-70-perc">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Suggested Candidates  -->
+					<div class="card section shadow">
+						<div class="text-center">
+							<h3 class="card-title font-weight-bold" jhiTranslate="jobmatchApp.candidate.suggestedCandidates">Suggested
+								Candidates</h3>
+							<span jhiTranslate="jobmatchApp.candidate.suggestedCandidatesDescription"
+								class="card-title text-muted font-weight-bold-400">based on your profile</span>
+							<ng-container *ngIf="!suggestedCandidates">
+								<div class="float-center mt-4">
+									<div class="spinner-border text-secondary" style="width: 5rem; height: 5rem;" role="status">
+										<span class="sr-only">Loading...</span>
+									</div>
+								</div>
+							</ng-container>
+							<div *ngIf="suggestedCandidates && suggestedCandidates.length == 0">
+								<span jhiTranslate="jobmatchApp.candidate.noSuggestedCandidates"
+									class="card-title text-muted font-weight-bold-400 mt-4">Aggiungi competenze al tuo profilo per
+									visualizzare Aziende suggerite</span>
+							</div>
+						</div>
+
+						<ng-container *ngIf="suggestedCandidates && suggestedCandidates.length > 0">
+							<div class="card-columns mt-4">
+								<div class="joboffer-card card section shadow-sm hand-pointer"
+									*ngFor="let candidate of suggestedCandidates" [routerLink]="['/candidate', candidate.id ]">
+									<div class="card-body p-1">
+										<div class="row mb-2">
+											<div class="col-3">
+												<img
+													[src]="candidate.imageUrl | imageProfile: {role: 'ROLE_CANDIDATE', gender: candidate.gender}"
+													class="card-img profile-image-list rounded-circle">
+											</div>
+											<div class="col-9">
+												<h5 class="card-title">{{candidate.firstName}} {{candidate.lastName}}</h5>
+												<div *ngIf="candidate.currentJobExperience">
+													<div class="row">
+														<div class="col-md-12">
+															<h6 class="card-subtitle mb-2 text-muted">
+																<span> {{ candidate.currentJobExperience.jobTitle }}</span>
+																<span *ngIf="candidate.currentJobExperience.companyName">
+																	{{'jobmatchApp.candidate.at' | translate}} {{
+																	candidate.currentJobExperience.companyName }}</span>
+															</h6>
+															<h6 class="card-subtitle mb-2 text-muted">
+																<span class="card-subtitle mb-2 text-muted" *ngIf="candidate.currentJobExperience.city">{{
+																	candidate.currentJobExperience.city }}</span>
+																<span *ngIf="candidate.currentJobExperience.country">&middot; {{('jobmatchApp.Country.' +
+																	candidate.currentJobExperience.country) | translate}}</span>
+															</h6>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<ng-container *ngIf="candidate.skills && candidate.skills.length > 0">
+											<span *ngFor="let skill of filterSkill(candidate.skills)"
+												class="badge badge-pill badge-primary skill-tag">{{
+												skill.skillTagName }}</span>
+										</ng-container>
+									</div>
+								</div>
+							</div>
+						</ng-container>
+						<hr>
+						<div class="text-center">
+							<button *ngIf="suggestedCandidates && suggestedCandidates.length == 0" type="button"
+								class="btn btn-outline-primary" [routerLink]="['/company', 'current']"
+								jhiTranslate="global.menu.entities.companyProfile">Company Profile</button>
+							<button type="button" class="btn btn-outline-primary" [routerLink]="['candidate']"
+								jhiTranslate="jobmatchApp.candidate.searchForMoreCandidates">Search
+								for more candidates</button>
+						</div>
+					</div>
+
+					<div class="card section shadow">
+						<div class="text-center">
+							<h3 class="card-title font-weight-bold" jhiTranslate="jobmatchApp.appliedJob.lastestAppliedJobs">Lastest
+								Applied Jobs</h3>
+							<span jhiTranslate="jobmatchApp.appliedJob.lastestAppliedJobsDescription"
+								class="card-title text-muted font-weight-bold-400">Received in the last week</span>
+							<ng-container *ngIf="!lastestAppliedJobs">
+								<div class="float-center mt-4">
+									<div class="spinner-border text-secondary" style="width: 5rem; height: 5rem;" role="status">
+										<span class="sr-only">Loading...</span>
+									</div>
+								</div>
+							</ng-container>
+							<div *ngIf="lastestAppliedJobs && lastestAppliedJobs.length == 0">
+								<span jhiTranslate="jobmatchApp.appliedJob.nolastestAppliedJobs"
+									class="card-title text-muted font-weight-bold-400 mt-4">No lastest applied jobs</span>
+							</div>
+						</div>
+
+						<ng-container *ngIf="lastestAppliedJobs && lastestAppliedJobs.length > 0">
+							<div class="card-columns mt-4">
+								<div class="suggested-candidate-card card section shadow-sm hand-pointer"
+									*ngFor="let appliedJob of lastestAppliedJobs"
+									[routerLink]="['applied-job', 'jobOffer', appliedJob.jobOfferId]">
+									<div class="card-body p-1">
+										<div class="row">
+											<div class="col">
+												<h6 class="card-title">
+													<span>{{appliedJob.firstName}} {{appliedJob.lastName}}</span>
+												</h6>
+												<h6 class="card-subtitle mb-2 text-muted">
+													<span> {{appliedJob.jobOfferTitle}} &middot; {{appliedJob.jobOfferCity}} </span>
+												</h6>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col">
+												<div class="text-muted">
+													<fa-icon [icon]="'clock'"></fa-icon>
+													<span style="font-size: 14px">{{ appliedJob.createdDate | date: 'dd/MM/yyyy HH:mm' }}</span>
+													<span
+														class="badge badge-primary">{{'jobmatchApp.AppiedJobStatus.' + appliedJob.appiedJobStatus | translate}}</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</ng-container>
+						<hr>
+						<div class="text-center">
+							<button type="button" class="btn btn-outline-primary" [routerLink]="['applied-job']"
+								jhiTranslate="jobmatchApp.appliedJob.searchForMoreAppliedJobs">Search
+								for more applyments</button>
+						</div>
+					</div>
+				</ng-container>
+				<ng-container *jhiHasAnyAuthority="'ROLE_PROMOTER'">
+					<!-- Statistiche -->
+					<div class="card section shadow">
+						<div class="row p-0">
+							<div class="col-5" *ngIf="company">
+								<div class="row">
+									<div class="col-sm-3">
+										<img *ngIf="company.imageUrl" [src]="company.imageUrl | imageProfile: {role: 'ROLE_COMPANY'}"
+											class="img-thumbnail max-width-100-perc">
+									</div>
+									<div class="col-sm-9 text-left">
+										<h2><span *ngIf="company" class="font-weight-bold">{{company.companyName}}</span></h2>
+										<h6><span *ngIf="company.sectorDescription"
+												style="color: gray;">{{company.sectorDescription}}</span></h6>
+										<h6><span *ngIf="company.city" style="color: gray;">{{company.city}}</span>
+											<span *ngIf="company.country" style="color: gray;">&middot; {{('jobmatchApp.Country.' + company.country) |
+												translate}}</span></h6>
+									</div>
+								</div>
+							</div>
+							<div class="col-7 pt-4">
+								<h2 class="font-weight-bold" jhiTranslate="global.homePage.dashboard">DashBoard</h2>
+							</div>
+						</div>
+						<hr>
+
+						<div class="card-columns" style="columns: 3">
+							<div class="joboffer-card card section shadow-sm hand-pointer" [routerLink]="['company']">
+								<div class="card-body">
+									<p class="card-subtitle mb-2 text-muted font-weight-bold-400">
+										<span jhiTranslate="global.homePage.sponsoringInstitution.companiesRegistered">Companies
+											Registered</span>
+									</p>
+									<div class="row no-gutters">
+										<div class="col-4">
+											<h1 class="card-title font-weight-bold" *ngIf="allCompaniesRegisteredCount != null">
+												{{allCompaniesRegisteredCount}}</h1>
+											<div class="spinner-border text-secondary" role="status"
+												*ngIf="allCompaniesRegisteredCount == null">
+												<span class="sr-only">Loading...</span>
+											</div>
+										</div>
+										<div class="col-8 text-right">
+											<img [src]="'content/images/icons/companies.png'" class="card-img-top"
+												class="card-img profile-image-list rounded-circle max-width-70-perc">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="joboffer-card card section shadow-sm hand-pointer" [routerLink]="['candidate']">
+								<div class="card-body">
+									<p class="card-subtitle mb-2 text-muted font-weight-bold-400">
+										<span jhiTranslate="global.homePage.sponsoringInstitution.candidatesRegistered">Candidates
+											Registered</span>
+									</p>
+									<div class="row no-gutters">
+										<div class="col-4">
+											<h1 class="card-title font-weight-bold" *ngIf="allCandidatesRegisteredCount != null">
+												{{allCandidatesRegisteredCount}}</h1>
+											<div class="spinner-border text-secondary" role="status"
+												*ngIf="allCandidatesRegisteredCount == null">
+												<span class="sr-only">Loading...</span>
+											</div>
+										</div>
+										<div class="col-8 text-right">
+											<img [src]="'content/images/icons/candidate.png'" class="card-img-top"
+												class="card-img profile-image-list rounded-circle max-width-70-perc">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="joboffer-card card section shadow-sm hand-pointer" [routerLink]="['job-offer', 'search']">
+								<div class="card-body">
+									<p class="card-subtitle mb-2 text-muted font-weight-bold-400">
+										<span jhiTranslate="global.homePage.sponsoringInstitution.jobOffersActiveCount">Active Job
+											Offers</span>
+									</p>
+									<div class="row no-gutters">
+										<div class="col-4">
+											<h1 class="card-title font-weight-bold" *ngIf="allJobOffersCount != null">{{allJobOffersCount}}
+											</h1>
+											<div class="spinner-border text-secondary" role="status" *ngIf="allJobOffersCount == null">
+												<span class="sr-only">Loading...</span>
+											</div>
+										</div>
+										<div class="col-8 text-right">
+											<img [src]="'content/images/icons/jobs.png'" class="card-img-top"
+												class="card-img profile-image-list rounded-circle max-width-70-perc">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!--<div class="joboffer-card card section shadow-sm hand-pointer" [routerLink]="['applied-job']">
+								<div class="card-body">
+									<p class="card-subtitle mb-2 text-muted font-weight-bold-400">
+										<span jhiTranslate="global.homePage.sponsoringInstitution.allApplicationsCount">allApplyments</span>
+									</p>
+									<div class="row no-gutters">
+										<div class="col-4">
+											<h1 class="card-title font-weight-bold" *ngIf="allApplymentsCount != null">{{allApplymentsCount}}</h1>
+											<div class="spinner-border text-secondary" role="status" *ngIf="allApplymentsCount == null">
+											 	<span class="sr-only">Loading...</span>
+											</div>
+										</div>
+										<div class="col-8 text-right">
+											<img  [src]="'content/images/icons/candidates.png'" class="card-img-top" class="card-img profile-image-list rounded-circle max-width-70-perc">
+										</div>
+									</div>
+								</div>
+							</div>-->
+						</div>
+					</div>
+				</ng-container>
+			</div>
+
+			<!-- NON AUTHENTICATED USERS-->
+			<div *ngSwitchCase="false" class="text-center shadow">
+				<div class="jumbotron home-jumbotron">
+					<p class="m-0 p-0"><span class="home-title-text">Job Match 2020</span></p>
+					<!-- <p class="lead">CENTRO DI COOPERAZIONE TRANSFRONTALIERO</p> -->
+					<button type="button" class="btn btn-primary btn-lg home-title-button shadow-lg" (click)="login()"
+						id="login" jhiTranslate="global.menu.account.login">Sign in</button>
+				</div>
+				<div class="alert alert-warning home-box">
+					<div class="row">
+						<div class="col-md-4">
+							<!-- <div class="row">
+								<div class="col-5 text-right">
+									<span jhiTranslate="global.messages.info.register.yesaccount">Already registered?</span>
+								</div>
+								<div class="col-7 text-left">
+									<button type="button" class="btn btn-outline-primary btn-block" (click)="login()" id="login" jhiTranslate="global.menu.account.login">Sign in</button>
+								</div>
+							</div> -->
+						</div>
+						<div class="col-md-8">
+							<div class="row">
+								<div class="col-5 text-right">
+									<span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>
+								</div>
+								<div class="col-7 text-left">
+									<button type="button" class="btn btn-outline-secondary btn-block" routerLink="registerCandidate"
+										jhiTranslate="global.messages.info.register.link.candidate">Register
+										a new account Candidate</button>
+									<button type="button" class="btn btn-outline-success btn-block" routerLink="registerCompany"
+										jhiTranslate="global.messages.info.register.link.company">Register
+										a new account Company</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Se loggato -->
+	<ng-container *ngIf="!isUserAnonymous()">
+		<div class="col-md-3 col-12">
+			<div class="card section shadow">
+				<h4 class="font-weight-bold" jhiTranslate="global.homePage.news.lastestNews">Lastest News</h4>
+				<hr />
+				<div *ngFor="let news of lastestNews" class="card section brief-news hand-pointer p-0" style="min-height: 60px;">
+					<div class="row">
+						<div class="col-2">
+							<img [src]="'content/images/icons/news.png'" class="vertical-align-middle pl-2" />
+						</div>
+						<div class="col-10">
+							<div class="card-body">
+						        <h6 class="card-title">{{news.title }}</h6>
+						        <p class="card-text" style="font-size:12px">{{ (news.description.length > 150) ? (news.description | slice:0:150) +'...':(news.description) }}</p>
+						        <p class="card-text"><small class="text-muted">{{ news.companyName }}</small></p>
+						      </div>
+						</div>
+					</div>
+				</div>
+				<div class="text-center">
+					<a class="btn btn-outline-primary">Vedi Tutte</a>
+				</div>
+			</div>
+		</div>
+	</ng-container>
+	<!-- Se non loggato -->
+	<ng-container *ngIf="isUserAnonymous()">
+		<div class="col-12">
+			<div class="card section shadow" style="padding:10px">
+				<div class="text-center">
+					<h3 class="card-title font-weight-bold" jhiTranslate="global.homePage.news.lastestNews">Lastest News</h3>
+					<ng-container *ngIf="false">
+						<div class="float-center mt-4">
+							<div class="spinner-border text-secondary" style="width: 5rem; height: 5rem;" role="status">
+								<span class="sr-only">Loading...</span>
+							</div>
+						</div>
+					</ng-container>
+				</div>
+
+				<ng-container *ngIf="lastestNews && lastestNews.length > 0">
+					<div class="card-columns mt-4">
+						<div class="news-card card section shadow-sm hand-pointer"
+							*ngFor="let news of lastestNews; trackBy: trackId;">
+							<div class="row no-gutters">
+								<div class="col-2">
+									<img [src]="'content/images/icons/news.png'" class="image-job-offer-item img-thumbnail">
+								</div>
+								<div class="col-10">
+									<div class="card-body" style="padding-top: 0;">
+										<h6 class="card-title">{{ news.title}}</h6>
+										<h6 class="card-subtitle mb-2 text-muted">
+											<span> {{news.companyName}} </span>
+										</h6>
+									</div>
+									
+								</div>
+							</div>
+							<div class="row no-gutters">
+								<div class="col-12 mt-2">
+									<p class="card-text" style="font-size: 12px"><i>{{ (news.description.length > 300) ? (news.description | slice:0:300) +'...':(news.description) }}</i></p>
+									<div class="text-right">
+										<button type="button" class="btn btn-sm btn-primary" jhiTranslate="global.homePage.news.readMore">Leggi tutto</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</ng-container>
+				<hr>
+				<div class="text-center">
+					<button type="button" class="btn btn-outline-primary" jhiTranslate="global.homePage.news.showAll">Visualizza Tutte</button>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 p-4" style="background-color: whitesmoke">
+			<div class="row text-center">
+				<div class="col-3">
+					<span class="home-left-logo img-fluid rounded"></span>
+				</div>
+				<div class="col-9">
+					<p>Il Programma INTERREG V-A Italia Malta e' stato approvato dalla Commissione Europea con Decisione C(2015) n. 7046 final del 12 ottobre 2015 ed e' cofinanziato dal Fondo Europeo per lo Sviluppo Regionale (FESR) nell''ambito dell''biettivo Cooperazione Territoriale Europea (CTE)</p>
+				</div>
+			</div>
+		</div>
+	</ng-container>
+</div>
